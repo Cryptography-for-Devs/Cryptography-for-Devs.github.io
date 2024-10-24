@@ -15,7 +15,11 @@ body {
   line-height: 1.6;
   color: #333;
   background-color: #f8f9fa;
-  font-size: medium;
+  font-size: large;
+}
+
+h1 {
+  text-align: center;
 }
 
 h2::after {
@@ -73,6 +77,7 @@ nav {
   border: 1px solid rgba(27, 31, 36, 0.15);
   color: white;
   text-align: center;
+  font-weight: bold;
 }
 
 .btn-primary:hover {
@@ -89,6 +94,12 @@ nav {
 
 .btn-secondary:hover {
   background-color: #f3f4f6;
+}
+
+.btn-center {
+  display: block;
+  margin: 2rem auto;
+  width: fit-content; /* This will make it only as wide as its content */
 }
 
 /* Buttons END */
