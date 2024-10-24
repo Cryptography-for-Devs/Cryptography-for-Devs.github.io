@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="separator"></div>
 
-        <li><a href="${window.location.origin}/1-symmetric-key-encryption">📜 The story of stycales</a></li>
-        <li><a href="${window.location.origin}/2-caesar-challenge">🏰 Challenge: Caesar of Rome</a></li>
-        <li><a href="${window.location.origin}/3-the-hash">#️⃣ The hashes</a></li>
-        <li><a href="${window.location.origin}/4-revealed-passwords">😔 Revealed passwords</a></li>
-        <li><a href="${window.location.origin}/5-rainbows-and-salts">🌈 Rainbows and salts</a></li>
-        <li><a href="${window.location.origin}/6-slow-them-down">🐌 Slow them down</a></li>
+        <li><a href="${window.location.origin}/1-symmetric-key-encryption">The story of stycales</a></li>
+        <li><a href="${window.location.origin}/2-caesar-challenge">Challenge: Caesar of Rome</a></li>
+        <li><a href="${window.location.origin}/3-the-hash">The hashes</a></li>
+        <li><a href="${window.location.origin}/4-revealed-passwords">Revealed passwords</a></li>
+        <li><a href="${window.location.origin}/5-rainbows-and-salts">Rainbows and salts</a></li>
+        <li><a href="${window.location.origin}/6-slow-them-down">Slow them down</a></li>
 
         <p class="info-alert" id="upcoming-lessons-map-info">We are working hard on the upcoming lessons, please <a href="${window.location.origin}/our-community">join our email or slack community</a> to stay in touch with our future happenings!</p>
 
