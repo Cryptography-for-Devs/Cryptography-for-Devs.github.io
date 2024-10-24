@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Slow them down</title>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+</head>
+
+<body>
+
+    <script src="../components/nav-bar.js"></script>
+    <main>
+        <h1>🐌 Slow them down</h1>
+
+        <h2>The advent of GPUs</h2>
+
+        <p>When Nvidia launched the world's first Graphics Processing Unit in 1999 -- GeForce 256, they set the stage
+            for
+            future growth of parallel processing.</p>
+
+        <p>Post 2008 to today's 2020s, the processing capabilities of these GPUs have grown exponentially. Plus their
+            cost
+            have significantly decreased over time.</p>
+
+        <p>Back in early 2000s, if one had to brute force a password, they would use a CPU which had a few cores.
+            So, only a few parallel (password, hash) combinations could be calculated at a time.</p>
+
+        <p>The modern GPUs have thousands of cores. If we take a look at Nvidia RTX 4090, it can calculate around
+            <strong>19 billion SHA-256 hashes per
+                second</strong>. Attackers realised this parallel processing power, they could now brute-force passwords
+            at astonishingly
+            fast rate!
+        </p>
+
+        <figure>
+            <img data-zoomable src="power-of-gpus.svg" alt="The parallel processing power of GPUs!">
+            <figcaption>The parallel processing power of GPUs!</figcaption>
+        </figure>
+
+        <p>
+            If the attacker has to crack a salted password, he takes the salt from the db, and
+            then
+            computes around <strong>100 - 150 billions of SHA-256(password + salt) combinations per second</strong>
+            because attackers have
+            multiple GPUs in their password cracking rig. In a few days, most of the passwords will be cracked
+            except for the larger and complex ones like passwords that are greater than 8 characters.
+        </p>
+
+        <p>This is a <strong>serious security risk</strong>. If a hacker with 5 to 10 high-end GPUs can cause this much
+            damage,
+            imagine
+            if a very well-funded
+            entity like a large cyber terrorist group gets access of hundreds of powerful GPUs, the damage can be
+            disastrous!
+        </p>
+
+        <h2>PBKDF-2: slowing up 🐢</h2>
+
+        <p><strong>Password based key derivation function 2 (PBKDF-2)</strong> is a key derivation
+            function designed for storing user passwords safely.</p>
+
+        <p>A <strong>key derivation function (KDF)</strong> was made to derive one or more keys from a master key. The
+            derived keys can differ in their key length. Many
+            cryptographic
+            protocols (like SSL / TLS) had a need to derive multiple keys from a single master key. So, that's how KDFs
+            came to be.</p>
+
+        <p>A KDF uses a
+            <strong>psuedorandom
+                function (PRF)</strong> internally to generate a new key when given the
+            master key and a message
+            as an input. Psuedorandom functions are somewhat similar to hash functions but with an important difference.
+            A hash function behaves like:
+        </p>
+
+        <pre>
+            sha-256("greatapples" + "salt") = 27f0f577ce740bc302eb8bf55faf293c15a2131c
+        </pre>
+
+        <p>
+            In hash functions, <strong>there's no concept of key in it</strong>. This is the major difference
+            between a hash function and a PRF.
+            Hash functions were not designed for the use case of
+            deriving keys from a master key.
+        </p>
+
+        <p>A psuedorandom function (PRF), takes in two inputs -- a key and a message, now based on the
+            key and the message, it produces a fixed-length output key. With the master key as input, we can produce
+            multiple different keys by
+            providing different messages. The <strong>different keys will look so random</strong> that a third-party
+            won't be able to
+            tell that they are in someway derived from a single master key.</p>
+
+        <p>
+            Hash functions and psuedorandom functions share many important properties like producing random irreversible
+            output and producing fixed-length output. The <strong>HMAC
+                (hash
+                based message authentication code)</strong> is one of the most widely used psuedorandom function.
+        </p>
+
+        <p>
+            Internally the HMAC
+            algorithm uses a cryptographically secure hash function like SHA-256. The HMAC algorithm accepts key and
+            message as input, and very cleverly uses SHA-256 to produce an output. The HMAC algorithm is known as a
+            <strong>keyed hash function</strong> -- it utilizes a hash function along with a key. Our HMAC uses
+            SHA-256, so its called HMAC-SHA-256.
+        </p>
+
+        <pre>
+            Let's imagine our master key is "staplehorse" and we want to derive 
+            two keys from this master key.
+
+            We will use a key derivation function which will 
+            internally use HMAC-SHA-256 as its psuedorandom function.
+
+            The first key we will use it as our database's password.
+            The second key we will use for our PayPal account.
+
+
+                master key     message    key length in bytes  
+                    👇           👇          👇
+            KDF("staplehorse", "db password", 8) = 120d50e36d1f290c
+
+            
+                master key     message    key length in bytes  
+                    👇            👇              👇
+            KDF("staplehorse", "paypal password", 18) = 9r0f50e46d2xc90ci8317fd38et2az23qw11
+
+        </pre>
+
+        <p>
+            You will notice that the KDF produces different length keys. The KDF does this in the following manner:
+        </p>
+
+        <pre>
+            Our above KDF used the HMAC-SHA-256. Since our HMAC uses SHA-256, 
+            its hash output size is fixed at 256 bits (32 bytes).
+        
+            If the KDF receives output key byte size as less than 32 bytes, 
+            for e.g. 18 bytes
+            then the output of the HMAC-SHA-256 will get truncated from the end 
+            to match the 18 byte key size.
+
+            And if the requested key byte size is greater than 32 bytes, 
+            for e.g. 40 bytes,
+            then the HMAC-SHA-256 algorithm is repeated with a counter 
+            added to the message that generates a completely
+            different output. 
+            Now, we use all the 32 bytes from the 
+            first output and we use only the first 8 bytes of the second ouput. 
+            We concatenate the two outputs and then return the final output of 40 bytes.
+        </pre>
+
+
+
+        <p>Let us do a quick recap. We have absorbed a LOT!</p>
+
+        <p>
+            A <strong>key derivation function uses a psuedorandom function</strong> to
+            derive many keys
+            from
+            a master key. HMAC-SHA-256 is a psuedorandom function which internally uses SHA-256.</p>
+
+        <p>Now, <strong>PBKDF-2</strong> is a key derivation function that is specifically designed for the use case of
+            handling user
+            passwords. It takes the <code>user's password, salt and iterations</code> as an input. If we don't provide
+            the salt by ourselves, the algorithm generates a salt by its own. Then it passes the user's password and the
+            salt to the underlying psuedorandom function. It's recommended to use HMAC-SHA-256 as the psuedorandom
+            function for PBKDF-2.</p>
+
+        <p>We told that PBKDF-2 accepted as an input <strong>iterations</strong>. Iterations is the
+            number of times the input password and the salt goes through the underlying psuedorandom function. The
+            current recommendation
+            from <a
+                href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#pbkdf2">OWASP</a>
+            is
+            to keep 600,000 iterations. So, our psuedorandom function that is HMAC-SHA-256 will be run 600K times, and
+            the last
+            iteration's output
+            will be the final received output to us. The number of iterations is said to be the <strong>work
+                factor</strong> -- higher the number of iterations, more work is required to be done by the
+            processor before giving the final output.
+        </p>
+
+        <pre>
+            Let's look at the PBKDF-2 iterations. That is the 
+            iterations of the underlying PRF, HMAC-SHA-256.
+            
+            Observe that the output of the previous iteration 
+            gets sent to the input for the next iteration.
+
+                            
+                               key           message
+            Iteration 1:       👇              👇
+            HMAC-SHA-256("user-password", "long-salt") = 19b7567e3b20d50e3
+
+                                key           message
+            Iteration 2:        👇              👇
+            HMAC-SHA-256("user-password", "19b7567e3b20d50e3") = 0c0a2b075d4025281
+
+                                            
+                                key           message
+            Iteration 3:        👇              👇
+            HMAC-SHA-256("user-password", "0c0a2b075d4025281") = 398200f9a7b2f7811
+
+                                            
+                                key           message
+            Iteration 4:        👇              👇
+            HMAC-SHA-256("user-password", "398200f9a7b2f7811") = 19b7567e3b20d50e3
+
+                                    .                                   .
+                                    .                                   .
+                                    .                                   .
+                                    .                                   .
+        </pre>
+
+        <p>Remember, we told you that you should never ever implement your own cryptographic algorithms. You should
+            always use your framework's provided methods! Django provides a <code>User.objects.create_user()</code>
+            method to create a user. Let's see how it will work
+            under the hood.</p>
+
+        <pre>
+            User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
+            will create a user named "john", with the email "lennon@thebeatles.com"
+            and password "johnpassword".
+
+            The above password gets sent to the make_password() function which generates
+            a salt and passes the password and salt to the pbkdf2 function which 
+            uses HMAC-SHA-256 as its PRF.
+
+            Django saves the password as a string to db in the following form:
+            &lt;algorithm&gt;$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;
+
+            hash is the final output of PBKDF-2.
+
+            An example password would be (added space between $ for readability):
+            pbkdf2_sha256 $ 600000 $ BHz2LaFrMrXt $ VYlU5EBfFTqErm7fo/rjd67mMiYtmAdFoXDR7ueOUxM=
+        </pre>
+
+        <p>The 600K PBKDF-2's HMAC-SHA-256 iterations that we saw <strong>dramatically slows
+                down</strong> the brute-force process for password crackers using GPUs.
+        </p>
+
+        <p>Let us take a situation where an attacker tries to brute-force a password using
+            Nvidia RTX 4090. We will compare SHA-256 salted password hash vs PBKDF-2 derived key.</p>
+
+        <pre>
+        Let us assume we are cracking a 11 character password.
+        The attacker as always has access to the salt. 
+        He now just needs to brute-force all possible password combinations. 
+        
+        Let us assume our character set to be just 26 lowercase characters.
+        Total possible password combinations will be 26 to the power 11: 
+        26^11 = 3,670,344,486,987,776 possible password combinations.
+
+
+
+        A NVIDIA RTX 4090 can calculate for SHA-256: 19 billion hashes per second
+        
+        Attacker will run:  sha-256("possible-password-1" + "the-salt")
+                            sha-256("possible-password-2" + "the-salt")
+                            sha-256("possible-password-3" + "the-salt") and so on...
+        
+        Time to crack for SHA-256 on NVIDIA RTX 4090: 
+        3,670,344,486,987,776 ÷ 19 billion ≈ 193,176 seconds ≈ 2 days.
+
+
+
+        A NVIDIA RTX 4090 can calculate for PBKDF2 (600K iterations): 14,000 hashes per second
+
+        Attacker will run:  PBKDF-2("possible-password-1", "the-salt", 600000)
+                            PBKDF-2("possible-password-2", "the-salt", 600000)
+                            PBKDF-2("possible-password-3", "the-salt", 600000) and so on...
+
+        Time to crack for PBKDF2 (600K iterations): 
+        3,670,344,486,987,776 ÷ 14000
+        ≈ 2.6 * 10^11 seconds
+        ≈ 8,245 years!
+    </pre>
+
+        <p>To crack <code>greatapples</code> if we just used SHA-256 hashing, attacker could crack it in around 2 days.
+            But with PBKDF-2, it'll take 8,245 years. That's the power of PBKDF-2. So, PBKDF-2 ultimately helped us
+            <strong>defend against powerful GPU-based
+                brute-force attacks!</strong>
+        </p>
+
+        <hr>
+
+        <p>This marks the end of our first series of lessons, if you have made it up till here, very congratulations 🥳!
+            You are a champion ⭐! <a href="mailto:vivekmittalagrawal@gmail.com">Send
+                me an email</a> and I will love to talk to you over a video call to listen to your experience so far.
+        </p>
+
+        <p>We are working hard to expand our lessons. Please, <a href="../our-community">join our email or slack
+                community</a> to stay with us as we
+            ship more lessons and challenges!</p>
+
+        <hr>
+
+        <!-- Feedback form START -->
+        <p class="info-alert">💪 Requesting you to <a target="_blank" href="https://forms.gle/7SQojkZ1ub4PXEjr7">fill a
+                short
+                feedback
+                form</a> in the celebration of PBKDF-2's success in defeating the attackers!
+        </p>
+        <!-- Feedback form END -->
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+
+</body>
+
+</html>

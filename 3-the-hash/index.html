@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hash functions</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+
+    <!-- For teaching purposes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <style>
+        #editor-container {
+            border: 1px solid #ccc;
+        }
+
+        .CodeMirror {
+            height: auto;
+        }
+
+        #run-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #console-output {
+            height: auto;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            padding: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>#️⃣ Hash functions</h1>
+
+        <h2>Hash functions</h2>
+
+        <p>You might have heard about hash functions that are used in hash tables. The hash functions were initially
+            made in
+            the 1950s for faster data lookups.</p>
+
+
+        <figure>
+            <img src="hash-functions.svg" data-zoomable alt="non-cryptographic hash function">
+            <figcaption>A hash table</figcaption>
+        </figure>
+
+
+        <p>A hash function takes in an input and produces an output called <strong>hash</strong> that serves as a
+            shortcut
+            to access the input data much faster next time we need it.</p>
+
+        <p>Hash tables are like an index of a book, we can look at the index to find the page number for a chapter and
+            quickly go to that chapter, we don't need to go through every page.</p>
+
+        <p>From the above image, if we want to search for a user named "Orange butter". We pass the string "Orange
+            butter" as input to the same hash function we used earlier when we created the hash table. We get 15 as
+            output
+            (the hash value).</p>
+
+        <pre>
+        "Orange butter"  --->  [ Hash function ] ---> 15
+    </pre>
+
+
+        <p>Now, we can access the 15th index of the hash table in constant time <code>O(1)</code> because hash table's
+            indexes (also called buckets) are an array. We didn't need to go through all the users in sequence or in a
+            binary search fashion. Hash table lookups
+            are <code>O(1)</code>. Super fast.</p>
+
+        <p>That's about hash functions used for hash table's purposes.</p>
+
+        <p>As time passed, transistors came along and computers started reaching consumer's hands. People started
+            sharing
+            software programs and files over network and floppy disks.</p>
+
+        <p>Programmers realised that
+            they needed some way to verify if a file's contents are not tampered with. That is, to verify whether the
+            bits
+            of
+            a file are not modified by any third-party. This is called file <strong>integrity</strong> check -- whether
+            the
+            bits of a file are accurately integrated.</p>
+
+        <p>This need for integrity checks led to the widespread development of <strong>cryptographic hash
+                functions</strong>.</p>
+
+        <h2>Cryptographic hash functions</h2>
+
+        <p>Cryptographic hash functions share similar spirit with the non-cryptographic hash function we discussed
+            above,
+            but the cryptographic hash functions are designed with totally different objectives in mind so their
+            internal
+            design and implementation are different from the non-cryptographic ones.</p>
+
+
+        <p>Cryptographic hash functions given an input produces a fixed-length hash.</p>
+
+        <p>In the below code editor, try running the code. Change the input a little bit
+            and
+            try running it again. You will observe that even a smallest change like a space generates an entirely
+            different
+            hash.</p>
+
+        <div id="editor-container">
+            <div id="editor"></div>
+        </div>
+        <button id="run-btn">Run</button>
+        <div id="console-output"></div>
+        <script>
+            const initialCode = `console.log(CryptoJS.SHA1("Cryptography for developers!"));`;
+
+            const editor = CodeMirror(document.getElementById('editor'), {
+                mode: 'javascript',
+                lineNumbers: true,
+                value: initialCode
+            });
+
+            const consoleOutput = document.getElementById('console-output');
+            const runBtn = document.getElementById('run-btn');
+
+            // Override console.log
+            const originalLog = console.log;
+            console.log = function (...args) {
+                originalLog.apply(console, args);
+                consoleOutput.innerHTML += args.join(' ') + '<br>';
+            };
+
+            runBtn.addEventListener('click', () => {
+                consoleOutput.innerHTML = ''; // Clear previous output
+                try {
+                    eval(editor.getValue());
+                } catch (error) {
+                    console.log('Error:', error.message);
+                }
+            });
+        </script>
+
+
+        <p>Every cryptographic hash function
+            must
+            have the below three properties --</p>
+
+        <ul>
+            <li>They must be <b>deterministic</b>, which means they must return the same hash value when the same input
+                is
+                passed to the hash function.</li>
+            <li>It must be impossible to take the hash and figure out the input from the hash. Cryptographic hash
+                functions are a <b>one-way function</b>. There must be no way at all to turn the hash value back to the
+                input.
+            </li>
+
+            <li>For almost every input there should be a unique hash, no two differing input should share the same hash.
+                If two
+                input
+                share the same hash, it's called a <b>hash collision</b>.</li>
+        </ul>
+
+        <figure>
+            <img style="transform: scale(0.8);" data-zoomable src="hash-collision.svg"
+                alt="hash collision illustration">
+            <figcaption>A hash collision</figcaption>
+        </figure>
+
+        <p>If a hash collision is detected in a cryptographic hash
+            function, then that cryptographic hash function is meant to be insecure. For example, a popular
+            cryptographic hash function SHA-1 <a
+                href="https://blog.mozilla.org/security/2017/02/23/the-end-of-sha-1-on-the-public-web/"
+                target="_blank">suffered a hash collision on 2017</a> that retired its use on web browsers.</p>
+
+        <p>Currently, SHA-256 and SHA-512 are cryptographically secure. Let us understand the 256 and 512 in these SHAs.
+        </p>
+
+        <pre>
+        The SHA-256 will produce a hash of 256 bits (32 bytes). 
+        The 256 in SHA denotes the hash output size (or also called hash length) in bits.
+
+        Similarly, the SHA-512 will produce a hash of 512 bits (64 bytes). 
+
+        -----------------------------------------------------------------------
+
+        SHA-256("curious cryptography") = 
+        b9b6062f154f139f5bd54b36a1eaf5c2182ed9521c8225c59f60bbd5127f9671
+
+        The above hash output is in hexadecimal format.
+        We can't use the UTF-8 encoding because hash output bytes are random, 
+        they won't necessarily map to a UTF-8 character, so trying to encode
+        to UTF-8 will error out.
+        That's why, the hash outputs are always shown in hexadecimal!
+        
+        If you count the number of hex characters in the above hash, 
+        its 64 characters.
+        One hexadecimal character occupies 4 bits, and total hash size is 256 bits.
+        So, number of hex characters in SHA-256 should be 256 / 4 = 64 hexadecimal characters.
+        </pre>
+
+        <p>You might wonder, <strong>why hash collisions make a cryptographic hash function insecure?</strong> To
+            understand that we
+            need
+            to talk about real world use cases of
+            cryptographic hash functions.</p>
+
+        <h2>Real world uses of cryptographic hash functions</h2>
+
+        <h3>Git commits and objects</h3>
+
+        <figure>
+            <img src="git-log-hash.png" data-zoomable alt="git log hash">
+            <figcaption>git log of one of my repo's</figcaption>
+        </figure>
+
+        <p>Git extensively used SHA-1 hash function. When we make a <code>git commit</code>, git collects information
+            about
+            the current directory's files, current timestamp and author details, it passes all this data to a SHA-1 hash
+            function, which produces a commit hash like <code>27f0f577ce740bc302eb8bf55faf293c15a2131c</code>.</p>
+        <p>Now imagine, if an attacker somehow manages to edit files in a particular fashion that creates a commit hash
+            which
+            already exists in the repo (a hash collision), other developers might unknowingly pull and run the malicious
+            code, thinking it's a legitimate version.</p>
+
+        <p>The above situation is quite imaginary because a malicious code cannot be directly committed by an outsider,
+            it
+            needs to be
+            accepted & merged by your team via a pull request. But, you get the idea why it's bad if somehow someone
+            manages
+            to
+            produce a hash
+            collision.</p>
+        <p>Don't worry, Git has <a href="https://git-scm.com/docs/hash-function-transition" target="_blank">decided to
+                migrate to a more cryptographically secure hash function</a>.</p>
+
+        <h3>Package's integrity</h3>
+        <figure>
+            <img src="file-integrity.svg" data-zoomable alt="file integrity illustration">
+            <figcaption>Package integrity process</figcaption>
+        </figure>
+
+        <p>As we already hinted above, integrity is one of the major use cases for cryptographic hash functions. In the
+            Ubuntu
+            package distribution system, there are several mirrors of the package archive. Mirrors are created off the
+            main
+            archive to serve local geography. For example, MIT has its own mirror of the Ubuntu package archive, so MIT
+            students
+            can download Ubuntu packages very quickly without querying the far away main archive.</p>
+        <p>The main Ubuntu archive publishes hash values of their packages called <strong>checksums</strong>. Checksum
+            is
+            another name for
+            the
+            hash value. When packages are downloaded via <code>apt</code> from a mirror, a checksum is generated by
+            passing
+            the
+            downloaded package
+            to
+            the same hash function that was used on the main Ubuntu archive. If the checksum matches to that of the main
+            Ubuntu
+            archive, it means the downloaded package's content is exactly the same as that of the main Ubuntu site. So,
+            it
+            can
+            be safely installed and run.</p>
+        <p>Imagine if a bad actor creates a mirror, uploads a modified package 😈 that produces the same hash <b>(a hash
+                collision)</b> as the main Ubuntu
+            archive's package. Then when you install that package, <code>apt</code> is not going to complain since the
+            hash
+            of the downloaded package and that of the main Ubuntu archive are same, <code>apt</code> thinks that the
+            downloaded package's content and that of main Ubuntu archive are same as well.</p>
+
+        <p>So, hash collisions are the biggest enemy for a cryptographic hash function. In the case of non-cryptographic
+            hash
+            functions that we use with hash tables, if a hash collision occurs, it's not that big of a deal; the hash
+            collision
+            is just going to affect the performance of the lookup. But for cryptographic hash functions, hash collisions
+            are
+            intolerable.</p>
+
+        <!-- Feedback form START -->
+        <p class="info-alert">🌟 Hash hash hash. Please, <a target="_blank" href="https://forms.gle/4trcvCBh6VWrWwbCA">fill a
+                short
+                feedback
+                form</a> for the hashes around you.
+        </p>
+        <!-- Feedback form END -->
+
+        <a href="../4-revealed-passwords">
+            <button class="btn btn-primary">Go to the next lesson 👉</button>
+        </a>
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+
+</body>
+
+</html>

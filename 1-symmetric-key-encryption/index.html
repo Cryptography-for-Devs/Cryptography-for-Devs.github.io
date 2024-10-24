@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The story of stycales</title>
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>📜 Introduction</h1>
+
+        <p>In the ancient days, cryptography started off as a way to protect valuable messages from enemy access.
+            Ancient
+            emperors used various methods to convey secret military messages to their army commanders.</p>
+
+        <p>One of the earliest methods include the use of a cylindrical wooden rod called <strong>Scytale</strong> used
+            by
+            ancient Greek emperors. Before a military invasion, the emperor would order to make two exactly same
+            cylindrical
+            wooden rods (scytales). The king would give one scytale to the army commander and keep one with himself.</p>
+
+        <figure>
+            <img data-zoomable src="https://upload.wikimedia.org/wikipedia/commons/5/51/Skytale.png" alt="Scytale">
+            <figcaption>
+                A scytale
+            </figcaption>
+        </figure>
+
+        <p>The way it worked was, the emperor would wound a strip of leather across the scytale and then write the
+            message.
+        </p>
+
+        <p>Suppose a specific scytale allowed one to write three letters around in a circle and five letters down the
+            side
+            of
+            it. The wounded leather strip with the message &quot;attackfromright&quot; written on it will look like:</p>
+
+        <pre>
+       |   |   |   |   |   |
+       | a | t | t | a | c |  |
+     __| k | f | r | o | m |__|
+    |  | r | i | g | h | t |
+    |  |   |   |   |   |   |
+        </pre>
+
+        <p>After writing the message with scytale, the emperor will un-wound the leather strip and send it
+            to
+            the
+            commandar.</p>
+
+        <p>The un-wounded strip will contain the message:</p>
+
+        <pre>
+----------------
+akrtfitrgaohcmt
+----------------
+</pre>
+
+        <p>Now, even if the leather strip gets intercepted by an enemy spy, the message will not make sense. Isn&#39;t
+            this
+            fascinating? smart use of a wooden rod might have helped the ancient emperors win battles.</p>
+
+        <h2>Symmetric key encryption</h2>
+
+        <p>The scytale technique we saw above was an encryption technique. Encryption is a process in which the original
+            message
+            is modified (or encoded) in such a way that only the intended receipient can decode to see the actual
+            message.
+        </p>
+
+        <p>The original message is called <strong>plaintext</strong>, the encoded message is called the
+            <strong>ciphertext</strong>. Encryption converts <code>plaintext to ciphertext</code> with help of a
+            <strong>key</strong>.
+        </p>
+
+        <p>To decrypt, that is to convert <code>ciphertext to plaintext</code>, it can only be done by those who have
+            access to
+            that
+            same <strong>key</strong>.</p>
+
+        <p>If we compare it to the scytale technique, the scytale (the wooden rod) is the key and is only shared
+            with
+            the
+            commander. Here&#39;s how the encryption process looks like:</p>
+
+        <figure>
+            <img data-zoomable src="plaintext-key-ciphertext.png" alt="Plaintext, key and ciphertext">
+            <figcaption>Encryption process with scytale</figcaption>
+        </figure>
+
+        <p>The decryption process will look like:</p>
+
+        <figure>
+            <img data-zoomable src="ciphertext-key-plaintext.png" alt="ciphertext, key, plaintext">
+            <figcaption>Decryption process with scytale</figcaption>
+        </figure>
+
+        <p>We call this symmetric key encryption because the same key is used to encrypt and decrypt the message. Later
+            in
+            the
+            course, we will see asymmetric key encryption, in which two different keys will used, one for encryption and
+            another
+            for decryption.</p>
+
+        <h2>Breaking the encryption</h2>
+
+        <p>In case of scytale, imagine, if a very motivated enemy spy gets access to the leather strip that has the
+            ciphertext
+            on it. What&#39;s stopping the enemy spy in decrypting the ciphertext? there are two hurdles for the enemy
+            spy
+            --
+        </p>
+
+        <ul>
+            <li>
+                <p><strong>The encryption and decryption technique (or the algorithm):</strong> the Greek emperor
+                    wounded
+                    the
+                    leather strip across the stycale and then wrote the message to generate the ciphertext. And the
+                    commander
+                    had to do the same thing, that is, wound the strip around stycale and then read the plaintext. This
+                    technique of writing and reading with help of scytale were unknown to the enemy.</p>
+            </li>
+            <li>
+                <p><strong>The stycale itself (or the key):</strong> the stycale that only the emperor and the commander
+                    shared
+                    were
+                    of a particular dimension. If the enemy spy manages to create the exact same stycale then they just
+                    needed
+                    to know how to use the stycale to decrypt the ciphertext.</p>
+            </li>
+        </ul>
+
+        <figure>
+            <img data-zoomable
+                src="https://upload.wikimedia.org/wikipedia/commons/8/80/Battle_scene_from_the_Greek_War_of_Independence.jpg"
+                alt="Greek war">
+            <figcaption>A Greek war</figcaption>
+        </figure>
+
+        <p>Let&#39;s hear a story. The Greek emperor is fighting a battle. They lose the battle and the enemy tortures
+            the
+            commandar to reveal the stycale and how he used the stycale to read the ciphertext. Now, their stycale (key)
+            &amp;
+            the method of reading (algorithm) both are revealed. The enemy shares both of this intel to the other
+            enemies of
+            the
+            emperor.</p>
+
+        <p>Now, the emperor is in trouble because all of his enemies knows his communication algorithm and the key. How
+            can
+            the
+            emperor deal with this situation?</p>
+
+        <p>The emperor was clever. He changed the stycale for future wars. Now even if the enemy gets access to the
+            ciphertext,
+            they will need to make the exact same stycale to decrypt the ciphertext.</p>
+
+        <p>Suppose the stycale was of 50cm in length and 10cm in diameter and this stycale allowed to write three
+            letters
+            around
+            in a circle and five letters across the length. If the enemy makes a stycale of any other dimension then the
+            enemy
+            won&#39;t be able to read the ciphertext correctly because the exact number of letters should fit around
+            circle
+            and
+            across the length of stycale to accurately decrypt the ciphertext.</p>
+
+        <p>The enemy will need to make hundreds of different stycales to figure out the right one. That is, the enemy
+            will
+            need
+            to <strong>brute-force</strong> the key.</p>
+
+        <p>But making hundreds of them can take weeks because there are no machines, it'll all be done by human
+            craftsman. Till the time enemy figures out the right scytale, the emperor
+            crushes
+            the enemy&#39;s army and wins the battle. Yeah, emperor for the win!</p>
+
+        <p>With time and experience, it was realised that keeping the encryption algorithm as an internal secret is not
+            feasible. The encryption algorithm is bound to get revealed not immeditely but definitely over the course of
+            time.
+        </p>
+
+        <p>Even if the key gets revealed, the key can easily be updated but designing a new encryption algorithm
+            everytime
+            it
+            gets revealed is not at all feasible.</p>
+
+        <p>Auguste Kerckhoffs and later Claude Shannon, the pioneers of Cryptography stated one of the most
+            important
+            principles
+            of Cryptography called the <strong>Kerckhoffs's principle</strong>. It says that -- it should always be
+            assumed that the
+            <strong>enemy knows everything about the encryption
+                algorithm (and the system)</strong>.
+        </p>
+
+        <p>The security of a particular encryption algorithm depends only on how hard it is to crack the key. The more
+            variations
+            the
+            key can have, the harder it'll be to crack it.</p>
+
+        <p>So, it&#39;s all in the key! The key should be kept secret from adversaries. It should only be shared with
+            the trusted parties.</p>
+
+        <!-- Feedback form START -->
+        <p class="info-alert">🌱 Please, <a target="_blank" href="https://forms.gle/qKZ39PPXhTEaXT1JA">fill a short
+                feedback
+                form</a> designed for this lesson. Let's make this the best cryptography resource for devs!
+        </p>
+        <!-- Feedback form END -->
+
+        <a href="../2-caesar-challenge">
+            <button class="btn btn-primary">Go to the next lesson 👉</button>
+        </a>
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>

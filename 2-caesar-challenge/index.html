@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Challenge: Caesar of Rome</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <style>
+        /* Override style.css's body for code challenge */
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Main container */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        /* Editor column specifics */
+        #editor-column {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #editor {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        #console-output {
+            height: 120px;
+            background-color: #2f3129;
+            color: #f8f8f2;
+            overflow: auto;
+            padding: 10px;
+            font-family: monospace;
+        }
+
+        .CodeMirror {
+            height: 100%;
+            font-size: 16px;
+        }
+
+
+        /* Test results UI */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 20px;
+        }
+
+        #test-result {
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .success {
+            background-color: #e6ffe8;
+            color: #166534;
+        }
+
+        .error {
+            background-color: #ffe6e6;
+            color: #991b1b;
+        }
+
+        #next-lesson-btn {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #next-lesson-btn.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="../components/nav-bar.js"></script>
+
+    <div class="container">
+        <div id="problem-description" class="column">
+            <h2>Challenge: Caesar of Rome 🏰</h2>
+
+            <p>Caesar's cipher is the most famous symmetric key encryption algorithm. It was used by the Julius Caesar
+                of
+                Rome for military communications.</p>
+
+            <p>It works by replacing a letter with another letter by some fixed number of position. It's better
+                understood with an example.</p>
+
+            <p>Suppose, we want to encrypt "<b>hey</b>". And the fixed number of position for replacement is 2.</p>
+            <p>Let's write the english alphabets. <code>a b c d e f g h i j k l m n o p q r s t u v w x y z.</code></p>
+            <p>The letter two places ahead of <b><code>h</code> is <code>j</code>.</b> Hence,
+                <b><code>h becomes j</code></b>.
+            </p>
+            <p>Similarly, <code>e becomes g</code>.</p>
+            <p>Now, there's no letter ahead of two places of <code>y</code>, so we go to the beginning. Hence,
+                <code>y becomes a.</code>
+            </p>
+
+            <p>The fixed number of position is the encryption <b>key</b>.</p>
+
+            <p>Finally, encrypting the plaintext <b>hey</b> with key <b>2</b> will result in ciphertext <b>jga</b>.</p>
+
+            <figure style="text-align: center;">
+                <img width="100%" data-zoomable src="hey-caesar-encrypt.svg" alt="Hey encryption via caesar cipher">
+                <figcaption>Caesar cipher's encryption process. Click to zoom.</figcaption>
+            </figure>
+
+            <p>To decrypt, instead of going forward number of positions, we go backwards. <b>jga</b> will become
+                <b>hey</b>.
+            </p>
+
+            <p>Your tasks in this challenge are:</p>
+            <ol>
+                <li>Read the <code>encrypt(plaintext, key)</code> function and make
+                    sure you
+                    understand why we are using the <code>if</code> condition there.</li>
+                <li>Then, once you understand that, complete the <code>decrypt(ciphertext, key)</code> function so that
+                    it
+                    returns <code>"checkflank"</code>.</li>
+            </ol>
+
+            <h3>Test case</h3>
+
+            <ul>
+                <li><code>decrypt() returns "checkflank"</code></li>
+            </ul>
+
+            <p>You need to pass this challenge to go to the next lesson. Good luck!</p>
+
+
+            <!-- Test result and buttons -->
+            <p id="test-result"></p>
+
+            <div class="button-group">
+                <button id="run-code-button" class="btn btn-primary">
+                    <span id="run-btn-spinner" class="spinner hidden"></span>
+                    <span id="run-code-button-text">▶️ Run Code</span>
+                </button>
+                <a href="/3-the-hash">
+                    <button id="next-lesson-btn" class="btn btn-primary" disabled>👉 Go to next lesson</button>
+                </a>
+            </div>
+
+
+
+            <!-- Feedback form START -->
+            <p class="info-alert">📈 Please, <a target="_blank" href="https://forms.gle/fHYQn1J87YpJGgAU9">fill a short
+                    feedback
+                    form</a> designed for this lesson. We love you!
+            </p>
+            <!-- Feedback form END -->
+
+
+        </div>
+
+        <div id="editor-column" class="column">
+            <div id="editor"></div>
+            <span>Console output</span>
+            <div id="console-output">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const initialCode = `function keygen() {
+  /* Generate a random key between 1 to 26, both inclusive */
+  return Math.floor(Math.random() * 26) + 1;
+}
+
+function encrypt(plaintext, key) {
+  /* Encrypt the plaintext */
+  const alphabets = "abcdefghijklmnopqrstuvwxyz";
+  let ciphertext = "";
+
+  for (let ptChar of plaintext) {
+    let ptCharIndex = alphabets.indexOf(ptChar);
+    let ctCharIndex = ptCharIndex + key;
+    if (ctCharIndex > 25) {
+      ctCharIndex = ctCharIndex - 26;
+    }
+    ciphertext = ciphertext + alphabets[ctCharIndex];
+  }
+
+  return ciphertext;
+}
+
+function decrypt(ciphertext, key) {
+  /* Decrypt the ciphertext */
+  const alphabets = "abcdefghijklmnopqrstuvwxyz";
+  let plaintext = "";
+
+  /* -- Put your code below -- */
+
+  /* -- -- */
+
+  return plaintext;
+}
+
+const plaintext = "checkflank";
+
+var key = keygen();
+var ciphertext = encrypt(plaintext, key);
+
+console.log("encrypt() =", ciphertext);
+console.log("decrypt() =", decrypt(ciphertext, key));
+`;
+        // init the codemirror
+        const editor = CodeMirror(document.getElementById('editor'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            value: initialCode
+        });
+
+        const testResult = document.getElementById('test-result');
+        const runCodeBtn = document.getElementById('run-code-button');
+        const nextLessonBtn = document.getElementById('next-lesson-btn');
+        const consoleOutput = document.getElementById('console-output');
+
+        // Override console.log
+        const originalLog = console.log;
+        console.log = function (...args) {
+            originalLog.apply(console, args);
+            consoleOutput.innerHTML += args.join(' ') + '<br>';
+        };
+
+        // when user clicks on 'run code' button
+        runCodeBtn.addEventListener('click', async () => {
+            // Clear previous output and result
+            consoleOutput.innerHTML = "";
+            testResult.innerHTML = "";
+            testResult.className = "";
+
+            // Show loading state
+            const spinner = document.getElementById('run-btn-spinner');
+            const runCodeBtnSpan = document.getElementById('run-code-button-text');
+
+            // enable spinner and disable the button
+            spinner.classList.remove('hidden');
+            runCodeBtnSpan.textContent = 'Running your code';
+            runCodeBtn.disabled = true;
+
+            // Random delay between 0-1 seconds
+            await new Promise(resolve => setTimeout(resolve, (Math.random() * 1000) + 300));
+
+            try {
+                eval(editor.getValue());
+                const decryptOutput = decrypt(ciphertext, key);
+
+                if (decryptOutput === "checkflank") {
+                    testResult.textContent = "🎉 Yeah, you have passed this challenge! The next lesson is now unlocked. Click on the \"Go to next lesson\" button below.";
+                    testResult.className = "success";
+
+                    nextLessonBtn.disabled = false;
+                    nextLessonBtn.classList.add('enabled');
+                } else {
+                    testResult.innerHTML = "⛔ The test case is failing. Check console output. <br> <code>decrypt() does not returns \"checkflank\"</code>";
+                    testResult.className = "error";
+                }
+            } catch (error) {
+                testResult.textContent = "⛔ " + error.message;
+                testResult.className = "error";
+            } finally {
+                // Reset run button state
+                spinner.classList.add('hidden');
+                runCodeBtnSpan.textContent = '▶️ Run Code';
+                runCodeBtn.disabled = false;
+            }
+        });
+    </script>
+
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>

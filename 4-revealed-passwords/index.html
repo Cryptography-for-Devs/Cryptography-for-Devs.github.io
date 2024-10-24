@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Revealed passwords</title>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+</head>
+
+<body>
+
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>😔 Revealed passwords</h1>
+
+        <h2>Passwords</h2>
+
+        <figure>
+            <img data-zoomable width="200px" src="login-wikipedia.png" alt="wikipedia login page">
+            <figcaption>Wikipedia's login screen</figcaption>
+        </figure>
+
+        <p>In the early 1990s, Internet started taking off, lots of companies started launching their products on the
+            World
+            Wide Web. People started signing up on these new platforms with their username and password.</p>
+
+        <figure>
+            <img data-zoomable style="transform: scale(0.5);" src="hacked-db.svg" alt="hacked db illustration">
+            <figcaption>A compromised database</figcaption>
+        </figure>
+
+        <p>In those days, database breaches via SQL injection attacks were common, it often revealed users' usernames
+            and
+            passwords to
+            the hacker.</p>
+
+        <p>And if a user's username and password is revealed then there's a great chance that the user had used the same
+            username and password for other sites, so, basically the hacker got access to users' multiple accounts. This
+            was
+            an extremely serious concern.</p>
+
+        <p>How can we <strong>not reveal a user's password</strong> to the hacker even if he has unauthorized access to
+            the
+            database? Any
+            guesses?</p>
+
+        <h2>Not revealing the password</h2>
+
+        <p>Here's the problem that we are going to brainstorm on --</p>
+        <ul>
+            <li>We don't want to store the user's actual password on the database (referred to as <b>cleartext
+                    or
+                    plaintext password</b>). So that even if the hacker has unauthorized access to the database, he
+                can't access the user's passwords.</li>
+            <li>For login to work, there must be a way through which we can make sure that the user entered the correct
+                password.</li>
+        </ul>
+
+        <p>We have learned about symmetric key encryption. It's a great way to hide information. So, what if we, take
+            the
+            user's password, encrypt it using a secure encryption algorithm and store the encrypted value (ciphertext)
+            on
+            the
+            database not the user's actual password.
+        </p>
+
+        <p>When user needs to login, they enter their password, we'll encrypt it
+            again with the same algorithm and
+            the same key. So, if the user entered the same password as he had set, the encrypted value will come out
+            same as
+            before and login will be successful.</p>
+
+        <p>Our stated problem is solved! We are not revealing the
+            user's password. Login is working fine as well. Anything wrong with the above approach? 🤔</p>
+
+        <p>If you look closely, <strong>we will need to store the encryption
+                key</strong> because without the key we won't be able to carry out the encryption process during future
+            logins.</p>
+
+        <p>We will store the key in may be a different database, right? Now, this new database full of user passwords'
+            <strong>encryption keys is the
+                only thing a competent
+                hacker needs access to and all of the users' account will be in his control!</strong>
+        </p>
+
+        <p>Encryption is not the right solution. Pause a bit and think if you have any other ideas to
+            solve
+            this?</p>
+
+        <h2>Hash the passwords!</h2>
+
+        <figure>
+            <img data-zoomable src="i-want-passwords.svg" style="transform: scale(0.6);"
+                alt="password hashing in the db illustration">
+            <figcaption>Attacker unable to access cleartext passwords because of hash</figcaption>
+        </figure>
+
+        <p>We have learned that hashing is a <b>one-way function</b>. Once we hash an input, we cannot derive the input
+            from
+            the hash value. So if we hash the users' password and store the hash on the database, then even if our
+            database
+            is compromised, the hacker won't be able to figure out the actual password. He will just see the hashes.</p>
+
+        <figure>
+            <img data-zoomable src="hashing-password-create-login.svg" alt="password hashing illustration">
+            <figcaption>Password hashing process during account creation and then subsequent authentication
+            </figcaption>
+        </figure>
+
+        <p>Now, when the user requests to login, we can hash their entered password, if the output hash
+            comes to out be same as the stored hash, it means the user has entered the correct password.</p>
+
+        <p>Hashing the password doesn't reveal the user's password and login works out well. And the hacker cannot
+            figure
+            out the passwords from the hashes. Remember, hashing is a one-way function? ;) We have finally solved our
+            quest!
+        </p>
+
+        <p>Umm, the bad guys keep on growing their arsenal, <strong>they have some plans to attack us</strong>, let's
+            face
+            them in the next
+            lesson!</p>
+
+        <!-- Feedback form START -->
+        <p class="info-alert">🧐 Please, <a target="_blank" href="https://forms.gle/SJLTpjUVjvmrZme18">fill a
+                short
+                feedback
+                form</a>. Worked hard on all of this, can't wait to listen your honest feedback!
+        </p>
+        <!-- Feedback form END -->
+
+
+        <a href="../5-rainbows-and-salts">
+            <button class="btn btn-primary">Go to the next lesson 👉</button>
+        </a>
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>

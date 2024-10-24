@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rainbows and salts</title>
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>🌈 Rainbows and salts</h1>
+
+        <h2>We are under attack!</h2>
+
+        <figure>
+            <img data-zoomable style="transform: scale(0.8);" src="brute-force-help.svg"
+                alt="a guy coming to help for revealing passwords from hashesh">
+            <figcaption>An old-aged hacker uncle offering help to our young bad guy</figcaption>
+        </figure>
+
+        <p>An old experienced hacker has offered to help our young bad guy in getting access to our compromised
+            database's
+            user accounts. The young guy asks, "the passwords are hashed, how can I get the actual clear-text password?"
+        </p>
+
+        <p>Let's see how these bad guys can access our passwords.</p>
+
+        <h3>Brute-force attack</h3>
+
+        <figure>
+            <img data-zoomable src="success-bruteforce.svg" style="transform: scale(0.8);"
+                alt="Attacker's brute-force successful">
+            <figcaption>Attacker's brute-force successful</figcaption>
+        </figure>
+
+        <p>The most straightforward way is to pass every combination of possible password to the same hash function that
+            was
+            used when we stored them to db for the first time. During brute-force, if any of the hash output matches to
+            the
+            stored
+            hash, then that input string combination to the hash function will be the user's password.
+        </p>
+
+        <p>Soon, the bad guys realised that the brute-force approach is taking too much time to find even one correct
+            password. For passwords greater than five characters, it could take weeks (based on late 90s processor,
+            we'll
+            talk about modern processors in the next lesson). So, they started searching for better
+            attacking methods.</p>
+
+        <h3>🌈 Rainbow tables</h3>
+        <p>Cryptologists (people who study cryptography deeply) thought about an amazing idea to crack passwords.
+            <strong>They
+                suggested
+                that hash values of tons of passwords can be calculated and stored in a database.</strong> Then instead
+            of
+            doing expensive
+            brute-force, the database can be queried to find the required hash value. If the hash is found in the
+            database then, we will know
+            the clear-text password.
+        </p>
+        <p>But passwords can have billions of possible character combinations, storing hashes for all of
+            them
+            was not feasible. So, a specific type of structure for storage of these pre-computed hash was developed in
+            the
+            early 2000s, and it
+            was called
+            as a <strong>rainbow table</strong>.
+        </p>
+
+        <figure>
+            <img data-zoomable src="rainbow-table.svg" alt="rainbow table illustration">
+            <figcaption>A rainbow table</figcaption>
+        </figure>
+
+        <p>In a rainbow table, hash values of all password combinations are not stored. Only a set of combinations are
+            stored.
+            Then depending on the pattern of the required hash, more combinations of (password, hash) get computed.
+            Rainbow
+            tables are a middle ground between full brute-force and a huge huge pre-computed database. Rainbow tables
+            <strong>reduces</strong> the brute-force time by selectively brute-forcing only some set of (password, hash)
+            combinations.
+        </p>
+
+        <p>Going any deeper than this into rainbow tables is not worth it for we developers. Also, I don't understand
+            all
+            the
+            details of how the math works out. It's for cryptography experts to scratch all those layers.</p>
+
+        <p><strong>For all of our developer's practical purposes, we can think of a rainbow table as pre-computed list
+                of
+                lots and lots of possible password and
+                its hash combination.</strong> Rainbow tables proved so powerful during the early 2000s that they
+            allowed
+            cracking many hashed passwords
+            in seconds!
+        </p>
+
+        <h2>🧂 Mitigating the attack with help of salt</h2>
+        <p>We are fed up of those bad guys. Let us
+            push them away with our salt!</p>
+        <p>Before the password get hashed, a very random set of characters gets appended (or can be prepended as well)
+            to
+            the password, that's called the
+            <strong>salt</strong>. Then the concatnation of <strong>password + salt</strong> gets sent to the hashing
+            function. The hash output and the salt both gets stored in the database.
+        </p>
+
+        <p>For <strong>every's user
+                password a new random salt is generated</strong>, appended to their password, passed to the hash
+            function,
+            finally, hash and the corresponding salt both get stored in the database.</p>
+
+        <p>Now, how will user authentication work in this case?</p>
+
+        <figure>
+            <img data-zoomable src="salt-storage.svg" alt="storing of cryptographic salt illustration">
+            <figcaption>Account creation and authentication process when salt is in the game!</figcaption>
+        </figure>
+
+        <p>Since the salt is stored in the database along with the hash. When we want to check whether the user entered
+            the
+            correct
+            password, we query the user's salt from the database via username then we take the user entered password
+            and then we pass <strong>user entered password + salt</strong> to the hash function.
+            If the hash comes out to be same, that means the user entered the correct password.</p>
+
+        <p>Ummm, but <strong>how does a salt prevent against rainbow table attacks?</strong>
+        </p>
+
+        <figure>
+            <img data-zoomable src="failed-rainbow-table.svg"
+                alt="how salt prevents rainbow table attacks illustration">
+            <figcaption>Salt preventing the rainbow table attack!</figcaption>
+        </figure>
+
+        <p>We learned that rainbow tables were pre-computed list of lots of possible passwords and their hash values.
+            When a salt is added to a
+            password, all the pre-computed (password, hash) combinations of rainbow table become useless.</p>
+
+
+        <p>For example, a rainbow table might have <code>greatapples</code>'s hash. Now when the random salt got added
+            to
+            the password <code>greatapples</code>, the output hash changed completely. So, this new hash doesn't get
+            found in the rainbow table. Because when the rainbow table was created they could not take into account this
+            salt as this salt got randomly
+            generated.</p>
+
+        <p>And yes the salt is stored in the database. Attacker can access the salt if the database gets compromised,
+            that's correct.
+        </p>
+
+        <p>But if the
+            attacker wants to crack the salted password, he will need to take the salt from the db, and generate a new
+            list of
+            <code>(password + salt, hash)</code> combinations. This means for every user's password, the attacker will
+            need to
+            generate a new rainbow table by taking that user's salt
+            and re-computing all the <code>(password + salt, hash)</code> combinations.
+        </p>
+
+        <pre>
+            This is how the attacker will attack the salted passwords.
+
+
+            For username_1:
+            1) Access the salt: salt_1
+            2) Compute: hash(password1 + salt_1) = hash_value_1
+            3) Compute: hash(password2 + salt_1) = hash_value_2
+            4) Compute: hash(password3 + salt_1) = hash_value_3
+                                .
+                                .
+                                .
+
+
+            For username_2:
+            1) Access the salt: salt_2
+            2) Compute: hash(password1 + salt_2) = hash_value_100
+            3) Compute: hash(password2 + salt_2) = hash_value_102
+            4) Compute: hash(password3 + salt_2) = hash_value_103
+                                .
+                                .
+                                .
+
+
+            For username_3:
+            1) Access the salt: salt_3
+            2) Compute: hash(password1 + salt_3) = hash_value_10001
+            3) Compute: hash(password2 + salt_3) = hash_value_10002
+            4) Compute: hash(password3 + salt_3) = hash_value_10003
+                                .
+                                .
+                                .
+                                .
+                                .
+                                .
+                                .
+        </pre>
+
+        <p><strong>So, the salt forced the attacker to basically brute-force each user's password! For the attacker,
+                it's going to be too damn time-consuming to be worth it.</strong></p>
+
+        <hr>
+
+        <p>From 2004 onwards, GPUs started becoming powerful. GPUs could run thousands of parallel tasks. Let us defend
+            against this final attack!</p>
+
+
+        <!-- Feedback form START -->
+        <p class="info-alert">Let us <a target="_blank" href="https://forms.gle/aWHFPG7X95HrRJZX9">fill a
+                short
+                feedback
+                form</a> for the rainbows 🌈
+        </p>
+        <!-- Feedback form END -->
+
+        <a href="../6-slow-them-down">
+            <button class="btn btn-primary">Go to the next lesson 👉</button>
+        </a>
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+
+</body>
+
+</html>
