@@ -158,6 +158,7 @@ main figure {
 }
 
 pre {
+  font-size: 12px;
   white-space: pre-wrap;
   border: 1px solid #ccc;
 }
@@ -172,13 +173,13 @@ ul li {
 }
 
 p {
-  margin: 20px 0;
+  margin: 35px 0;
 }
 
 main {
   max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: white;
   border: 1px solid #ccc;
 }
