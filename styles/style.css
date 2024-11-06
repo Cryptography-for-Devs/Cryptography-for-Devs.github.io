@@ -54,8 +54,8 @@ nav {
 }
 
 #logo-img {
-    height: 2.2rem;
-    border-radius: 4px;
+  height: 2.2rem;
+  border-radius: 4px;
 }
 
 #logo-img-plus-text:hover {
@@ -70,7 +70,7 @@ nav {
 
 /* Buttons START */
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.8em 3.5em;
   border-radius: 4px;
   font-family: inherit;
   font-weight: 500;
@@ -93,7 +93,7 @@ nav {
 }
 
 .btn-secondary {
-  padding: 0.5rem 1.5rem;
+  padding: 0.5em 2em;
   font-weight: normal;
   background-color: transparent;
   color: #333;
@@ -108,6 +108,10 @@ nav {
   display: block;
   margin: 2rem auto;
   width: fit-content; /* This will make it only as wide as its content */
+}
+
+#get-started-btn {
+  font-size: 1.2rem;
 }
 
 /* Buttons END */
@@ -204,6 +208,22 @@ p {
 
 /* Main content END */
 
+/* Course content START */
+#course-content {
+  margin-top: 50px;
+}
+
+#course-content h2 {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+#course-content ol {
+  font-size: 0.9rem;
+}
+
+/* Course content END */
+
 /* Lesson map drawer START */
 #lesson-map-drawer {
   position: fixed;
@@ -245,19 +265,27 @@ p {
   background-color: #f3f4f6;
 }
 
-#lesson-map-drawer ol {
-  font-size: 0.875rem;
+#lesson-map-drawer > .lesson-map-ol {
+  font-size: 0.8rem;
 }
 
-#lesson-map-drawer li {
-  margin-bottom: 0.5rem;
+.lesson-map-ol {
+  list-style-position: inside;
 }
 
-#lesson-map-drawer .separator {
-  height: 1.75rem;
+.lesson-map-ol li {
+  margin-bottom: 0.4rem;
 }
 
-#lesson-map-drawer #upcoming-lessons {
+.lesson-map-ol li a {
+  text-decoration: none;
+}
+
+.lesson-map-separator {
+  height: 2.2rem;
+}
+
+.lesson-map-upcoming-lessons {
   color: rgba(0, 0, 0, 0.5);
 }
 
