@@ -1,5 +1,3 @@
-# Cryptography for Developers
-
 ![readme cover](readme-cover.png)
 
 In regular programming courses, cryptography concepts are overlooked. In my initial days as a developer I saw various terms like -- `PBKDF-2, salt, key pairs, hashing`. I never really understood what do they mean deeply.
