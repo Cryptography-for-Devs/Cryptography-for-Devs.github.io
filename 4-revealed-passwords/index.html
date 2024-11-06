@@ -32,7 +32,7 @@
     <script src="../components/nav-bar.js"></script>
 
     <main>
-        <h1>😔 Revealed passwords</h1>
+        <h1><span style="color: #ccc;">4. </span>Password hashing</h1>
 
         <h2>Passwords</h2>
 
@@ -46,13 +46,14 @@
             Wide Web. People started signing up on these new platforms with their username and password.</p>
 
         <figure>
-            <img data-zoomable style="transform: scale(0.5);" src="hacked-db.svg" alt="hacked db illustration">
+            <img data-zoomable src="hacked-db.svg" alt="hacked db illustration">
             <figcaption>A compromised database</figcaption>
         </figure>
 
-        <p>In those days, database breaches via SQL injection attacks were common, it often revealed users' usernames
-            and
-            passwords to
+        <p>In those days, database breaches via SQL injection attacks were common, it often <strong>revealed users'
+                usernames
+                and
+                passwords</strong> to
             the hacker.</p>
 
         <p>And if a user's username and password is revealed then there's a great chance that the user had used the same
@@ -111,8 +112,7 @@
         <h2>Hash the passwords!</h2>
 
         <figure>
-            <img data-zoomable src="i-want-passwords.svg" style="transform: scale(0.6);"
-                alt="password hashing in the db illustration">
+            <img data-zoomable src="i-want-passwords.svg" alt="password hashing in the db illustration">
             <figcaption>Attacker unable to access cleartext passwords because of hash</figcaption>
         </figure>
 
@@ -124,7 +124,8 @@
 
         <figure>
             <img data-zoomable src="hashing-password-create-login.svg" alt="password hashing illustration">
-            <figcaption>Password hashing process during account creation and then subsequent authentication
+            <figcaption>Password hashing process during account creation and then subsequent authentication. Click to
+                zoom.
             </figcaption>
         </figure>
 

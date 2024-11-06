@@ -35,13 +35,16 @@ h2::after {
 nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  padding: 0.1rem 4rem;
+  padding: 0.4rem 4rem;
   align-items: center;
   background-color: white;
   border-bottom: 1px solid #ccc;
 }
 
-.logo {
+#logo-img-plus-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   grid-column: 2;
@@ -50,7 +53,12 @@ nav {
   font-size: 20px;
 }
 
-.logo:hover {
+#logo-img {
+    height: 2.2rem;
+    border-radius: 4px;
+}
+
+#logo-img-plus-text:hover {
   background-color: #f3f4f6;
 }
 
@@ -148,19 +156,29 @@ Banner start
 /* Banner end */
 
 /* Main content START */
-main img {
-  max-width: 80%;
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
   border: 1px solid #ccc;
 }
 
 main figure {
+  width: 90%;
   text-align: center;
+  margin: 0 auto;
+}
+
+main img {
+  max-width: 100%;
+  border: 1px solid #ccc;
 }
 
 pre {
   font-size: 12px;
-  white-space: pre-wrap;
   border: 1px solid #ccc;
+  overflow-x: scroll;
 }
 
 figcaption {
@@ -174,14 +192,6 @@ ul li {
 
 p {
   margin: 35px 0;
-}
-
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: white;
-  border: 1px solid #ccc;
 }
 
 .info-alert {

@@ -66,7 +66,7 @@
     <script src="../components/nav-bar.js"></script>
 
     <main>
-        <h1>#️⃣ Hash functions</h1>
+        <h1><span style="color: #ccc;">3. </span>#️⃣ Cryptographic hash functions</h1>
 
         <h2>Hash functions</h2>
 
@@ -141,7 +141,7 @@
             <div id="editor"></div>
         </div>
         <button id="run-btn">Run</button>
-        <div id="console-output"></div>
+        <div id="console-output" style="word-break: break-all;"></div>
         <script>
             const initialCode = `console.log(CryptoJS.SHA1("Cryptography for developers!"));`;
 
@@ -158,11 +158,11 @@
             const originalLog = console.log;
             console.log = function (...args) {
                 originalLog.apply(console, args);
-                consoleOutput.innerHTML += args.join(' ') + '<br>';
+                consoleOutput.textContent = args.join(' ');
             };
 
             runBtn.addEventListener('click', () => {
-                consoleOutput.innerHTML = ''; // Clear previous output
+                consoleOutput.textContent = ''; // Clear previous output
                 try {
                     eval(editor.getValue());
                 } catch (error) {
@@ -192,7 +192,7 @@
         </ul>
 
         <figure>
-            <img style="transform: scale(0.8);" data-zoomable src="hash-collision.svg"
+            <img data-zoomable src="hash-collision.svg"
                 alt="hash collision illustration">
             <figcaption>A hash collision</figcaption>
         </figure>
