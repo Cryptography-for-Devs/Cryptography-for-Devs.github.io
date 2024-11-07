@@ -6,17 +6,13 @@ In regular programming courses, cryptography concepts are overlooked. In my init
 
 That course gave me a chance to dive deep into these cryptography concepts.
 
-So, I created this free course to share my learnings with all the developers curious to understand the cryptography concepts that are relevant to their daily developer life.
+So, I created this free course to share my learnings with all the developers curious to understand the <strong>cryptography concepts that are relevant to daily developer life.</strong>
 
 > 🟢 It's live on: https://cryptography-for-devs.github.io
 
 ## Course contents
 
 I have tried covering developer-oriented cryptography concepts in an easy to follow manner.
-
-The second half of the course around asymmetric cryptography is not yet released. If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback. All of it will remain free, forever :D
-
-Please follow me on Twitter, there you will receive updates on future releases and my future projects: https://twitter.com/vkwebdev
 
 <ol start="0">
     <li><a href="https://cryptography-for-devs.github.io/0-before-we-start/" target="_blank">Before we start (Do not skip this)</a></li>
@@ -26,12 +22,19 @@ Please follow me on Twitter, there you will receive updates on future releases a
     <li><a href="https://cryptography-for-devs.github.io/4-revealed-passwords/" target="_blank">Password hashing</a></li>
     <li><a href="https://cryptography-for-devs.github.io/5-rainbows-and-salts/" target="_blank">Rainbow table and the salt</a></li>
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
-    <li>The Diffie-Hellman key exchange</li>
-    <li>RSA public-key encryption</li>
-    <li>Challenge: End to end encryption</li>
-    <li>The TLS story</li>
-    <li>Certificate authorities rule!</li>
-    <li>Project: Finale. 💛</li>
+
+
+If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback. 
+
+All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects.
+
+
+<li>The Diffie-Hellman key exchange</li>
+<li>RSA public-key encryption</li>
+<li>Challenge: End to end encryption</li>
+<li>The TLS story</li>
+<li>Certificate authorities rule!</li>
+<li>Project: Finale. 💛</li>
 </ol>
 
 ## Contributing
@@ -42,6 +45,4 @@ There are two ways to contribute that I feel are going to be impactful:
 - Create an issue and introduce yourself in that issue, if you would like to help me write one of the future lessons.
 
 <hr>
-If you want to convey to me anything that isn't covered here, the best way is to send me an email on: vivekmittalagrawal@gmail.com
-
-Stay cryptographically secure!
+If you want to convey to me anything that isn't covered here, the best way is to send me an email on: <a href="mailto:vivekmittalagrawal@gmail.com">vivekmittalagrawal@gmail.com</a>
