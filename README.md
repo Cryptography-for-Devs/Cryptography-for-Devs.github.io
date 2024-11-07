@@ -16,6 +16,8 @@ I have tried covering developer-oriented cryptography concepts in an easy to fol
 
 The second half of the course around asymmetric cryptography is not yet released. If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback. All of it will remain free, forever :D
 
+Please follow me on Twitter, there you will receive updates on future releases and my future projects: https://twitter.com/vkwebdev
+
 <ol start="0">
     <li><a href="https://cryptography-for-devs.github.io/0-before-we-start/" target="_blank">Before we start (Do not skip this)</a></li>
     <li><a href="https://cryptography-for-devs.github.io/1-symmetric-key-encryption/" target="_blank">Symmetric key encryption</a></li>
@@ -34,6 +36,12 @@ The second half of the course around asymmetric cryptography is not yet released
 
 ## Contributing
 
+There are two ways to contribute that I feel are going to be impactful:
 
+- Improve the existing course content by submitting a PR.
+- Create an issue and introduce yourself in that issue, if you would like to help me write one of the future lessons.
 
-## Stay updated!
+<hr>
+If you want to convey to me anything that isn't covered here, the best way is to send me an email on: vivekmittalagrawal@gmail.com
+
+Stay cryptographically secure!
