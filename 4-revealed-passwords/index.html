@@ -107,7 +107,7 @@
 
         <p>If you look closely, <strong>we will need to store the encryption
                 key</strong> because without the key we won't be able to carry out the encryption process during future
-            logins.</p>
+            logins to check if the password is correct.</p>
 
         <p>We will store the key in may be a different database, right? Now, this new database full of user passwords'
             <strong>encryption keys is the
@@ -115,7 +115,16 @@
                 hacker needs access to and all of the users' account will be in his control!</strong>
         </p>
 
-        <p>Encryption is not the right solution. Pause a bit and think if you have any other ideas to
+        <p>
+            We cannot assume that the attacker won't ever be able to breach our database containing encryption keys. We
+            want to
+            solve the problem that even if the database gets breached, we don't want the attacker get access to the
+            passwords. But in this case,
+            if the attacker is successful in breaching the database containing encryption keys, he will be able to decrypt all user
+            passwords. That way, all passwords will get revealed in their original cleartext form!
+        </p>
+
+        <p>Now you see, why encryption is not the right solution. Pause a bit and think if you have any other ideas to
             solve
             this?</p>
 
