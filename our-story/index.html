@@ -24,10 +24,10 @@
         </a>
     </nav>
 
-    <h1 style="display: flex; align-items: center; padding: 100px;">
+    <h1 style="padding: 100px;">
         Redirecting to our story that's covered on
-        <img src="dev-logo.png" style="max-width: 2em; padding: 0.2em;" alt="dev.to logo">
-        (dev.to) <span id="countdown" style="margin-left: 0.2em;"> in 5 seconds...</span>
+        <img src="dev-logo.png" style="max-width: 2em; vertical-align: middle; padding: 0.2em;" alt="dev.to logo">
+        (dev.to) <span id="countdown">in 5 seconds...</span>
     </h1>
 
     <script>
@@ -37,7 +37,7 @@
 
         const countdownInterval = setInterval(() => {
             countdownValue -= 1;
-            countdownElement.innerText = ` in ${countdownValue} seconds...`;
+            countdownElement.innerText = `in ${countdownValue} seconds...`;
 
             if (countdownValue <= 0) {
                 clearInterval(countdownInterval);
