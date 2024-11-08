@@ -105,7 +105,7 @@
 
         <pre>
         "Orange butter"  --->  [ Hash function ] ---> 15
-    </pre>
+        </pre>
 
 
         <p>Now, we can access the 15th index of the hash table in constant time <code>O(1)</code> because hash table's
@@ -227,16 +227,19 @@
         SHA-256("curious cryptography") = 
         b9b6062f154f139f5bd54b36a1eaf5c2182ed9521c8225c59f60bbd5127f9671
 
-        The above hash output is in hexadecimal format.
+        The above hash output is in hexadecimal format. Usually hash outputs are
+        shown in hexadecimal format.
+
         We can't use the UTF-8 encoding because hash output bytes are random, 
         they won't necessarily map to a UTF-8 character, so trying to encode
         to UTF-8 will error out.
+
         That's why, the hash outputs are always shown in hexadecimal!
         
         If you count the number of hex characters in the above hash, 
-        its 64 characters.
-        One hexadecimal character occupies 4 bits, and total hash size is 256 bits.
-        So, number of hex characters in SHA-256 should be 256 / 4 = 64 hexadecimal characters.
+        its 64 characters and one hexadecimal character occupies 4 bits.
+
+        So, 64 * 4 bits = 256 bits.
         </pre>
 
         <p>You might wonder, <strong>why hash collisions make a cryptographic hash function insecure?</strong> To
