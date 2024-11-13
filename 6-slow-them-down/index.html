@@ -118,20 +118,21 @@
         <p><strong>The key derivation function uses a
                 psuedorandom
                 function (PRF)</strong> internally to generate a new key when given the
-            master key and a message
-            as an input.
+            <code>master key</code> and the <code>message</code>
+            as inputs.
         </p>
 
         <p> One of the most popular psuedorandom function is -- <strong>HMAC (hash based message authentication
                 code).</strong>
             Internally the HMAC
             algorithm uses a cryptographically secure hash function like SHA-256. The HMAC algorithm is known as a
-            <strong>keyed hash function</strong> -- it utilizes a hash function <strong>along with a one more input
-                called key</strong>. If the HMAC uses
+            <strong>keyed hash function</strong> because it utilizes a hash function with two inputs, first the message
+            and second <strong>the key</strong>. If the HMAC uses
             SHA-256, it will be called HMAC-SHA-256.
         </p>
 
         <pre>
+            Let's see how a KDF (key derivation function) will work.
 
                     master key     message    key length in bytes  
                         👇           👇          👇
@@ -190,12 +191,16 @@
             pbkdf2_sha256 $ 600000 $ BHz2LaFrMrXt $ VYlU5EBfFTqErm7fo/rjd67mMiYtmAdFoXDR7ueOUxM=
         </pre>
 
-        <p>The 600,000 iterations that we see above <strong>dramatically slows
-                down the brute-force process for password crackers using GPUs.</strong>
+        <p>The <code>iterations</code> count in the above example is 600,000. It means that when <code>pbkdf2</code>
+            function was
+            called, it ran the underlying psuedorandom function that is HMAC-SHA-256, 600,000 times. This results in a
+            <strong>dramatic
+                slow
+                down for the brute-force process of password crackers using GPUs.</strong>
         </p>
 
         <p>Let us take a situation where an attacker tries to brute-force a password using
-            Nvidia RTX 4090. We will compare SHA-256 salted password hash vs PBKDF-2 derived key.</p>
+            Nvidia RTX 4090. We will compare <strong>SHA-256 salted password hash vs PBKDF-2</strong>.</p>
 
         <pre>
         Let us assume we are cracking a 11 character password.
@@ -232,7 +237,8 @@
     </pre>
 
         <p>To crack <code>greatapples</code> if we just used SHA-256 hashing, attacker could crack it in around 2 days.
-            But with PBKDF-2, it'll take 8,245 years. That's the power of PBKDF-2. So, PBKDF-2 ultimately helped us
+            But with PBKDF-2, it'll take 8,245 years. That's the power of PBKDF-2 (the power of its underlying
+            psuedorandom function's <strong>iterations</strong>). So, PBKDF-2 ultimately helped us
             <strong>defend against powerful GPU-based
                 brute-force attacks!</strong>
         </p>
