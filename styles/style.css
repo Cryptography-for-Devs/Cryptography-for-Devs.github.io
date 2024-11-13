@@ -35,10 +35,19 @@ h2::after {
 nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  padding: 0.4rem 4rem;
+  padding: 0.5rem 4rem;
   align-items: center;
   background-color: white;
   border-bottom: 1px solid #ccc;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-link:hover {
+  background-color: #f3f4f6;
 }
 
 #logo-img-plus-text {
@@ -48,8 +57,6 @@ nav {
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   grid-column: 2;
-  text-decoration: none;
-  color: #333;
   font-size: 20px;
 }
 
@@ -58,14 +65,23 @@ nav {
   border-radius: 4px;
 }
 
-#logo-img-plus-text:hover {
-  background-color: #f3f4f6;
-}
-
-#lesson-map-open-btn {
+#nav-links-section {
   grid-column: 3;
   justify-self: end;
+  margin-left: 4rem;
 }
+
+/* Styles for mobile screens (up to 768px wide) */
+@media (max-width: 768px) {
+  nav {
+    padding: 0.5rem 1rem;
+  }
+
+  #lesson-map-open-btn {
+    margin-top: 1rem;
+  }
+}
+
 /* Navigation END */
 
 /* Buttons START */
@@ -195,7 +211,7 @@ ul li {
 }
 
 p {
-  margin: 35px 0;
+  margin: 25px 0;
 }
 
 .info-alert {

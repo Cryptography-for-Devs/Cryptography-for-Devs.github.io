@@ -2,11 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const lessonMapDrawerHTML = `
     <div id="lesson-map-drawer">
       <h2>
-        🧭 Lesson Map
+        📑 All lessons
         <button id="lesson-map-close-btn">&times;</button>
       </h2>
 
       <ol start="0" class="lesson-map-ol">
+        
+        <h4>Part 1 of 2: </h4>
 
         <li><a href="${window.location.origin}/0-before-we-start">Before we start (Do not skip this)</a></li>
         <li><a href="${window.location.origin}/1-symmetric-key-encryption">Symmetric key encryption</a></li>
@@ -15,10 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
         <li><a href="${window.location.origin}/4-revealed-passwords">Password hashing</a></li>
         <li><a href="${window.location.origin}/5-rainbows-and-salts">Rainbow table and the salt</a></li>
         <li><a href="${window.location.origin}/6-slow-them-down">PBKDF-2: slowing down</a></li>
-
-        <p class="info-alert" id="upcoming-lessons-map-info">To know when the future lessons' release, please <a href="https://twitter.com/vkwebdev" target="_blank">follow me on twitter</a> -- or -- <a href="${window.location.origin}/our-community">join my rare-update email letter</a>.</p>
-
+        
         <div class="lesson-map-separator"></div>
+
+        <h4>Part 2 of 2: </h4>
+
+        <p class="info-alert">
+            I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a> when
+            the second part of the course gets released. 
+            <br><br> 
+            It all will remain free, forever :)
+        </p>
 
         <div class="lesson-map-upcoming-lessons">
             <li>The Diffie-Hellman key exchange</li>
