@@ -81,10 +81,11 @@
 
 
         /* Test results UI */
-        .button-group {
-            display: flex;
-            justify-content: space-between;
-            margin: 40px 20px;
+        .button-group>button,
+        .button-group>a {
+            display: block;
+            margin: 1.2rem auto;
+            width: fit-content;
         }
 
         #test-result {
@@ -102,17 +103,6 @@
             background-color: #ffe6e6;
             color: #991b1b;
         }
-
-        #next-lesson-btn {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #next-lesson-btn.enabled {
-            opacity: 1;
-            cursor: pointer;
-        }
-
 
         .spinner {
             display: inline-block;
@@ -202,19 +192,17 @@
                 <li><code>decrypt() returns "checkflank"</code></li>
             </ul>
 
-            <p>You need to pass this challenge to go to the next lesson. Good luck!</p>
-
-
             <!-- Test result and buttons -->
-            <p id="test-result"></p>
+            <p id="test-result" style="text-align: center;"></p>
 
             <div class="button-group">
                 <button id="run-code-button" class="btn btn-primary">
                     <span id="run-btn-spinner" class="spinner hidden"></span>
                     <span id="run-code-button-text">▶️ Run Code</span>
                 </button>
-                <a href="/3-the-hash">
-                    <button id="next-lesson-btn" class="btn btn-primary" disabled>👉 Go to next lesson</button>
+
+                <a href="/3-the-hash" class="btn btn-secondary" id="next-lesson-btn">
+                    Skip this lesson (not recommended)
                 </a>
             </div>
 
@@ -324,13 +312,24 @@ console.log("decrypt() =", decrypt(ciphertext, key));
                 const decryptOutput = decrypt(ciphertext, key);
 
                 if (decryptOutput === "checkflank") {
-                    testResult.textContent = "🎉 Yeah, you have passed this challenge! The next lesson is now unlocked. Click on the \"Go to next lesson\" button below.";
+                    testResult.innerHTML = `
+                    ✅ <code>decrypt() returns "checkflank".</code> 
+                    
+                    <br><br> 
+                    🚀 Congratulations, you have passed this challenge. You are a champion! 
+                    
+                    <br><br> 
+                    <a href="/3-the-hash"><strong>Let us go to the next lesson.</strong></a>
+                    `;
                     testResult.className = "success";
-
-                    nextLessonBtn.disabled = false;
-                    nextLessonBtn.classList.add('enabled');
                 } else {
-                    testResult.innerHTML = "⛔ The test case is failing. Check console output. <br> <code>decrypt() does not returns \"checkflank\"</code>";
+                    testResult.innerHTML = `
+                    ⛔ The test case is failing. Check console output. 
+                    
+                    <br><br> 
+                    
+                    <code>decrypt() does not returns "checkflank"</code>
+                    `;
                     testResult.className = "error";
                 }
             } catch (error) {
