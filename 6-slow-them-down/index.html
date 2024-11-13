@@ -55,7 +55,7 @@
             have significantly decreased over time.</p>
 
         <p>Back in early 2000s, if one had to brute force a password, they would use a CPU which had a few cores.
-            So, only a few parallel (password, hash) combinations could be calculated at a time.</p>
+            So, only a few parallel password and its hash combination could be calculated at a time.</p>
 
         <p>The modern GPUs have thousands of cores. If we take a look at Nvidia RTX 4090, it can calculate around
             <strong>19 billion SHA-256 hashes per
@@ -72,7 +72,8 @@
         <p>
             If the attacker has to crack a salted password, he takes the salt from the db, and
             then
-            computes around <strong>100 - 150 billions of SHA-256(password + salt) combinations per second</strong>
+            computes around <strong>100 - 150 billions of <code>SHA-256(password + salt)</code> combinations per
+                second</strong>
             because attackers have
             multiple GPUs in their password cracking rig. In a few days, most of the passwords will be cracked
             except for the larger and complex ones like passwords that are greater than 8 characters.
@@ -92,173 +93,93 @@
             function designed for storing user passwords safely.</p>
 
         <p>A <strong>key derivation function (KDF)</strong> was made to derive one or more keys from a master key. The
-            derived keys can differ in their key length. Many
-            cryptographic
-            protocols (like SSL / TLS) had a need to derive multiple keys from a single master key. So, that's how KDFs
-            came to be.</p>
+            derived keys can differ in their key length.</p>
 
-        <p>A KDF uses a
-            <strong>psuedorandom
+        <pre>
+                Let's imagine our master key is "staplehorse" and we want to derive 
+                two keys from this master key.
+    
+                The first key we will use it as our database's password.
+
+                The second key we will use for our PayPal account.
+    
+    
+                    master key     message    key length in bytes  
+                        👇           👇          👇
+                KDF("staplehorse", "db password", 8) = 120d50e36d1f290c
+    
+                
+                    master key     message    key length in bytes  
+                        👇            👇              👇
+                KDF("staplehorse", "paypal password", 18) = 9r0f50e46d2xc90ci8317fd38et2az23qw11
+    
+            </pre>
+
+        <p><strong>The key derivation function uses a
+                psuedorandom
                 function (PRF)</strong> internally to generate a new key when given the
             master key and a message
-            as an input. Psuedorandom functions are somewhat similar to hash functions but with an important difference.
-            A hash function behaves like:
+            as an input.
         </p>
 
-        <pre>
-            sha-256("greatapples" + "salt") = 27f0f577ce740bc302eb8bf55faf293c15a2131c
-        </pre>
-
-        <p>
-            In hash functions, <strong>there's no concept of key in it</strong>. This is the major difference
-            between a hash function and a PRF.
-            Hash functions were not designed for the use case of
-            deriving keys from a master key.
-        </p>
-
-        <p>A psuedorandom function (PRF), takes in two inputs -- a key and a message, now based on the
-            key and the message, it produces a fixed-length output key. With the master key as input, we can produce
-            multiple different keys by
-            providing different messages. The <strong>different keys will look so random</strong> that a third-party
-            won't be able to
-            tell that they are in someway derived from a single master key.</p>
-
-        <p>
-            Hash functions and psuedorandom functions share many important properties like producing random irreversible
-            output and producing fixed-length output. The <strong>HMAC
-                (hash
-                based message authentication code)</strong> is one of the most widely used psuedorandom function.
-        </p>
-
-        <p>
+        <p> One of the most popular psuedorandom function is -- <strong>HMAC (hash based message authentication
+                code).</strong>
             Internally the HMAC
-            algorithm uses a cryptographically secure hash function like SHA-256. The HMAC algorithm accepts key and
-            message as input, and very cleverly uses SHA-256 to produce an output. The HMAC algorithm is known as a
-            <strong>keyed hash function</strong> -- it utilizes a hash function along with a key. Our HMAC uses
-            SHA-256, so its called HMAC-SHA-256.
+            algorithm uses a cryptographically secure hash function like SHA-256. The HMAC algorithm is known as a
+            <strong>keyed hash function</strong> -- it utilizes a hash function <strong>along with a one more input
+                called key</strong>. If the HMAC uses
+            SHA-256, it will be called HMAC-SHA-256.
         </p>
 
         <pre>
-            Let's imagine our master key is "staplehorse" and we want to derive 
-            two keys from this master key.
 
-            We will use a key derivation function which will 
-            internally use HMAC-SHA-256 as its psuedorandom function.
-
-            The first key we will use it as our database's password.
-            The second key we will use for our PayPal account.
-
-
-                master key     message    key length in bytes  
-                    👇           👇          👇
-            KDF("staplehorse", "db password", 8) = 120d50e36d1f290c
-
-            
-                master key     message    key length in bytes  
-                    👇            👇              👇
-            KDF("staplehorse", "paypal password", 18) = 9r0f50e46d2xc90ci8317fd38et2az23qw11
-
+                    master key     message    key length in bytes  
+                        👇           👇          👇
+                KDF("staplehorse", "db password", 8) = 120d50e36d1f290c
+                 |
+                 |
+                 |-------> HMAC-SHA-256("staplehorse", "db password")
+    
+                The KDF passes master key and message to the HMAC-SHA-256.
+                
+                Then the returned value of HMAC-SHA-256 will be trimmed to match the input key length
+                which is 8 bytes in this case.
         </pre>
 
-        <p>
-            You will notice that the KDF produces different length keys. The KDF does this in the following manner:
-        </p>
-
-        <pre>
-            Our above KDF used the HMAC-SHA-256. Since our HMAC uses SHA-256, 
-            its hash output size is fixed at 256 bits (32 bytes).
-        
-            If the KDF receives output key byte size as less than 32 bytes, 
-            for e.g. 18 bytes
-            then the output of the HMAC-SHA-256 will get truncated from the end 
-            to match the 18 byte key size.
-
-            And if the requested key byte size is greater than 32 bytes, 
-            for e.g. 40 bytes,
-            then the HMAC-SHA-256 algorithm is repeated with a counter 
-            added to the message that generates a completely
-            different output. 
-            Now, we use all the 32 bytes from the 
-            first output and we use only the first 8 bytes of the second ouput. 
-            We concatenate the two outputs and then return the final output of 40 bytes.
-        </pre>
-
-
-
-        <p>Let us do a quick recap. We have absorbed a LOT!</p>
-
-        <p>
-            A <strong>key derivation function uses a psuedorandom function</strong> to
+        <p>Let us do a quick recap! A <strong>key derivation function uses a psuedorandom function</strong> to
             derive many keys
             from
-            a master key. HMAC-SHA-256 is a psuedorandom function which internally uses SHA-256.</p>
+            a master key.</p>
 
-        <p>Now, <strong>PBKDF-2</strong> is a key derivation function that is specifically designed for the use case of
-            handling user
-            passwords. It takes the <code>user's password, salt and iterations</code> as an input. If we don't provide
+        <p>Now, <strong>PBKDF-2 is a key derivation function that is specifically designed for the use case of
+                handling user
+                passwords.</strong> It takes the <code>user's password, salt and iterations</code> as an input. If we
+            don't provide
             the salt by ourselves, the algorithm generates a salt by its own. Then it passes the user's password and the
-            salt to the underlying psuedorandom function. It's recommended to use HMAC-SHA-256 as the psuedorandom
-            function for PBKDF-2.</p>
+            salt to the underlying psuedorandom function.</p>
 
-        <p>We told that PBKDF-2 accepted as an input <strong>iterations</strong>. Iterations is the
-            number of times the input password and the salt goes through the underlying psuedorandom function. The
-            current recommendation
-            from <a
-                href="https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#pbkdf2">OWASP</a>
-            is
-            to keep 600,000 iterations. So, our psuedorandom function that is HMAC-SHA-256 will be run 600K times, and
-            the last
-            iteration's output
-            will be the final received output to us. The number of iterations is said to be the <strong>work
+        <p>We told that PBKDF-2 accepted as an input <code><strong>iterations</strong></code>. Iterations is the
+            number of times the input password and the salt goes through the underlying psuedorandom function.
+        </p>
+
+        <p>
+            The number of iterations is said to be the <strong>work
                 factor</strong> -- higher the number of iterations, more work is required to be done by the
             processor before giving the final output.
         </p>
 
-        <pre>
-            Let's look at the PBKDF-2 iterations. That is the 
-            iterations of the underlying PRF, HMAC-SHA-256.
-            
-            Observe that the output of the previous iteration 
-            gets sent to the input for the next iteration.
-
-                            
-                               key           message
-            Iteration 1:       👇              👇
-            HMAC-SHA-256("user-password", "long-salt") = 19b7567e3b20d50e3
-
-                                key           message
-            Iteration 2:        👇              👇
-            HMAC-SHA-256("user-password", "19b7567e3b20d50e3") = 0c0a2b075d4025281
-
-                                            
-                                key           message
-            Iteration 3:        👇              👇
-            HMAC-SHA-256("user-password", "0c0a2b075d4025281") = 398200f9a7b2f7811
-
-                                            
-                                key           message
-            Iteration 4:        👇              👇
-            HMAC-SHA-256("user-password", "398200f9a7b2f7811") = 19b7567e3b20d50e3
-
-                                    .                                   .
-                                    .                                   .
-                                    .                                   .
-                                    .                                   .
-        </pre>
-
-        <p>Remember, we told you that you should never ever implement your own cryptographic algorithms. You should
-            always use your framework's provided methods! Django provides a <code>User.objects.create_user()</code>
-            method to create a user. Let's see how it will work
-            under the hood.</p>
+        <p>Let us look at a practical example to understand how all this saves us from attackers using GPUs.</p>
 
         <pre>
+            In Django, User.objects.create_user is used to create a user.
+
             User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
             will create a user named "john", with the email "lennon@thebeatles.com"
             and password "johnpassword".
 
             The above password gets sent to the make_password() function which generates
             a salt and passes the password and salt to the pbkdf2 function which 
-            uses HMAC-SHA-256 as its PRF.
+            uses HMAC-SHA-256 as its psuedorandom function.
 
             Django saves the password as a string to db in the following form:
             &lt;algorithm&gt;$&lt;iterations&gt;$&lt;salt&gt;$&lt;hash&gt;
@@ -269,8 +190,8 @@
             pbkdf2_sha256 $ 600000 $ BHz2LaFrMrXt $ VYlU5EBfFTqErm7fo/rjd67mMiYtmAdFoXDR7ueOUxM=
         </pre>
 
-        <p>The 600K PBKDF-2's HMAC-SHA-256 iterations that we saw <strong>dramatically slows
-                down</strong> the brute-force process for password crackers using GPUs.
+        <p>The 600,000 iterations that we see above <strong>dramatically slows
+                down the brute-force process for password crackers using GPUs.</strong>
         </p>
 
         <p>Let us take a situation where an attacker tries to brute-force a password using
@@ -318,15 +239,17 @@
 
         <hr>
 
-        <p>This marks the end of our first series of lessons, if you have made it up till here, very congratulations 🥳!<br>
-            You are a champion ⭐! <a href="mailto:vivekmittalagrawal@gmail.com">Send
+        <p>This marks the end of our first series of lessons, if you have made it up till here, very very
+            Congratulations. 🥳<br><br>
+            You are a shining star ⭐! <a href="mailto:vivekmittalagrawal@gmail.com">Send
                 me an email</a> and I will love to talk to you over a video call to listen to your experience so far.
         </p>
 
         <p>
-            To know when the future lessons' release, please <a href="https://twitter.com/vkwebdev"
-                target="_blank">follow me on twitter</a> -- or -- <a href="../our-community">join my rare-update
-                email letter</a>.
+            I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a> when
+            the second part of the course gets released.
+            <br><br>
+            It all will remain free, forever :)
         </p>
 
         <hr>
