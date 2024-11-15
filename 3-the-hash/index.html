@@ -91,15 +91,22 @@
         </figure>
 
 
-        <p>A hash function takes in an input and produces an output called <strong>hash</strong> that serves as a
-            shortcut
-            to access the input data much faster next time we need it.</p>
+        <p>A hash function takes in an input and produces an output called <strong>hash</strong>.</p>
+
+        <pre>
+            "Orange butter"  --->  [ Hash function ] ---> 15
+        </pre>
+
+        <p>
+            The hash function's output, that is, the hash or also called the hash value gets stored in a data structure
+            known as hash table.
+        </p>
 
         <p>Hash tables are like an index of a book, we can look at the index to find the page number for a chapter and
             quickly go to that chapter, we don't need to go through every page.</p>
 
-        <p>From the above image, if we want to search for a user named "Orange butter". We pass the string "Orange
-            butter" as input to the same hash function we used earlier when we created the hash table. We get 15 as
+        <p>Suppose, if we want to search for a user named "Orange butter". We pass the string "Orange
+            butter" as input to the hash function. We get 15 as
             output
             (the hash value).</p>
 
@@ -113,7 +120,7 @@
             binary search fashion. Hash table lookups
             are <code>O(1)</code>. Super fast.</p>
 
-        <p>That's about hash functions used for hash table's purposes.</p>
+        <p><strong>All of the above was about hash functions used for hash table's purposes.</strong></p>
 
         <p>As time passed, transistors came along and computers started reaching consumer's hands. People started
             sharing
@@ -202,8 +209,7 @@
         </ul>
 
         <figure>
-            <img data-zoomable src="hash-collision.svg"
-                alt="hash collision illustration">
+            <img data-zoomable src="hash-collision.svg" alt="hash collision illustration">
             <figcaption>A hash collision</figcaption>
         </figure>
 
