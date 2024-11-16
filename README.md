@@ -10,6 +10,11 @@ So, I created this free course to share my learnings with all the developers cur
 
 > 🟢 It's live on: https://cryptography-for-devs.github.io
 
+<figure>
+<img style="border: none;" src="cassidys-feedback.svg" alt="cassidy william's feedback">
+<figcaption>Cassidy William's feedback</figcaption>
+</figure>
+
 ## Course contents
 
 I have tried covering developer-oriented cryptography concepts in an easy to follow manner.
@@ -23,11 +28,9 @@ I have tried covering developer-oriented cryptography concepts in an easy to fol
     <li><a href="https://cryptography-for-devs.github.io/5-rainbows-and-salts/" target="_blank">Rainbow table and the salt</a></li>
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
 
-
-If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback. 
+If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
 
 All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects.
-
 
 <li>The Diffie-Hellman key exchange</li>
 <li>RSA public-key encryption</li>
