@@ -213,46 +213,94 @@
             <figcaption>A hash collision</figcaption>
         </figure>
 
-        <p>If a hash collision is detected in a cryptographic hash
-            function, then that cryptographic hash function is meant to be insecure. For example, a popular
+        <p>
+            If a hash collision can be generated for a cryptographic hash
+            function in a feasible way, then that cryptographic hash function is meant to be insecure.
+        </p>
+        <p>
+            For example, a popular
             cryptographic hash function SHA-1 <a
                 href="https://blog.mozilla.org/security/2017/02/23/the-end-of-sha-1-on-the-public-web/"
-                target="_blank">suffered a hash collision on 2017</a> that retired its use on web browsers.</p>
+                target="_blank">suffered a hash collision on 2017</a>. <strong>It retired its use on web browsers and
+                digital
+                signatures</strong>.
+        </p>
 
-        <p>Currently, SHA-256 and SHA-512 are cryptographically secure. Let us understand the 256 and 512 in these SHAs.
+        <p>
+            The team at
+            Google and Centrum Wiskunde &
+            Informatica (CWI) developed a method via which it was possible to generate two different PDFs that would
+            give the <strong>same SHA-1 hash, that is a hash collision</strong>.
+        </p>
+
+        <p>
+            Currently, SHA-256 and SHA-512 are cryptographically secure. By being cryptographically secure, it means
+            that a hash collision can't be generated for SHA-256 hash in a practical way. If you are given a SHA-256
+            hash, to
+            find a hash collision for it using brute-force, it will take approx. 10^59 years! That's just
+            <strong>impractical</strong> to compute.
+        </p>
+
+        <p>
+            But in the case of SHA-1, Google and CWI were able to find a way that allowed them to generate a hash
+            collision
+            100,000 times faster than brute-force. Using 110 GPUs, they could generate a hash collision in one
+            year time. One year timeframe might look good enough to us but for cryptography experts it is not.
+        </p>
+
+        <p>
+            If we
+            keep in mind that computing power keeps on increasing at a super fast rate and better attacking methods are
+            discovered
+            over time, <strong>we cannot stay at "good enough"</strong>. Today,
+            using 110 nvidia RTX 4090 GPUs, you can calculate a hash collision for SHA-1 in around just 2 months.
+        </p>
+
+        <p><strong>For a cryptographic hash function to be secure, it must be
+                impractical</strong> even
+            for a large
+            computing farm to be able to generate a hash collision for a given hash. Currently, SHA-256 and SHA-512 are
+            cryptographically secure.
         </p>
 
         <pre>
-        The SHA-256 will produce a hash of 256 bits (32 bytes). 
-        The 256 in SHA denotes the hash output size (or also called hash length) in bits.
+            Let us understand the 256 and 512 in SHA-256 and SHA-512.
 
-        Similarly, the SHA-512 will produce a hash of 512 bits (64 bytes). 
+            The 256 in SHA-256 denotes the hash output size (or also called hash length) in bits.
 
-        -----------------------------------------------------------------------
-
-        SHA-256("curious cryptography") = 
-        b9b6062f154f139f5bd54b36a1eaf5c2182ed9521c8225c59f60bbd5127f9671
-
-        The above hash output is in hexadecimal format. Usually hash outputs are
-        shown in hexadecimal format.
-
-        We can't use the UTF-8 encoding because hash output bytes are random, 
-        they won't necessarily map to a UTF-8 character, so trying to encode
-        to UTF-8 will error out.
-
-        That's why, the hash outputs are always shown in hexadecimal!
-        
-        If you count the number of hex characters in the above hash, 
-        its 64 characters and one hexadecimal character occupies 4 bits.
-
-        So, 64 * 4 bits = 256 bits.
+            So this means, SHA-256 will produce a hash output of 256 bits. 
+            Similarly, the SHA-512 will produce a hash output of 512 bits. 
+    
+            -----------------------------------------------------------------------
+    
+            SHA-256("curious cryptography") = 
+            b9b6062f154f139f5bd54b36a1eaf5c2182ed9521c8225c59f60bbd5127f9671
+    
+            The above hash output is in hexadecimal format.
+    
+            We can't use the UTF-8 encoding because hash output bytes are random, 
+            they won't necessarily map to a UTF-8 character, so trying to encode
+            to UTF-8 will error out.
+    
+            That's why, the hash outputs are always shown in hexadecimal!
+            
+            If you count the number of hex characters in the above SHA-256 hash, 
+            its 64 characters and one hexadecimal character occupies 4 bits.
+    
+            So, 64 total characters * 4 bits per character = 256 bits.
         </pre>
 
-        <p>You might wonder, <strong>why hash collisions make a cryptographic hash function insecure?</strong> To
+        <p>We understand that it must be impractical to generate a hash collision. <strong>But what would happen if we were able
+            to
+            generate a hash collision in a practical way...?</strong> What bad would happen?
+        </p>
+
+        <p>To
             understand that we
             need
             to talk about real world use cases of
-            cryptographic hash functions.</p>
+            cryptographic hash functions. Once we understand them, we will get why it's super important for a
+            cryptographic hash function to be immune to hash collisions.</p>
 
         <h2>Real world uses of cryptographic hash functions</h2>
 
