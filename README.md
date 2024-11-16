@@ -8,12 +8,15 @@ That course gave me a chance to dive deep into these cryptography concepts.
 
 So, I created this free course to share my learnings with all the developers curious to understand the <strong>cryptography concepts that are relevant to daily developer life.</strong>
 
-> 🟢 It's live on: https://cryptography-for-devs.github.io
+**🟢 It's live on: https://cryptography-for-devs.github.io**
 
-<figure>
-<img style="border: none;" src="cassidys-feedback.svg" alt="cassidy william's feedback">
-<figcaption>Cassidy William's feedback</figcaption>
-</figure>
+<p align="center">
+
+We got some great feedback from Cassidy Williams! It's just amazing to receive feedback like this from someone whom you admire.
+
+<img src="cassidys-feedback.svg" alt="cassidy william's feedback">
+
+</p>
 
 ## Course contents
 
