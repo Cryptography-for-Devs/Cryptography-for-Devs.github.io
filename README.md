@@ -10,13 +10,11 @@ So, I created this free course to share my learnings with all the developers cur
 
 **🟢 It's live on: https://cryptography-for-devs.github.io**
 
-<p align="center">
 
-We got some great feedback from Cassidy Williams! It's just amazing to receive feedback like this from someone whom you admire.
+We got some great feedback from [Cassidy Williams](https://x.com/cassidoo)! It fills my heart with joy to receive feedback from someone whom I admire.
 
 <img src="cassidys-feedback.svg" alt="cassidy william's feedback">
 
-</p>
 
 ## Course contents
 
