@@ -38,16 +38,17 @@ All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" ta
     <li><a href="https://cryptography-for-devs.github.io/4-revealed-passwords/" target="_blank">Password hashing</a></li>
     <li><a href="https://cryptography-for-devs.github.io/5-rainbows-and-salts/" target="_blank">Rainbow table and the salt</a></li>
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
+</ol>
 
 #### Part 2 of 2:
 
-<li>The Diffie-Hellman key exchange</li>
-<li>RSA public-key encryption</li>
-<li>Challenge: End to end encryption</li>
-<li>The TLS story</li>
-<li>Certificate authorities rule!</li>
-<li>Project: Finale. 💛</li>
-</ol>
+7. The Diffie-Hellman key exchange
+8. RSA public-key encryption
+9. Challenge: End to end encryption
+10. The TLS story
+11. Certificate authorities rule!
+12. Project: Finale.
+
 
 ## Contributing
 
