@@ -1,5 +1,5 @@
 <p align="center">
-<img src="readme-cover.png" width="80%" alt="Cryptography for Developers readme cover image">
+<img src="readme-cover.svg" alt="Cryptography for Developers readme cover image">
 </p>
 
 In regular programming courses, cryptography concepts are overlooked. In my initial days as a developer I saw various terms like -- `PBKDF-2, salt, key pairs, hashing`. I never really understood what do they mean deeply.
