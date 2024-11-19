@@ -24,10 +24,6 @@ It fills my heart with joy to receive feedback from people I have admired all al
 
 I have tried covering developer-oriented cryptography concepts in an easy to follow manner.
 
-If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
-
-All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects. no BS.
-
 #### Part 1 of 2:
 
 <ol start="0">
@@ -40,6 +36,10 @@ All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" ta
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
 </ol>
 
+If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
+
+All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects. no BS.
+
 #### Part 2 of 2:
 
 7. The Diffie-Hellman key exchange
@@ -48,7 +48,6 @@ All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" ta
 10. The TLS story
 11. Certificate authorities rule!
 12. Project: Finale.
-
 
 ## Contributing
 
