@@ -20,6 +20,25 @@
     <!-- sentry error monitoring end -->
 
     <link rel="stylesheet" href="styles/style.css">
+
+    <style>
+        h2::after {
+            border-top: none;
+        }
+
+        #about-vkweb-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #vkweb-profile-image {
+            display: block;
+            width: 100px;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,90 +53,149 @@
             <div class="banner-item">0</div>
             <div class="banner-item">1</div>
             <div class="banner-item">0 0</div>
-            <div class="banner-item">1</div>
         </div>
 
-        <h1 style="font-size: 2.8rem;">
-            This is Cryptography for Developers
-        </h1>
+        <div id="hero-content">
+            <h1 style="font-size: 3rem; text-align: center;">
+                Cryptography for Developers!
+            </h1>
 
-        <p
-            style="font-size: 0.9rem; font-weight: normal; color: rgba(0, 0, 0, 0.9); text-align: center; margin-top: 0;">
-            Made by <a href="https://github.com/vkweb" target="_blank">@vkweb</a>.
-        </p>
+            <img style="display: block; border: none; margin-left: auto; margin-right: auto;"
+                src="cassidy-and-kent-feedback.png" alt="cassidy william's and kent c. dodds feedback">
 
-        <p style="margin-bottom: 50px; font-size: larger;">Regular programming courses often ignore Cryptography
-            concepts that a developer
-            needs in
-            their day to
-            day lives.</p>
+            <div style="margin-top: 4rem;">
+                <h2 style="font-size: 2.2rem; text-align: center;">
+                    Learn developer oriented cryptography concepts.
+                </h2>
+                <h2 style="text-align: center;">
+                    Become a reliable web developer!
+                </h2>
+            </div>
 
-        <!-- <figure>
-            <img src="xkcd.webp" alt="xkcd comic in which cueball is thinking to post his private key online :)">
-            <figcaption>NEVER do the above! Image from: xkcd.com/1553.</figcaption>
-        </figure> -->
 
-        <figure>
-            <img style="border: none;" src="cassidys-feedback.svg" alt="cassidy william's feedback">
-            <figcaption style="color: inherit;">Cassidy William's feedback.</figcaption>
-        </figure>
+            <img style="display:block; border: none; margin-left: auto; margin-right: auto;" width="80%"
+                src="takeaways.png" alt="course takeaways">
 
-        <p style="padding-bottom: 0; margin-bottom: 0; margin-top: 50px; font-size: larger;">Learn those ignored but
-            important concepts
-            with this free interactive course.
-        </p>
-        <ul>
-            <li><code>Symmetric key encryption</code></li>
-            <li><code>Rainbow tables, salt</code></li>
-            <li><code>Password based key derivation function (PBKDF-2)</code></li>
-            <li><code>Cryptographic hash functions</code></li>
-            <li><code>Password hashing</code></li>
-        </ul>
 
-        <div style="text-align: center;">
-            <p style="font-size: medium; color: grey;">Made by the past volunteer of: </p>
-            <img style="border: none;" src="past-contribs.svg">
-        </div>
+            <div style="margin-top: 4rem;">
+                <p style="font-size: larger;">
+                    Almost all <strong>programming courses ignore cryptography
+                        concepts</strong>.</p>
 
-        <a href="/0-before-we-start" style="text-align: center;" class="btn btn-primary btn-center"
-            id="get-started-btn">
-            Let's get started. 100% free, forever. 😃
-        </a>
+                <p style="font-size: larger;">This lead to <strong>developers not able to make right security
+                        decisions</strong> or right
+                    trade-offs.</p>
 
-        <div id="course-content">
-            <h2>Course content</h2>
-
-            <ol start="0" class="lesson-map-ol">
-                <h4>Part 1 of 2: </h4>
-
-                <li><a href="0-before-we-start">Before we start (Do not skip this)</a></li>
-                <li><a href="1-symmetric-key-encryption">Symmetric key encryption</a></li>
-                <li><a href="2-caesar-challenge">Code challenge: Caesar's cipher</a></li>
-                <li><a href="3-the-hash">Cryptographic hash functions</a></li>
-                <li><a href="4-revealed-passwords">Password hashing</a></li>
-                <li><a href="5-rainbows-and-salts">Rainbow table and the salt</a></li>
-                <li><a href="6-slow-them-down">PBKDF-2: slowing down</a></li>
-
-                <div class="lesson-map-separator"></div>
-
-                <h4>Part 2 of 2: </h4>
-
-                <p class="info-alert">
-                    I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a> when
-                    the second part of the course gets released.
-                    <br><br>
-                    It all will remain free, forever :)
+                <p style="font-size: larger;">
+                    Learn those hand-picked cryptography concepts that a <strong>developer must know to
+                        make informed security decisions</strong> for their web apps!
                 </p>
 
-                <div class="lesson-map-upcoming-lessons">
-                    <li>The Diffie-Hellman key exchange</li>
-                    <li>RSA public-key encryption</li>
-                    <li>Challenge: End to end encryption</li>
-                    <li>The TLS story</li>
-                    <li>Certificate authorities rule!</li>
-                    <li>Project: Finale. 💛</li>
+                <p style="font-size: larger;">You will get to learn about:</p>
+
+                <ul style="font-size: larger;">
+                    <li><code>Symmetric key encryption</code></li>
+                    <li><code>Rainbow tables, salt</code></li>
+                    <li><code>Password based key derivation function (PBKDF-2)</code></li>
+                    <li><code>Cryptographic hash functions</code></li>
+                    <li><code>Password hashing</code></li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <p style="font-size: medium; color: grey;">Made by the past volunteer of: </p>
+                <img style="border: none;" src="past-contribs.svg">
+            </div>
+
+            <a href="/0-before-we-start" style="text-align: center; font-size: 1.4rem; margin-top: 4rem;"
+                class="btn btn-primary btn-center" id="get-started-btn">
+                Let's get started.
+                <br>
+                <span style="font-size: 0.8em; font-weight: normal;">100% free. Forever! 😃</span>
+            </a>
+
+
+            <div style="margin-top: 4rem;">
+                <h2 style="font-size: 2rem; text-align: center;">Meet the man behind</h2>
+
+                <div id="about-vkweb-container" style="font-size: small;">
+                    <img src="vk-nice.png" alt="Profile Picture" id="vkweb-profile-image">
+
+                    <p>Hi, I am Vivek, known as <a href="https://github.com/vkweb" target="_blank">@vkweb</a> on GitHub.
+                    </p>
+
+                    <p>Around 5 years back, <a href="https://github.com/freeCodeCamp/CurriculumExpansion/pull/184"
+                            target="_blank">I helped
+                            freeCodeCamp in creating their public-key cryptography curriculum</a>.
+                        That was the time I dived deeply into public-key cryptography.
+                    </p>
+
+                    <p>
+                        Over time I've realized that lots of developers don't understand necessary cryptography concepts
+                        due
+                        to
+                        a lack of
+                        developer-focused resource on this topic.
+                    </p>
+
+                    <p>
+                        And when developers don't understand these concepts, they can't participate in web security
+                        discussions of web apps. Ultimately, they can't build secure web apps.
+                    </p>
+
+                    <p>
+                        So, I decided to create this course from the ground-up. Completely focused only on cryptography
+                        concepts that
+                        developers need to become a well-rounded, reliable developer!
+                    </p>
+
+                    <p>
+                        I hope you get real value out from this course and help the world in creating secure web apps.
+                    </p>
+
+                    <p>PS: I'm always all ears for brutal & critical feedback: <a
+                            href="mailto:vivekmittalagrawal@gmail.com">vivekmittalagrawal@gmail.com</a>.</p>
+
                 </div>
-            </ol>
+            </div>
+
+
+            <div id="course-content" style="margin-top: 4rem;">
+                <h2 style="font-size: 2rem; text-align: center;">Table of contents</h2>
+
+                <ol start="0" class="lesson-map-ol">
+                    <h4>Part 1 of 2: </h4>
+
+                    <li><a href="0-before-we-start">Before we start (Do not skip this)</a></li>
+                    <li><a href="1-symmetric-key-encryption">Symmetric key encryption</a></li>
+                    <li><a href="2-caesar-challenge">Code challenge: Caesar's cipher</a></li>
+                    <li><a href="3-the-hash">Cryptographic hash functions</a></li>
+                    <li><a href="4-revealed-passwords">Password hashing</a></li>
+                    <li><a href="5-rainbows-and-salts">Rainbow table and the salt</a></li>
+                    <li><a href="6-slow-them-down">PBKDF-2: slowing down</a></li>
+
+                    <div class="lesson-map-separator"></div>
+
+                    <h4>Part 2 of 2: </h4>
+
+                    <p class="info-alert">
+                        I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a>
+                        when
+                        the second part of the course gets released.
+                        <br><br>
+                        It all will remain free, forever :)
+                    </p>
+
+                    <div class="lesson-map-upcoming-lessons">
+                        <li>The Diffie-Hellman key exchange</li>
+                        <li>RSA public-key encryption</li>
+                        <li>Challenge: End to end encryption</li>
+                        <li>The TLS story</li>
+                        <li>Certificate authorities rule!</li>
+                        <li>Project: Finale. 💛</li>
+                    </div>
+                </ol>
+            </div>
         </div>
     </main>
 
