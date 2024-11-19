@@ -24,6 +24,12 @@ It fills my heart with joy to receive feedback from people I have admired all al
 
 I have tried covering developer-oriented cryptography concepts in an easy to follow manner.
 
+If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
+
+All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects. no BS.
+
+#### Part 1 of 2:
+
 <ol start="0">
     <li><a href="https://cryptography-for-devs.github.io/0-before-we-start/" target="_blank">Before we start (Do not skip this)</a></li>
     <li><a href="https://cryptography-for-devs.github.io/1-symmetric-key-encryption/" target="_blank">Symmetric key encryption</a></li>
@@ -33,9 +39,7 @@ I have tried covering developer-oriented cryptography concepts in an easy to fol
     <li><a href="https://cryptography-for-devs.github.io/5-rainbows-and-salts/" target="_blank">Rainbow table and the salt</a></li>
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
 
-If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
-
-All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects.
+#### Part 2 of 2:
 
 <li>The Diffie-Hellman key exchange</li>
 <li>RSA public-key encryption</li>
