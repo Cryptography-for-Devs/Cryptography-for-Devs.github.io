@@ -10,11 +10,11 @@ So, I created this free course to share my learnings with all the developers cur
 
 **🟢 It's live on: https://cryptography-for-devs.github.io**
 
+We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo) and [Kent C. Dodds](https://twitter.com/kentcdodds)!
 
-We got some great feedback from [Cassidy Williams](https://x.com/cassidoo)! It fills my heart with joy to receive feedback from someone whom I admire.
+It fills my heart with joy to receive feedback from people I have admired all along.
 
-<img src="cassidys-feedback.svg" alt="cassidy william's feedback">
-
+<img src="cassidy-and-kent-feedback.png" alt="cassidy william's feedback">
 
 ## Course contents
 
