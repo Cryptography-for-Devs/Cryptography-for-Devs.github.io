@@ -14,7 +14,7 @@ We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo
 
 It fills my heart with joy to receive feedback from people I have admired all along.
 
-<img src="cassidy-and-kent-feedback.png" alt="cassidy william's feedback">
+<img src="cassidy-and-kent-feedback.png" width="50%" alt="cassidy william's feedback">
 
 ## Course contents
 
