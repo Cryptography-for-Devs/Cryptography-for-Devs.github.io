@@ -1,4 +1,6 @@
-![readme cover](readme-cover.png)
+<p align="center">
+<img src="readme-cover.png" width="80%" alt="Cryptography for Developers readme cover image">
+</p>
 
 In regular programming courses, cryptography concepts are overlooked. In my initial days as a developer I saw various terms like -- `PBKDF-2, salt, key pairs, hashing`. I never really understood what do they mean deeply.
 
@@ -14,7 +16,9 @@ We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo
 
 It fills my heart with joy to receive feedback from people I have admired all along.
 
-<img src="cassidy-and-kent-feedback.png" width="50%" alt="cassidy william's feedback">
+<p align="center">
+<img src="cassidy-and-kent-feedback.png" width="70%" alt="cassidy william's feedback">
+</p>
 
 ## Course contents
 
