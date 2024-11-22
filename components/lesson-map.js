@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
             It all will remain free, forever :)
         </p>
 
+        <li><a href="${window.location.origin}/7-diffie-merkle-hellman">The Diffie-Merkle-Hellman key exchange</a></li>
         <div class="lesson-map-upcoming-lessons">
-            <li>The Diffie-Hellman key exchange</li>
             <li>RSA public-key encryption</li>
             <li>Challenge: End to end encryption</li>
             <li>The TLS story</li>

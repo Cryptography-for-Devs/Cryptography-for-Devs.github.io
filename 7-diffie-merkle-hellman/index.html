@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Diffie Merkle Hellman!</title>
+
+    <!-- PostHog Integration Start -->
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_yHP5sNNdtvQqVh1IjhFKe30UMexVa7d5j3QzaHvRUqi', { api_host: 'https://us.i.posthog.com' })
+    </script>
+    <!-- PostHog Integration End -->
+
+    <!-- sentry error monitoring start -->
+    <script src="https://js.sentry-cdn.com/3a27f38f284bb38b1a83d2f74fdbe425.min.js" crossorigin="anonymous"></script>
+    <!-- sentry error monitoring end -->
+
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <style>
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option.in-progress {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #f5f5f5;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .progress {
+            margin-top: 20px;
+            width: 10px;
+            height: 10px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid orange;
+            border-radius: 50%;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>
+            <span style="color: #ccc;">7. </span>
+            Diffie–Hellman–Merkle key exchange
+            <br>
+            <span style="font-size: 0.4em; font-weight: normal; color: rgba(0, 0, 0, 0.5);">
+                Author:
+                <img src="../twitter-logo.svg" alt="twitter logo"
+                    style="border: none; width: 25px; vertical-align: middle;">
+                <a href="https://twitter.com/vkwebdev" target="_blank">
+                    @vkwebdev
+                </a>
+            </span>
+        </h1>
+
+        <p><strong>This lesson contains lots of diagrams, you can click on any image to enlarge it for proper viewing
+                experience.</strong></p>
+
+        <p>
+            In the first lesson of symmetric key encryption, we told you about a story where the Greek emperor gave his
+            army
+            commander
+            the <code>key</code> so that the army commander could decrypt emperor's encrypted messages.
+        </p>
+
+        <p>
+            In those old times, the emperor was able to physically give the encryption <code>key</code> to the army
+            commander.
+            But with time as computer networking
+            came along, communication between computers sitting seven oceans apart became a thing. Giving the encryption
+            key physically was now not a solution.
+        </p>
+
+        <p>
+            Now imagine, I live in India and I want to send a confidential message to my friend living in the US. How
+            can I
+            share the encryption <code>key</code>
+            with my friend in the US so that I can send encrypted message to his computer via the internet?
+        </p>
+
+
+        <figure>
+            <img data-zoomable src="key-intercept.png" alt="Eavesdropper intercepting the key">
+            <figcaption>
+                Eavesdropper intercepting the key.
+            </figcaption>
+        </figure>
+
+        <p>If I generate an encryption key and send it to my friend in the US, an attacker (called eavesdropper)
+            could read the data packets
+            and
+            will get to know my encryption key. Now when I send confidential messages to my friend, <strong>the
+                eavesdropper will be
+                able to decrypt my confidential messages because he has access to the encryption key.</strong></p>
+
+        <p> This was a pain-in-the-ass problem. There was no way one could send encrypted messages over the network
+            <strong>because the eavesdropper was able to read the encryption key.</strong> We needed a way through which
+            two people can
+            share their
+            encryption key without the eavesdropper being able to read the key.
+        </p>
+
+        <p> This was the problem that <strong>Diffie, Hellman and
+                Merkle solved with their key exchange algorithm</strong>.</p>
+
+        <p>The <strong>Diffie–Hellman–Merkle key exchange also known as Diffie–Hellman key exchange</strong> is a
+            mathematical algorithm
+            that allows
+            two people to a arrive at the same <strong>key</strong> without the eavesdropper getting access to that key.
+        </p>
+
+
+
+        <h2>Intuition behind the Diffie–Hellman key exchange</h2>
+
+
+        <p>
+            The Diffie–Hellman key exchange algorithm was the first ever practical key exchange algorithm. It was one of
+            the most fundamental
+            discoveries in cryptography. And all of the Internet use Diffie–Hellman key exchange to this date!
+        </p>
+
+        <p>
+            Diffie–Hellman key exchange is a four step process. Let us understand the intuition behind it with
+            a <strong>flawed implementation.</strong>
+        </p>
+
+        <h3>Step 1: Generate initial and send it</h3>
+
+        <figure>
+            <img data-zoomable src="flaw-step-1.png" alt="Generating a random initial and passing to mr bug">
+            <figcaption>
+                Step 1: Mr. Ant generates a random initial number and sends it to Mr. Bug.
+            </figcaption>
+        </figure>
+
+        <p>We have two parties -- Mr. Ant and Mr. Bug.</p>
+
+        <p>
+            Mr. Ant generates a random number, we call this number the <code>initial</code> number. This initial
+            number
+            is passed to Mr. Bug over Internet. The eavesdropper sees this number and stores it in his computer.
+        </p>
+
+        <h3>Step 2: Both generate their secret number</h3>
+
+        <figure>
+            <img data-zoomable src="flaw-step-2.png" alt="Both generate their secret numbers">
+            <figcaption>
+                Step 2: Ant and Bug generate their secret numbers.
+            </figcaption>
+        </figure>
+
+        <p>Ant and Bug both generate a random number which they keep it with themselves, they don't share it. We call
+            this number
+            as the <code>secret</code> number. Remember, this is not passed over Internet, <strong>they both keep this
+                number
+                private to
+                themselves</strong>. Hence, this number is also called as a private number.
+        </p>
+
+        <h3>Step 3: initial + secret and send it</h3>
+
+        <figure>
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <figcaption>
+                Step 3: Ant and Bug do initial + secret and passes to each other.
+            </figcaption>
+        </figure>
+
+        <p>
+            Ant sums the initial and his secret number. That is, <code>25 + 10 = 35</code>. And passes it to Bug.
+        </p>
+
+        <p>Bug do the same. Bug sums the initial and his secret number. That is, <code>25 + 19 = 44</code>. This get
+            passed to Ant.</p>
+
+        <p>Both the sums -- 35 and 44 are seen by the eavesdropper. He stores these as well in his computer.</p>
+
+        <p>Now, comes the last step.</p>
+
+        <h3>Step 4: secret + received sum</h3>
+
+        <figure>
+            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <figcaption>
+                Step 4: Ant and Bug do the final step -- secret + received sum to arrive at the shared secret key.
+            </figcaption>
+        </figure>
+
+        <p>Ant adds his secret to the received sum from the previous step, which will be <code>44 + 10 = 54</code>.</p>
+
+        <p>And Bug adds his secret to the sum he received from Ant, that comes out to be
+            <code>35 + 19 = 54</code>.
+        </p>
+
+        <p>See, finally they <strong>both have arrived at the same number 54.</strong> They have
+            successfully arrived at a shared key without eavesdropper knowing about it! Eavesdropper just knows about
+            25, 35 and 44.</p>
+
+        <p>Now if Ant wants to send an encrypted message to Bug, he can encrypt it using the shared key that is
+            54, and only Bug will be able to decrypt it because only Bug has access to that key not anyone else!</p>
+
+        <p>Before you move forward, please make sure you understand these four steps intuitively. If it didn't click,
+            then go through the four steps just once more and I'm sure it will click!</p>
+
+        <h3>How does they arrive at the same shared key at the end?</h3>
+
+        <p>This is a fundamental question! Let us understand how.</p>
+
+        <figure>
+            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <figcaption>
+                Step 4: Ant and Bug do the final step -- secret + received sum to arrive at the shared secret key.
+            </figcaption>
+        </figure>
+
+        <p>
+            If you look at the step 4 image above. You will see that Ant is doing:
+            <code>44 + Ant's secret [10]</code> to arrive at the shared secret key 54.
+        </p>
+
+        <p><code>=> 44 + Ant's secret [10]</code></p>
+
+
+        <figure>
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <figcaption>
+                Step 3: Ant and Bug do initial + secret and passes to each other.
+            </figcaption>
+        </figure>
+
+
+        <p>
+            Now look at the step 3 image above. Ant received 44 from Bug in step 3. Bug calculated 44 by doing:
+            <code>initial [25] + Bug's secret [19]</code>.
+        </p>
+
+        <p>So on the <strong>Ant's side</strong>, we can expand 44 as:
+            <code>initial [25] + Bug's secret [19]</code>. Putting it together:
+        </p>
+
+        <code>=> <span style="background-color: orange;">44</span> + Ant's secret [10]</code>
+        <br>
+        <strong><code>=> <span style="background-color: orange;">(initial [25] + Bug's secret [19])</span> + Ant's secret [10]</code></strong>
+        <br>
+        <br>
+        <br>
+
+        <p>Now, similarly on the <strong>Bug's side</strong> we can expand 35 as:
+            <code>(initial [25] + Ant's secret [10])</code>:
+        </p>
+
+        <code>=> <span style="background-color: orange;">35</span> + Bug's secret [19]</code>
+        <br>
+        <strong><code>=> <span style="background-color: orange;">(initial [25] + Ant's secret [10])</span> + Bug's secret [19]</code></strong>
+
+        <p>If you look at the above two equations that we ended up with, you will see that we are actually doing the
+            same calculation in both the equations, just the order in which we are adding secrets is different. And in
+            addition order of adding numbers doesn't matter.</p>
+
+        <p>If you do <code>3 + 2 + 1</code> OR you do <code>1 + 2 + 3</code>, result will be the same.</p>
+
+        <p><strong>That's the reason behind how we arrived at the same key at the end. Isn't this a simple concept used
+                in an
+                astonishingly smart way?</strong></p>
+
+        <h2>But there's a major flaw!</h2>
+
+        <p>There's a <strong>major flaw</strong> in the above algorithm we discussed. Let us uncover it. It will help us
+            understand the real Diffie–Hellman algorithm.</p>
+
+        <p>Remember, in the first lesson, we told you about the Kerckhoffs' principle. According to Kerckhoffs'
+            principle, it should be assumed that the cryptographic algorithm is known to everyone. A secure
+            cryptographic algorithm is
+            the one which remains secure even if everybody knows about its implementation.</p>
+
+        <p>Now, in our case let us look at the step 3 and step 4.</p>
+
+
+        <p><strong>Step 3:</strong></p>
+
+        <figure>
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <figcaption>
+                Step 3: Ant and Bug do initial + secret and passes to each other.
+            </figcaption>
+        </figure>
+
+
+        <p><strong>Step 4:</strong></p>
+
+        <figure>
+            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <figcaption>
+                Step 4: Ant and Bug do the final step -- secret + received sum to arrive at the shared secret key.
+            </figcaption>
+        </figure>
+
+        <p>
+            Look at the step 3 image. Ant is sending <code>initial [25] + secret [10] = 35</code> to Bug.
+        </p>
+
+        <p>Eavesdropper reads 35 as it was passed to Bug via Internet. Eavesdropper already has seen
+            <code>initial</code>.
+            According to Kerckhoffs' principle, eavesdropper knows the formula:
+        </p>
+
+        <code>initial [25] + secret [10] = 35</code>
+
+        <p>Now, eavesdropper has <code>35 and initial [25]</code>. Can he find the secret number? Ofcourse, he can
+            easily find Ant's secret number by subtracting:
+            <code>35 - initial [25] = secret [10]</code>.
+        </p>
+
+        <p> <strong>Ant's secret is revealed to the eavesdropper! This compromises the whole security of our key
+                exchange algorithm.</strong></p>
+
+        <p>Look at the step four image, if the eavesdropper has got Ant's secret and eavesdropper is already aware of
+            44, he can simply sum them and <strong>he will get to know the shared secret 54!</strong>
+        </p>
+
+        <p>With the eavesdropper having access to the shared secret 54, he will be able to decrypt the messages and read
+            them. And all sorts of bad things can happen!</p>
+
+        <h2>The real Diffie–Hellman key exchange</h2>
+
+
+        <p>The problem with the above implementation was that --</p>
+
+        <p>Look at this formula: <code>initial [25] + secret [10] = 35</code>. The eavesdropper had access to <code>35 and
+            initial [25]</code>. So he could simply subtract and find the secret. Addition can easily be reversed by
+            subtraction. Same with multiplication, easily reversed with division.</p>
+
+        <p>If we can find a way via which its extremely hard to reverse the operation when the attacker has access to
+            all the values of the equation <strong>except the secret number</strong> then we can create a secure key
+            exchange.</p>
+
+        <p>Diffie and Hellman solved this using <strong>modular exponentiation</strong>:
+            <code>x<sup>y</sup> mod z = result</code>.
+        </p>
+
+        <figure>
+            <img data-zoomable src="mod-notation-explain.png" alt="Terminology.">
+            <figcaption>
+                Terminology.
+            </figcaption>
+        </figure>
+
+        <p>But what does <code>mod</code> do?</p>
+
+        <p>Suppose we are doing <code>10 mod 3</code>. The result will be the remainder when 10 is divided by 3. When we
+            divide 10 by 3, we get 1 as the remainder, right? So, 1 will be result of <code>10 mod 3</code>.
+        </p>
+
+        <p>In programming languages, <code>%</code> (percent sign) is the modulo operator. If you type
+            <code>10 % 3</code> in your DevTools console, you will get <code>1</code> as the output.
+        </p>
+
+        <p>Now we have understood <code>mod</code>. Let us look at <strong>modular exponentiation.</strong></p>
+
+        <p>For example let us take: <code>3<sup>6</sup> mod 520 = 209</code>. We have 3 to the power 6, when there's
+            power
+            or also called exponent in the mod equation, that equation then comes in the category of modular
+            exponentiation.</p>
+
+        <p>This is really interesting because even if the eavesdropper knows about: 3, 520 and 209 in our equation
+            <code>3<sup>?</sup> mod 520 = 209</code>. It's hard for him to find the correct exponent that is 6. Why?
+        </p>
+
+        <p>Because he will need to <strong>brtue-force the exponent</strong>, he will first try 1 then 2 then 3... and
+            so on. There's no easy way to find the exponent.</p>
+
+        <p>So if the <strong>modulus and exponent</strong> are large enough numbers then it becomes computationally
+            infeasible
+            to find the exponent for the eavesdropper.</p>
+
+        <p>That's why in the real implementation, Diffie and Hellman made the <strong>exponent as their secret
+                key</strong>. Even if the eavesdropper knows about the <code>base</code>, <code>modulus</code> and
+            <code>result</code>, its going to be
+            practically infeasible for him to find the <code>exponent</code> that is our <code>secret key</code>.
+        </p>
+
+        <p>In the real Diffie–Hellman key exchange, the intuition remains the same as our flawed one. Instead of playing
+            with addition, we will be playing with modular exponentiation.</p>
+
+        <p><strong>At this point, we have developed good enough intuition. You can safely move to the next
+                lesson.</strong> But if
+            you want to stay to see the four steps of the real Diffie–Hellman key exchange, then you are welcome to
+            proceed further!</p>
+
+        <h2>The real Diffie–Hellman key exchange</h2>
+
+        <h3>Step 1: Ant and Bug agrees on base and modulus</h3>
+
+        <figure>
+            <img data-zoomable src="real-step-1.png" alt="Step 1: Ant and Bug agrees on base and modulus.">
+            <figcaption>
+                Step 1: Ant and Bug agrees on base and modulus.
+            </figcaption>
+        </figure>
+
+        <p>Ant and Bug talk to each other via the Internet and they both agree on the same <code>base</code> and
+            <code>modulus</code>. Eavesdropper sees these values.
+        </p>
+
+        <h3>Step 2: Both generate their secret number</h3>
+
+        <figure>
+            <img data-zoomable src="real-step-2.png" alt="Step 2: Ant and Bug generate their secret number.">
+            <figcaption>
+                Step 2: Ant and Bug generate their secret number.
+            </figcaption>
+        </figure>
+
+        <p>
+            Ant and Bug generate their respective secret numbers. Eavesdropper can't see these secret numbers.
+        </p>
+
+        <h3>Step 3: Do modular exponentiation and send it</h3>
+
+        <figure>
+            <img data-zoomable src="real-step-3.png" alt="Step 3: Doing modular exponentiation and sending it.">
+            <figcaption>
+                Step 3: Doing modular exponentiation and sending it.
+            </figcaption>
+        </figure>
+
+        <p>
+            Ant calculates <strong><code>(base<sup>ant's secret</sup> mod modulus)</code></strong>. It comes out to be:
+            <strong><code>2<sup>8</sup> mod 19 = 9</code></strong>. The result 9 gets sent to Bug.
+        </p>
+
+        <p>
+            Similarly, Bug calculates <strong><code>(base<sup>bug's secret</sup> mod modulus)</code></strong>. It equals
+            to <strong><code>2<sup>15</sup> mod 19 = 12</code></strong> and then Bug sends 12 to Ant.
+        </p>
+
+
+        <h3>Step 4: Received value's modular exponentiation</h3>
+
+        <figure>
+            <img data-zoomable src="real-step-4.png" alt="Step 4: Received value's modular exponentiation.">
+            <figcaption>
+                Step 4: Received value's modular exponentiation.
+            </figcaption>
+        </figure>
+
+        <p>Ant in the previous step received 12 from Bug. In this last step, the received 12 becomes the base:
+            <code>(Base<sup>Ant's secret</sup> mod modulus)</code>, it equates to:
+            <code>12<sup>8</sup> mod 19 = 11</code>.
+        </p>
+
+        <p>Similarly, Bug uses 9 as the base that he received from Ant in the previous step. His calculation comes out
+            to be: <code>9<sup>15</sup> mod 19 = 11</code>.
+        </p>
+
+        <p><strong>They both have finally arrived at the same number that is their shared secret key! 🙌</strong></p>
+
+
+        <h3>How does this work?</h3>
+
+        <p>The intuition is exact same as we saw in our flawed implementation. So, this time I will go a bit fast with
+            the explanation. I will expect from you to scroll up to look at the step 3 image and step 4 image as you
+            read the explanation.</p>
+
+        <p><strong>On the Ant's side</strong>, we had <code>12<sup>8</sup> mod 19 = 11</code> as the final equation in
+            the step 4:</p>
+
+        <code>=> <span style="background-color: orange;">12</span><sup>8</sup> mod 19</code>
+        <p>Now let us expand 12 that we received from Bug in the step 3.</p>
+        <strong><code>=> <span style="background-color: orange;">(2<sup>15</sup> mod 19)</span><sup>8</sup> mod 19</code></strong>
+
+        <p><strong>On the Bug's side</strong>, we had <code>9<sup>15</sup> mod 19 = 11</code> as the final equation in
+            the step 4:</p>
+
+        <code>=> <span style="background-color: orange;">9</span><sup>15</sup> mod 19</code>
+        <p>Now let us expand 9 that we received from Ant in the step 3.</p>
+        <strong><code>=> <span style="background-color: orange;">(2<sup>8</sup> mod 19)</span><sup>15</sup> mod 19</code></strong>
+
+        <p>Both the equations are essentially the same equation when modular arithmetic properties are applied.</p>
+
+        <code>=> <u>Equation 1</u>: (2<sup>15</sup> mod 19)<sup>8</sup> mod 19</code>
+        <br>
+        <code>=> <u>Equation 2</u>: (2<sup>8</sup> mod 19)<sup>15</sup> mod 19</code>
+        <br>
+
+        <p>According to modular arithmetic properties: </p>
+
+        <code>(base<sup>a</sup> mod n)<sup>b</sup> mod n = (base<sup>a*b</sup> mod n)</code>
+        <br>
+
+        <p>Now, let us apply the above property to both the equations.</p>
+
+        <code>=> <u>Equation 1</u>: (2<sup>15</sup> mod 19)<sup>8</sup> mod 19 =  (2<sup>15*8</sup> mod 19)</code>
+        <br>
+        <code>=> <u>Equation 2</u>: (2<sup>8</sup> mod 19)<sup>15</sup> mod 19 = (2<sup>8*15</sup> mod 19)</code>
+        <br>
+
+        <p><strong>See, both the equations are exact same! This is how they arrive at the same shared secret key without
+                the eavesdropper ever knowing about their shared secret key.</strong></p>
+
+        <hr>
+
+        <div id="quiz" style="margin-top: 80px;">
+
+            <h3 style="text-align: center;">Understanding Check</h3>
+
+            <p style="margin-bottom: 0;"><strong><u>Question</u></strong></p>
+            <p style="margin-top: 0;">
+                In step 3 of the Diffie–Hellman, Mr. Ant calculated: <code>(2<sup>8</sup> mod 19 = 9)</code> and
+                sent 9 to Bug.
+                <br>
+                <br>
+                The eavesdropper has access to the <code>base [2], modulus [19] and the result [9]</code>. Why is it
+                hard for
+                the eavesdropper to find out the exponent 8 which is the Ant's secret number?
+            </p>
+
+            <div class="option" style="font-size: smaller;" data-correct="false">Because exponent is a large number
+            </div>
+            <div class="option" style="font-size: smaller;" data-correct="false">Because modulus is a large number</div>
+            <div class="option" style="font-size: smaller;" data-correct="true">Because modulus and exponent both are
+                large numbers so eavesdropper
+                needs to brute-force the exponent which is infeasible</div>
+            <div class="option" style="font-size: smaller;" data-correct="false">The <code>mod</code> is the reason
+            </div>
+
+            <div id="result"></div>
+        </div>
+
+        <script>
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const resultDiv = document.getElementById('result');
+
+                    // Clear previous results
+                    resultDiv.innerHTML = '';
+
+                    // Grey out all options immediately
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.add('in-progress');
+                        opt.style.pointerEvents = 'none';
+                    });
+
+                    // Show progress indicator
+                    const progressIndicator = document.createElement('div');
+                    progressIndicator.className = 'progress';
+                    resultDiv.appendChild(progressIndicator);
+
+                    // Simulate processing with a delay
+                    setTimeout(() => {
+                        // Remove progress indicator
+                        resultDiv.innerHTML = '';
+
+                        // Remove grey out
+                        document.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('in-progress');
+                            opt.style.pointerEvents = 'auto';
+                        });
+
+                        // Show result
+                        if (this.getAttribute('data-correct') === 'true') {
+                            resultDiv.textContent = "That's the correct answer! 🎉";
+                            resultDiv.style.color = "green";
+                        } else {
+                            resultDiv.textContent = "🚨 It's incorrect! Please try again.";
+                            resultDiv.style.color = "red";
+                        }
+                    }, (Math.random() * 1000) + 100); // random small delay
+                });
+            });
+        </script>
+    </main>
+
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>
