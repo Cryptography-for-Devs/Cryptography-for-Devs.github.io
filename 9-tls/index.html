@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TLS</title>
+
+    <!-- PostHog Integration Start -->
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_yHP5sNNdtvQqVh1IjhFKe30UMexVa7d5j3QzaHvRUqi', { api_host: 'https://us.i.posthog.com' })
+    </script>
+    <!-- PostHog Integration End -->
+
+    <!-- sentry error monitoring start -->
+    <script src="https://js.sentry-cdn.com/3a27f38f284bb38b1a83d2f74fdbe425.min.js" crossorigin="anonymous"></script>
+    <!-- sentry error monitoring end -->
+
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+
+    <style>
+        figure img {
+            box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>
+            <span style="color: #ccc;">9. </span>
+            TLS
+            <br>
+            <span style="font-size: 0.4em; font-weight: normal; color: rgba(0, 0, 0, 0.5);">
+                Author:
+                <img src="../twitter-logo.svg" alt="twitter logo"
+                    style="border: none; width: 25px; vertical-align: middle;">
+                <a href="https://twitter.com/vkwebdev" target="_blank">
+                    @vkwebdev
+                </a>
+            </span>
+        </h1>
+
+        <p>In this lesson we will understand how TLS actually works. We will uncover stuff step by step.</p>
+
+        <p>We assume that you have studied our
+            previous two lessons. The one on Diffie Hellman key exchange and the one on RSA public key algorithm.</p>
+
+        <h2>The final attack that we are going to defend!</h2>
+
+        <figure>
+            <img data-zoomable src="public-key-intercepted.png"
+                alt="Illustration of -- Bug's public key intercepted and replaced by Man in the Middle's public key!">
+            <figcaption>
+                Bug's public key intercepted and replaced by Man in the Middle's public key!
+            </figcaption>
+        </figure>
+
+        <p>In the previous lesson, we saw that Bug distributed his public key to everybody.</p>
+
+        <p>Let us take a situation where the attacker would have
+            intercepted and replaced Bug's public key with his own public key (the attacker's public key) and then sent
+            it to
+            Ant.</p>
+
+        <p>Ant would have thought that its Bug's public key because there's no verification step here to make sure that
+            he has received the public key from Bug. This missing step is really dangerous, let us see how.</p>
+
+        <p>All messages that
+            Bug would sent to Ant will
+            get intercepted by the attacker. The attacker will modify the message, and sign the message with his own
+            private key.</p>
+
+        <p>Now the interesting part -- when Ant will verify the signature, the verification will pass because
+            <strong>Ant is verifying the signature
+                with
+                attacker's public key not with Bug's public key.</strong>
+        </p>
+
+        <p>This is again the Man in the Middle attack! The attacker that is our man in the middle of the conversation is
+            able to modify the messages without Ant or Bug realising it.</p>
+
+        <p>
+            How can Ant <strong>trust the public key</strong> that he has received? How he can make sure that the public
+            key is actually from Bug and not from someone acting on Bug's behalf?</p>
+
+        <h2>The defense is: Chain of Trust</h2>
+
+        <p>To understand this part, let us assume
+            that Ant is the client
+            (the browser). And Bug is our server. Bug is the server of
+            <code>https://news.ycombinator.com (Hacker news)</code>.
+        </p>
+
+        <p>In order to arrive at a secret key with Diffie Hellman key exchange, the browser requests hacker news to send
+            its public key. Our browser receives public key from the hacker news server.</p>
+
+        <p>But how can we <strong>trust</strong> this public key? This public key can be of an attacker as well. May be
+            the attacker might have put his own public key by intercepting the message in between.</p>
+
+        <p>This problem is solved with the help of an entity called as <strong>Certificate Authority (CA).</strong></p>
+
+        <p>The task of Certificate Authority (CA) is to sign and issue a <strong>Public key certificate</strong> to the
+            server. This
+            public key certificate will have the public key of the server.</p>
+
+        <p>In fact, Certificate Authority is the top body. Under this top body, we have two sub-bodies. The two
+            sub-bodies are -- <strong>Intermediate Certificate Authority (Intermediate CA)</strong> and <strong>Root
+                Certificate
+                Authority (Root CA).</strong></p>
+
+        <p>And usually the Intermediate CA is the one who signs and issues a public key certificate to server.</p>
+
+        <p>Now, when our browser requests the public key from the server. The server sends this public key certificate
+            signed and issued by the Intermediate CA. Along with the server certificate the server also sends the
+            Intermedia CA's public key certificate.</p>
+
+        <p>This is not making sense, I know. But soon it all will. Stay with me.</p>
+
+        <figure>
+            <img data-zoomable src="hackernews-chain-of-trust.png" alt="Hacker news certificate's chain of trust.">
+            <figcaption>
+                Hacker news certificate's chain of trust.
+            </figcaption>
+        </figure>
+
+        <p>When the browser receives the server's public key certificate and Intermedia CA's public key certificate, the
+            browser looks at the server's certificate, and sees that the server's certificate is signed by the
+            Intermediate CA.</p>
+
+        <p>If you remember, to verify a signature we need the public key of the person who signed it. So, the browser
+            traverses to the Intermediate CA's public key certificate.</p>
+
+        <p>The Intermedia CA's certificate is signed by the Root CA. So browser again traverses to the Root CA's public
+            key certificate.</p>
+
+        <p><strong>Every browser has a pre-populated list of Root CA's public keys that it can trust
+                inherently.</strong> The browser developers
+            populate this list. And keep this list updated.</p>
+
+        <p>The
+            browser looks at the
+            Root CA's public key certificate and tries searching through its pre-populated list of Root CA's public
+            keys. If the
+            browser finds the public key among Root CAs then it means that the Root CA is a trusted one.</p>
+
+        <p>Now, the browser takes the Root CA's public key and verifies the Intermediate CA's public key certificate.
+            Then it takes the Intermediate CA's public key and verifies the server public key certificate.</p>
+
+        <p>If these verification steps passes then it means the <strong>server's public key certificate is
+                valid.</strong> And the public key contained in it belongs to only the hacker news's server.</p>
+
+        <p>This traversal from <strong>server to Intermediate CA to Root CA</strong> is the reason behind its naming
+            <strong>Chain of Trust.</strong>
+        </p>
+
+        <p>The reason for this chain of trust is that -- even if the attacker modifies the server certificate or may be
+            the Intermediate CA's certificate, <strong>the attacker cannot modify the Root CA's certificate.</strong>
+            The reason being Root CA's public key certificates are pre-populated in the browser. <a
+                href="https://chromium.googlesource.com/chromium/src/+/main/net/data/ssl/chrome_root_store/root_store.md"
+                target="_blank">Here's the Chrome root CA store</a>.
+        </p>
+
+        <h2>It all comes together to form -- TLS.</h2>
+
+        <p>Finally, Ant and Bug will be able to talk damn securely. They will have an encrypted communication without
+            any worries. Because we have arrived at the palace of secure communication -- <strong>Transport Layer
+                Security (TLS).</strong></p>
+
+        <h3>A bit of History...</h3>
+
+        <figure>
+            <img data-zoomable src="old-web-google.png" alt="google.stanford.edu in netscape navigator 4">
+            <figcaption>
+                Google on Netscape Navigator 4. Emulator: <a href="https://oldweb.today"
+                    target="_blank">https://oldweb.today</a>.
+            </figcaption>
+        </figure>
+
+        <p>Before TLS came around, Netscape developed Secure Sockets Layer (SSL) around 1995 to have encrypted
+            communication between a client and
+            a server. It was inspired from Secure Network
+            Programming (SNP) which
+            was led by Simon S. Lam in 1993.</p>
+
+        <p>SSL 1.0 and SSL 2.0 had many security flaws. Then SSL 3.0 stayed for some time. Finally, TLS 1.0 came around
+            with improved security in 1999. But with time, some possible attacks made us to shift to TLS 1.1 then TLS
+            1.2 and
+            the latest TLS 1.3.</p>
+
+        <p>Only TLS 1.2 and TLS 1.3 are safe to use today. Rest all are deprecated.</p>
+
+        <p>So, today when you hear someone talk about SSL, they are reffering to TLS 1.2 or TLS 1.3 ;)</p>
+
+        <h3>HTTPS</h3>
+        <figure>
+            <img width="20%" data-zoomable src="https://upload.wikimedia.org/wikipedia/commons/d/da/Internet2.jpg"
+                alt="URL beginning with the HTTPS scheme and the WWW domain name label">
+            <figcaption>
+                URL beginning with HTTPS.
+            </figcaption>
+        </figure>
+
+        <p>HTTP (HyperText Transfer Protocol) is the <code>request-reponse</code> protocol of the Web. It works in a
+            client-server environment. When you open
+            GitHub.com, your web browser (the client) sends a GET request to GitHub's server. The GitHub server program
+            processes your request and returns a response. The response can be a HTML file, or JSON or any text.</p>
+
+        <p><strong>HTTPS (HyperText Transfer Protocol Secure)</strong> is the HTTP protocol <strong>running with
+                TLS.</strong> This means that HTTPS enables encrypted communication between the client and the server.
+        </p>
+    </main>
+    More than 85% of websites of all the Internet now run on TLS. A big thanks to the <a href="https://letsencrypt.org/"
+        target="_blank">Let's Encrypt</a> initiative.
+    <h2>TO DO: add credits</h2>
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>

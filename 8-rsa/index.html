@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RSA</title>
+
+    <!-- PostHog Integration Start -->
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_yHP5sNNdtvQqVh1IjhFKe30UMexVa7d5j3QzaHvRUqi', { api_host: 'https://us.i.posthog.com' })
+    </script>
+    <!-- PostHog Integration End -->
+
+    <!-- sentry error monitoring start -->
+    <script src="https://js.sentry-cdn.com/3a27f38f284bb38b1a83d2f74fdbe425.min.js" crossorigin="anonymous"></script>
+    <!-- sentry error monitoring end -->
+
+
+    <!-- Medium zoom! -->
+    <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script src="../scripts/medium-zoom.js"></script>
+
+    <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        figure img {
+            box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../components/nav-bar.js"></script>
+
+    <main>
+        <h1>
+            <span style="color: #ccc;">8. </span>
+            RSA
+            <br>
+            <span style="font-size: 0.4em; font-weight: normal; color: rgba(0, 0, 0, 0.5);">
+                Author:
+                <img src="../twitter-logo.svg" alt="twitter logo"
+                    style="border: none; width: 25px; vertical-align: middle;">
+                <a href="https://twitter.com/vkwebdev" target="_blank">
+                    @vkwebdev
+                </a>
+            </span>
+        </h1>
+
+        <p><strong>This chapter assumes you have studied the previous Diffie Hellman key exchange lesson.</strong></p>
+
+        <h2>Diffie Hellman gets attacked with -- Man in the Middle!</h2>
+
+        <p>
+            We saw in the previous lesson that the Diffie Hellman key exchange allowed two parties to arrive at the same
+            secret key that they could use as an encryption key to encrypt their communication.</p>
+
+        <p>
+            Diffie Hellman key exchange alone is not sufficient. It can be attacked with a man in the middle.
+            Let us see what does that look like.
+        </p>
+
+        <figure>
+            <img data-zoomable src="mitm-1.png" alt="Man in the middle attack illustration">
+            <figcaption>
+                Step 1: Ant asking Bug to exchange a key.
+            </figcaption>
+        </figure>
+
+        <p>Ant asks Bug to establish a secret key using Diffie Hellman.</p>
+
+        <figure>
+            <img data-zoomable src="mitm-2.png" alt="Man in the middle attack illustration">
+            <figcaption>
+                Step 2: Communication intercepted by man in the middle!
+            </figcaption>
+        </figure>
+
+        <p>The man in the middle, the attacker, intercepts the message and replies to Ant. Ant thinks the reply is from
+            Bug!</p>
+
+        <figure>
+            <img data-zoomable src="mitm-3.png" alt="Man in the middle attack illustration">
+            <figcaption>
+                Step 3: Ant exchanges the key.
+            </figcaption>
+        </figure>
+
+        <p>Ant thinks that he is talking to Bug.</p>
+
+        <p>Ant has no way to know that their communication is being intercepted by an
+            attacker.</p>
+
+        <p>So, Ant exchanges a secret key using Diffie Hellman with the attacker who is impersonating to be Bug. They
+            successfully exchange a secret key <strong>13</strong>!</p>
+
+        <figure>
+            <img data-zoomable src="mitm-4.png" alt="Man in the middle attack illustration">
+            <figcaption>
+                Step 4: Now, attacker exchanges a key with Bug.
+            </figcaption>
+        </figure>
+
+        <p>Now, the attacker says to Bug, that he is "Ant" and then exchanges a secret key <strong>22</strong> with Bug.
+        </p>
+
+        <p>In Bug's mind it is Ant with whom he has exchanged the secret key. But in reality the attacker has
+            impersonated as Ant!</p>
+
+        <figure>
+            <img data-zoomable src="mitm-5.png" alt="Man in the middle attack illustration">
+            <figcaption>
+                Step 5: Man in the middle alters the communication!
+            </figcaption>
+        </figure>
+
+        <p><strong>Mayday, mayday, mayday! We are under attack!</strong></p>
+
+        <p>Now, Ant sends an encrypted message to Bug using secret key <strong>13</strong> because according to Ant this
+            secret key <strong>13</strong> has been exchanged with Bug. But in reality its the attacker with whom he has
+            exchanged the key!</p>
+
+        <p>So, the attacker is able to decrypt Ant's message, <strong>modifies it</strong> and then encrypts it back
+            with the secret key
+            <strong>22</strong> he exchanged with Bug.
+        </p>
+
+        <p>When Bug receives this encrypted message, Bug thinks that its from Ant. But we know the reality. The attacker
+            impersonated as Ant and exchanged the secret key.</p>
+
+        <p>
+            The attacker is able to decrypt and modify all messages
+            between Ant and Bug without them realising this!
+        </p>
+
+        <p>Ant and Bug
+            both think that they have exchanged a secret key with each other but in reality the
+            attacker exchanged the secret key first with Ant and then another secret key with Bug. So, the attacker is
+            able to decrypt and modify all communication
+            between Ant and Bug as he has the secret keys!</p>
+
+        <p><strong>This way our whole
+                communication has got compromised!</strong></p>
+
+        <p>
+            The Diffie Hellman key exchange was indeed one of the greatest step forward in secure network communication.
+            But using Diffie Hellman key exchange alone is prone to Man in the Middle attack.
+        </p>
+
+        <p>If there was a way for Ant to <strong>verify whether he is talking with Bug or with someone else</strong>
+            then Man in the Middle can be stopped!</p>
+
+        <h2>RSA quietly enters the room!</h2>
+
+        <p>RSA is a public key encryption algorithm or asymmetric key encryption algorithm, both are
+            same thing. RSA comes from the surnames of its inventors: Ron <b>R</b>ivest, Adi <b>S</b>hamir and Leonard
+            <b>A</b>dleman. They were from MIT. Its
+            inventors were greatly inspired by
+            Diffie, Hellman and Merkle.
+        </p>
+
+        <p>In symmetric encryption we studied that it had one key that we used to encrypt, as well decrypt.</p>
+
+        <p>In asymmetric key encryption algorithm like RSA, there are two keys. We call them as a key pair.</p>
+
+        <p>Out of the two keys, one is called as a <strong>private key</strong> and other is called as a <strong>public
+                key</strong>. The public key can be shared with everyone.</p>
+
+        <figure>
+            <img data-zoomable src="public-private.png"
+                alt="illustration of a guy sharing public key but kept private key in brick vault">
+            <figcaption>
+                Public key is for public. Private key is private to you. Simple.
+            </figcaption>
+        </figure>
+
+        <p>But the private key is meant to be kept super secret! It <strong>MUST NEVER</strong> ever be revealed. As we
+            will move forward
+            you will realise whole lot of bad things happen if someone reveals their private key.</p>
+
+        <p>The interesting thing about asymmetric key encryption is that -- if a message is encrypted with the public
+            key then it can ONLY be decrypted with the corresponding private key. No other key in this universe can
+            decrypt it.</p>
+
+        <p>And it works the other way round too. If a message is encrypted with the private key then it can ONLY be
+            decrypted using the corresponding public key.</p>
+
+        <p>The two keys -- public and private keys are mathematically linked with each other. <strong>One encrypts, the
+                other
+                decrypts.</strong></p>
+
+        <figure>
+            <img data-zoomable src="https://imgs.xkcd.com/comics/public_key.png"
+                alt="XKCD comic illustrating cueball thinking to reveal his private key which MUST never be done in practice">
+            <figcaption>
+                NEVER EVER do the above!
+            </figcaption>
+        </figure>
+
+        <p>The above is from the popular xkcd comic, the character there (named Cueball) is thinking to reveal his
+            private key. <strong>That's the worst thing</strong> you can do to your computer's (or server's) security.
+            This is what
+            happens when we don't understand basic cryptography :)</p>
+
+        <h2>How RSA solves Man in the Middle...?</h2>
+
+        <p>One of the main motivations behind the development of RSA algorithm
+            was to be able to sign messages with a <strong>digital signature</strong>.</p>
+
+        <p>Let us see how digital signature using RSA helps in making our Diffie Hellman immune to Man in the Middle
+            attacks!</p>
+
+        <figure>
+            <img data-zoomable src="dh-rsa-1.png" alt="Diffie Hellman with RSA illustration">
+            <figcaption>
+                Step 1: Send <b>signed</b> values to Ant. Click image to enlarge.
+            </figcaption>
+        </figure>
+
+        <p>First, Bug generates his RSA key pair. He has distributed his public key to everybody and kept his private
+            key
+            just to himself.</p>
+
+        <p>This means Ant and the attacker has access to Bug's RSA public key.</p>
+
+        <p>Now Ant sends a message to Bug asking to start the Diffie Hellman key exchange process. Bug's computer
+            generates
+            <code>base, modulus and his secret number</code>, then it calculates
+            <strong><code>(base<sup>bug's secret</sup> mod modulus)</code></strong> which comes out to be
+            <code><strong><code>2<sup>15</sup> mod 19 = 12</code></strong>.</code>
+        </p>
+
+        <p>Then Bug creates a message that contains <code>base, modulus and 12</code> and then signs that message using
+            his RSA private key.</p>
+
+        <p><strong>But how does signing work?</strong></p>
+
+        <figure>
+            <img data-zoomable src="digital-sign-plus-verify.png"
+                alt="Process of signing and verifying a RSA digital signature.">
+            <figcaption>
+                Process of signing and verifying a RSA digital signature. Click image to enlarge.
+            </figcaption>
+        </figure>
+
+        <p>Signing a message is a two step process. We first hash the contents of the message, in our case contents of
+            the message are
+            <code>"2 19 12"</code>. Then the resulting hash value gets encrypted using Bug's RSA private key. The result
+            of the encryption is the <strong>signature</strong>.
+        </p>
+
+        <p>We insert this signature to the end of the message and
+            sends the <strong>signed message</strong> to Ant.</p>
+
+        <p>When Ant receives this signed message, he needs to <strong>verify whether the signature is valid or
+                not</strong>.</p>
+
+        <p>
+            Ant verifies the signature in two steps. First, he calculates the hash of the message contents:
+            <code>2 19 12</code>. Then signature is decrypted using Bug's public key, if the resulting value
+            matches the hash value of the message contents then it means <strong>that the signature is
+                verified!</strong>
+        </p>
+
+        <p>If the signature is verified then it proves <strong>two heavily important</strong> things -- </p>
+
+        <ul>
+            <li><strong>First: the message contents are not modified by a middle man</strong>.
+                <br><br>
+                During signature generation, Bug hashed the
+                message contents <code>2 19 12</code> and encrypted this hash value. This encrypted hash value was sent
+                as signature.
+                <br><br>
+                Now when
+                we decrypt the signature, we get the hash value that Bug calculated. Hence, the
+                <strong>decrypted signature represents the message contents as it was on Bug's side.</strong>
+                <br><br>
+                To verify, Ant again takes the message contents <code>2 19 12</code> and hashes it. If the hash value
+                comes out to be same
+                as the decrypted signature value then it means that we have received the message contents without any
+                alteration!
+                <br><br>
+                Let us suppose message's content was modifed by a man in the middle. The attacker changed the message to
+                <code>4 19 14</code>. When Ant will calculate the hash of this, its not going to match the decrypted
+                signature value, which signals that the message contents are <strong>not same as how Bug wanted it to
+                    be</strong> so
+                signature verification fails!
+                <br><br>
+            </li>
+
+            <li><strong>Second: the message was sent by Bug. Nobody else could have sent this message.</strong>
+                <br><br>
+                When the signature verification passed successfully this means that Ant was able to decrypt the
+                signature perfectly fine with Bug's RSA public key.
+                <br><br>
+                If Ant was successfully able to decrypt the signature with Bug's public key this means that
+                <strong>it could only have been encrypted with the corresponding private key.</strong> And only Bug has
+                access to his private key. This means only Bug could have sent this signed message!
+                <br><br>
+                Now imagine, the man in the middle intercepts the message, changes the message contents, and calculates
+                a new signature but with his
+                own private key. This
+                modified message with the attacker's
+                signature
+                gets forwarded to Ant.
+                <br><br>
+                Since this evil message's signature was created with the attacker's private key, it can only be
+                decrypted using attacker's public key. <strong>It cannot be decrypted using Bug's public key.</strong>
+                So, when we try to decrypt this signature using Bug's public key, the decryption fails and thus
+                resulting in a signature verification failure!
+                <br><br>
+            </li>
+        </ul>
+
+        <p>So, when the signature verification passes ✅, it means that -- <strong>the message contents are not modified
+                by a Man in the Middle. And
+                the message came from Bug only.</strong>
+        </p>
+
+        <p>Now the Man in the Middle (our attacker) <strong>will not</strong> be able to impersonate as Ant or Bug also
+            the attacker
+            <strong>cannot</strong> modify their
+            messages. <strong>This defeats the Man in the Middle attack badly!</strong>
+        </p>
+
+        <p>Our RSA digital signature rocks! 🥂</p>
+
+        <p><strong>This completes the one half of the Diffie Hellman key exchange, the second half we will study in the
+                next lesson on TLS.</strong></p>
+
+        <h2>RSA key pair used in SSH to authenticate with GitHub</h2>
+
+        <figure>
+            <img src="ssh-login.png" alt="my ssh login to github successful">
+            <figcaption>My SSH authentication to GitHub :D</figcaption>
+        </figure>
+
+        <p>SSH (Secure Shell) is a client-server protocol for connecting and authenticating to a remote server.
+            "Authenticating" means
+            that remote server can verify that its <strong>actually you</strong> not somebody else talking on your
+            behalf.</p>
+
+        <p>When we do <code>git push</code> and other Git commands that talk to GitHub. GitHub needs to
+            verify that the <strong>right person is
+                interacting with GitHub.</strong> If an attacker could manage to do <code>git push</code> on
+            behalf of you then your repositories are under that attacker's control and he can delete all your code, and
+            all the commit history.</p>
+
+        <p>GitHub has several ways to make sure that you can authenticate yourself to GitHub. One of the most widely
+            used way is using <strong>SSH authentication.</strong></p>
+
+        <p><strong>SSH authentication uses asymmetric algorithm like RSA.</strong> We first create a public and private
+            RSA key pair on
+            our local computer. Then we upload our public key to our GitHub profile.</p>
+
+        <p>When we try to interact with GitHub using <code>git push</code>. GitHub is running a SSH server and our
+            local computer is the SSH client. The GitHub's SSH server program will generate a random number
+            and it will encrypt that random number with <strong>our uploaded public key.</strong></p>
+
+        <p>Our client SSH program on receiving that encrypted number, <strong>decrypts it using the private key</strong>
+            we have
+            stored in our local computer. In Ubuntu, its stored in <strong><code>~/.ssh</code></strong>. Then the
+            decrypted number gets sent to GitHub.</p>
+
+        <p>If we sent the original number that GitHub encrypted, then it means we are in possession of the correct
+            private key that corresponds to the uploaded public key. And only we have access to that private key! This
+            authenticates our identity. And GitHub allows us to
+            proceed further.
+        </p>
+
+        <p>In the next lesson, the final lesson, let us see how all of this comes together to form a secure way of
+            communication using the TLS protocol.</p>
+
+        <h2>TO DO: add credits</h2>
+    </main>
+    https://www.moserware.com/2009/06/first-few-milliseconds-of-https.html
+    https://blog.cloudflare.com/rfc-8446-aka-tls-1-3/
+    https://tls13.xargs.org/
+    https://www.youtube.com/watch?v=0TLDTodL7Lc
+    https://www.youtube.com/watch?v=86cQJ0MMses
+    <script src="../components/lesson-map.js"></script>
+</body>
+
+</html>
