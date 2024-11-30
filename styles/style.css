@@ -190,7 +190,7 @@ main figure {
   margin: 0 auto;
 }
 
-main img {
+main figure img {
   max-width: 100%;
   border: 1px solid #ccc;
 }

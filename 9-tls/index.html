@@ -30,6 +30,58 @@
             box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
             border-radius: 4px;
         }
+
+        .client-send,
+        .server-send {
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            max-width: 85%;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+        }
+
+        .client-send {
+            background-color: #f0f8ff;
+            justify-content: space-between;
+        }
+
+        .server-send {
+            margin-left: auto;
+            background-color: #ffa60096;
+            justify-content: space-between;
+        }
+
+        .client-send p,
+        .server-send p {
+            margin: 0;
+        }
+
+        .client-send img,
+        .server-send img {
+            width: 32px;
+        }
+
+        .client-send img {
+            margin-left: 12px;
+        }
+
+        .server-send img {
+            margin-right: 12px;
+        }
+
+        /* Styling to make expand look better */
+        details {
+            padding: 10px;
+        }
+
+        summary {
+            cursor: pointer;
+            background-color: #f0f0f0;
+            padding: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -58,6 +110,22 @@
 
         <h2>The final attack that we are going to defend!</h2>
 
+        <p>In the previous lesson, we saw how RSA digital signature helped us defend against the Man in the Middle
+            attack during Diffie Hellman key exchange process.</p>
+
+        <p>To recap quickly: Bug signed his message with his private key and distributed his public key to everybody.
+            When Ant received Bug's message, he verified the signature with Bug's public key. If the verification passed
+            then it meant that the message was not altered during transmission and the message is from Bug only.</p>
+
+        <p>There's a possibility of an attack here. And its going to be the last attack. After this Ant and Bug will
+            talk securely forever.</p>
+
+        <p>Let us take a situation where the attacker would have
+            intercepted Bug's public key and replaced Bug's public key with his own public key (that is, the attacker's
+            public key) and then sent
+            it to
+            Ant.</p>
+
         <figure>
             <img data-zoomable src="public-key-intercepted.png"
                 alt="Illustration of -- Bug's public key intercepted and replaced by Man in the Middle's public key!">
@@ -66,26 +134,24 @@
             </figcaption>
         </figure>
 
-        <p>In the previous lesson, we saw that Bug distributed his public key to everybody.</p>
-
-        <p>Let us take a situation where the attacker would have
-            intercepted and replaced Bug's public key with his own public key (the attacker's public key) and then sent
-            it to
-            Ant.</p>
-
         <p>Ant would have thought that its Bug's public key because there's no verification step here to make sure that
-            he has received the public key from Bug. This missing step is really dangerous, let us see how.</p>
+            Ant has received the public key from Bug. This missing step is really dangerous, let us see how.</p>
 
         <p>All messages that
             Bug would sent to Ant will
-            get intercepted by the attacker. The attacker will modify the message, and sign the message with his own
-            private key.</p>
+            get intercepted by the attacker. The attacker will modify the message, and <strong>sign the message with his
+                own
+                private key.</strong></p>
 
         <p>Now the interesting part -- when Ant will verify the signature, the verification will pass because
             <strong>Ant is verifying the signature
                 with
                 attacker's public key not with Bug's public key.</strong>
         </p>
+
+        <p>When the verification passes, Ant thinks that the message is truely from Bug. But that ain't the case. The
+            attacker is modifying and re-signing the messages with his own private key. Since, Ant has attacker's public
+            key the signature verification is getting passed.</p>
 
         <p>This is again the Man in the Middle attack! The attacker that is our man in the middle of the conversation is
             able to modify the messages without Ant or Bug realising it.</p>
@@ -94,43 +160,56 @@
             How can Ant <strong>trust the public key</strong> that he has received? How he can make sure that the public
             key is actually from Bug and not from someone acting on Bug's behalf?</p>
 
-        <h2>The defense is: Chain of Trust</h2>
+        <h2>The missing step is: Chain of Trust</h2>
+
+        <p>During Diffie Hellman key exchange, we know that, Bug signed his message with his private key and sends his
+            public key to Ant.</p>
 
         <p>To understand this part, let us assume
             that Ant is the client
             (the browser). And Bug is our server. Bug is the server of
-            <code>https://news.ycombinator.com (Hacker news)</code>.
+            <code>news.ycombinator.com (Hacker news)</code>.
         </p>
 
-        <p>In order to arrive at a secret key with Diffie Hellman key exchange, the browser requests hacker news to send
-            its public key. Our browser receives public key from the hacker news server.</p>
+        <p>Our browser has received public key from the hacker news server. Now the problem is, how can the browser
+            <strong>trust</strong> this public key?
+        </p>
 
-        <p>But how can we <strong>trust</strong> this public key? This public key can be of an attacker as well. May be
-            the attacker might have put his own public key by intercepting the message in between.</p>
+        <p>How can the browser make sure that this public key actually <strong>belongs to the hacker news
+                server</strong> and not to someone in the middle...?</p>
 
-        <p>This problem is solved with the help of an entity called as <strong>Certificate Authority (CA).</strong></p>
+        <p>This problem is solved with the help of two entities called as -- <strong>Intermediate Certificate Authority
+                (Intermediate CA)</strong> and <strong>Root Certificate Authority (Root CA).</strong></p>
 
-        <p>The task of Certificate Authority (CA) is to sign and issue a <strong>Public key certificate</strong> to the
-            server. This
-            public key certificate will have the public key of the server.</p>
+        <p>The umbrella term for these two entities is simply -- Certificate Authority. Imagine it like, Certificate
+            Authority
+            is the company and it has two employees under this company named as Intermediate CA and Root CA. The company
+            has to manage and
+            take care of these two employees.</p>
 
-        <p>In fact, Certificate Authority is the top body. Under this top body, we have two sub-bodies. The two
-            sub-bodies are -- <strong>Intermediate Certificate Authority (Intermediate CA)</strong> and <strong>Root
-                Certificate
-                Authority (Root CA).</strong></p>
+        <p>As we will move forward, it all will make sense
+            intuitively. I hope :)</p>
 
-        <p>And usually the Intermediate CA is the one who signs and issues a public key certificate to server.</p>
+        <p>The task of the Intermediate CA is to verify that I have control over the server of
+            <code>news.ycombinator.com</code>. Once
+            this verification is completed, the Intermediate CA signs with its private key the <strong>Public Key
+                Certificate</strong> of
+            the
+            server. It's also called as TLS certificate.
+        </p>
 
-        <p>Now, when our browser requests the public key from the server. The server sends this public key certificate
-            signed and issued by the Intermediate CA. Along with the server certificate the server also sends the
-            Intermedia CA's public key certificate.</p>
+        <p> This
+            public key certificate as the name suggests has the public key of the server.</p>
 
-        <p>This is not making sense, I know. But soon it all will. Stay with me.</p>
+        <p>Intermediate CA has its own public key certificate which contains the public key of the Intermediate CA.</p>
+
+        <p>Now, when our browser requests the public key from the server. The server sends two things -- the server's
+            public key certificate and Intermediate CA's public key certificate.</p>
 
         <figure>
             <img data-zoomable src="hackernews-chain-of-trust.png" alt="Hacker news certificate's chain of trust.">
             <figcaption>
-                Hacker news certificate's chain of trust.
+                Hacker news -- chain of trust.
             </figcaption>
         </figure>
 
@@ -141,46 +220,279 @@
         <p>If you remember, to verify a signature we need the public key of the person who signed it. So, the browser
             traverses to the Intermediate CA's public key certificate.</p>
 
-        <p>The Intermedia CA's certificate is signed by the Root CA. So browser again traverses to the Root CA's public
+        <p>Browser finds that the Intermedia CA's certificate is signed by the Root CA. So browser again traverses to
+            the Root CA's public
             key certificate.</p>
 
         <p><strong>Every browser has a pre-populated list of Root CA's public keys that it can trust
                 inherently.</strong> The browser developers
             populate this list. And keep this list updated.</p>
 
+        <p>This pre-populated list of Root CAs public keys in the browser is called as <strong>root store.</strong></p>
+
+
         <p>The
             browser looks at the
-            Root CA's public key certificate and tries searching through its pre-populated list of Root CA's public
-            keys. If the
-            browser finds the public key among Root CAs then it means that the Root CA is a trusted one.</p>
+            Root CA's public key certificate, extracts the Root CA's public key from it and then it searches in its root
+            store.</p>
 
-        <p>Now, the browser takes the Root CA's public key and verifies the Intermediate CA's public key certificate.
-            Then it takes the Intermediate CA's public key and verifies the server public key certificate.</p>
+        <p>If the Root CA's public key is found in the root store then it means that the <strong>Root CA is valid and
+                can be
+                trusted.</strong></p>
 
-        <p>If these verification steps passes then it means the <strong>server's public key certificate is
-                valid.</strong> And the public key contained in it belongs to only the hacker news's server.</p>
+        <p><strong>This is the most important step. The chain must end at a trusted Root CA.</strong></p>
 
-        <p>This traversal from <strong>server to Intermediate CA to Root CA</strong> is the reason behind its naming
-            <strong>Chain of Trust.</strong>
-        </p>
+        <p>From here on, the browser takes the Root CA's public key and verifies the Intermediate CA's public key
+            certificate
+            signature.
+            Then it takes the Intermediate CA's public key and verifies the server public key certificate signature.</p>
 
-        <p>The reason for this chain of trust is that -- even if the attacker modifies the server certificate or may be
-            the Intermediate CA's certificate, <strong>the attacker cannot modify the Root CA's certificate.</strong>
-            The reason being Root CA's public key certificates are pre-populated in the browser. <a
-                href="https://chromium.googlesource.com/chromium/src/+/main/net/data/ssl/chrome_root_store/root_store.md"
-                target="_blank">Here's the Chrome root CA store</a>.
-        </p>
+        <p>If these verification steps passes then it means the server's public key certificate is
+            valid. And <strong>the public key contained in it belongs only to the hacker news
+                server.</strong></p>
 
-        <h2>It all comes together to form -- TLS.</h2>
+        <p>So the takeaway is that, with the help of chain of trust, the browser verifies that the public key indeed
+            belongs to the server only
+            not to anybody else!</p>
 
-        <p>Finally, Ant and Bug will be able to talk damn securely. They will have an encrypted communication without
-            any worries. Because we have arrived at the palace of secure communication -- <strong>Transport Layer
+        <p>One last thing: we developers don't have to deal with any of this. This all happens automatically in the TLS
+            handshake
+            process. A developer just needs to install a TLS public key certificate in its server with help of a CA, for
+            example, by using <a href="https://letsencrypt.org" target="_blank">Let's Encrypt CA</a>.</p>
+
+        <h2>Finale -- The TLS Handshake 🤝</h2>
+
+        <p>Finally, Ant and Bug will be able to talk securely. They will have an encrypted communication without
+            any worries. Because we have arrived at the house of secure communication -- <strong>Transport Layer
                 Security (TLS).</strong></p>
 
-        <h3>A bit of History...</h3>
+        <p>TLS handshake is the process that makes the client and server exchange the secret key with help of Diffie
+            Hellman key exchange.</p>
 
         <figure>
-            <img data-zoomable src="old-web-google.png" alt="google.stanford.edu in netscape navigator 4">
+            <img data-zoomable src="tls-simple-handshake.svg" alt="Illustration of simple TLS handshake.">
+            <figcaption>
+                TLS handshake for intuitive understanding.
+            </figcaption>
+        </figure>
+
+        <p>See the aim here is to understand the handshake process intuitively. We will learn what happens at each step
+            and you will see that everything that we have studied so far -- symmetric encryption, cryptographic hashing,
+            RSA asymmetric cryptography, digital signatures, Diffie Hellman key exchange. All this will come handy now!
+        </p>
+
+        <div class="client-send">
+            <p>
+                The TLS handshake starts with the client saying "Hello" to the server.
+            </p>
+        </div>
+
+        <div class="server-send">
+
+            <p>
+                The server on receiving the "Hello" understands that it needs to start the TLS handshake process. Now,
+                the server selects a <code>base, modulus and secret number</code> for Diffie Hellman key exchange. Then
+                it calculates the public number of Diffie Hellman key exchange.
+
+                <br><br>
+
+                The Diffie Hellman key exchange's public number is signed with the server's private key and then its
+                sent
+                along with the server public key certificate and Intermediate CA's public key certificate.
+            </p>
+        </div>
+
+        <div class="client-send">
+            <p>
+                The client verifies the public key certificate using <strong>Chain of Trust</strong>. Upon successful
+                verification, the signature of Diffie Hellman public number is verified. If this is successful as well
+                then the client calculates the Diffie Hellman secret key using the server's public number it received.
+
+                <br><br>
+
+                Then client sends its Diffie Hellman public number with a HMAC of all the previous messages and a
+                "Finished" string.
+
+                <br><br>
+
+                The HMAC (Hash Based Message Authentication Code) takes in two inputs. Both are required. The first
+                input is the
+                Diffie
+                Hellman secret key that the client calculated and the second input is all the message history between
+                the client and server so far. The HMAC produces a hash value by combining those two inputs.
+
+                <br><br>
+
+                <strong>This stops the attacker from
+                    modifying this message.</strong> Because if the attacker changes the message, the HMAC verification
+                will fail on the server end. And also the attacker cannot generate a new HMAC because it doesn't have
+                access
+                to the client's Diffie Hellman secret key (a required input of the HMAC function)!
+            </p>
+
+        </div>
+
+        <div class="server-send">
+
+            <p>
+                The server first calculates the Diffie Hellman secret key using the client's Diffie Hellman public
+                number that it just received.
+                <br><br>
+                Then the server verifies the client message's HMAC. It verifies it by hashing all the previous
+                messages along with the Diffie Hellman secret key that the server just calculated. <strong>This
+                    verification proves that
+                    the secret
+                    key that server has calculated is the same as the client's one.</strong>
+
+                <br><br>
+                Server now is ready. It sends a "Finished" message to the client. But also sends HMAC of all the
+                previous messages just like the client did.
+            </p>
+        </div>
+
+        <p>Now, the client verifies the HMAC that it received from the server by hashing its own message history along
+            with the
+            Diffie Hellman secret key that the client has. This proves that the server and client both have the same
+            message
+            history. This proves that the attacker has <strong>not modified anything in between.</strong></p>
+
+        <p>Now, the client and the server are ready!</p>
+
+        <p>The client encrypts the message using a symmetric key encryption algorithm (like AES) with the
+            <strong>encryption key being the
+                Diffie
+                Hellman secret key</strong> that the client calculated.
+        </p>
+
+        <p>The server calculated the same Diffie Hellman secret key. It uses it
+            to decrypt and read the message. And then encrypt the response with that same key.</p>
+
+        <p>Then client decrypts and read. This continues till the client decides to close the TLS connection.</p>
+
+        <p>Since, only the client and the server have this Diffie Hellman secret key their communication is
+            <strong>securely encrypted!</strong>
+        </p>
+
+        <p>We are finally being able to talk securely. Now, let the client and server enjoy the talking. Let us move on
+            ;)</p>
+
+        <details>
+            <summary id="detailed-tls-handshake">TLS Handshake in Detail</summary>
+
+            <div class="client-send">
+                <p>
+                    <code><u>Client Hello</u>:</code> the client sends a "hello" message to server. This message
+                    contains
+                    the
+                    algorithms that the client has in its browser. For example, the key exchange algorithm, the
+                    aymmetric
+                    algorithm and the symmetric
+                    encryption algorithm.
+                </p>
+                <img src="right-arrow.svg" alt="right arrow">
+            </div>
+
+            <div class="server-send">
+                <img src="left-arrow.svg" alt="left arrow">
+                <p>
+                    This message has several parts.
+
+                    <br><br>
+                    <code><u>Server Hello</u>:</code> this part contains the choosen algorithms that the server supports
+                    from the client
+                    options. If the server supports none, then the connection is not established.
+
+                    <br><br>
+
+                    <code><u>Server Certificate</u>:</code> the server's public key certificate and Intermediate CA's
+                    public
+                    key certificate that signed and issued the server's public key certificate.
+
+                    <br><br>
+
+                    <code><u>Server Key Exchange</u>:</code> the server calculates the Diffie Hellman's public number.
+                    It
+                    first selects a base, modulus and then uses modular exponentiation.
+
+                    <br><br>
+
+                    <code><u>Server Hello Done</u>:</code> this marks the finish of the server's hello message.
+
+                </p>
+            </div>
+
+            <!-- second round trip -->
+
+            <div class="client-send" style="margin-top: 5rem;">
+                <p>
+                    <code><u>Client Key Exchange</u>:</code> the client uses the base and modulus that server sent and
+                    then
+                    it calculate its public number. This will be sent to the server.
+
+                    <br><br>
+
+                    The client now calculates the secret key that will act as an encryption key between the client and
+                    the
+                    server.
+
+                    <br><br>
+
+                    <code><u>Client Change Cipher Spec</u>:</code> this part of the message will indicate to the client
+                    that
+                    the client has calculated the secret key that will be used for encrypted communication.
+
+                    <br><br>
+
+                    <code><u>Client Handshake Finished</u>:</code> this part contains the HMAC of all the handshake
+                    message
+                    contents. HMAC is calculated using the Diffie Hellman secret key that the client has arrived on.
+                </p>
+                <img src="right-arrow.svg" alt="right arrow">
+            </div>
+
+            <div class="server-send">
+                <img src="left-arrow.svg" alt="left arrow">
+                <p>
+                    Server on receiving the Diffie Hellman public value of client, now, calculates the secret key. If
+                    everything goes fine, the server will arrive at the same secret key that the client has arrived on.
+
+                    <br><br>
+
+                    Now the server has the same secret key that the client has. So, the server calculates the HMAC of
+                    all
+                    the handshake messages and verifies it with the one it has received on Client Handshake Finished
+                    message. If both HMACs are same, then it means the attacker has not modified anything and its safe
+                    to
+                    proceed further.
+
+                    <br><br>
+
+                    <code><u>Server Change Cipher Spec</u>:</code> this indicates to the client that the server was able
+                    to
+                    calculate the secret key.
+
+                    <br><br>
+
+                    <code><u>Server Handshake Finished</u>:</code> this part contains the HMAC of all the handshake
+                    message
+                    contents. HMAC is calculated using the Diffie Hellman secret key that the server has arrived on.
+                    (client
+                    and server have the same secret key)
+                </p>
+            </div>
+
+            <div class="client-send" style="margin-top: 5rem;">
+                <p>
+                    The client now verifies the server's Server Handshake Finished. And then they both are ready for
+                    encrypted communication.
+                </p>
+            </div>
+        </details>
+
+        <h3>TLS or SSL ... ?</h3>
+
+        <figure>
+            <img width="60%" data-zoomable src="old-web-google.png" alt="google.stanford.edu in netscape navigator 4">
             <figcaption>
                 Google on Netscape Navigator 4. Emulator: <a href="https://oldweb.today"
                     target="_blank">https://oldweb.today</a>.
@@ -202,7 +514,7 @@
 
         <p>So, today when you hear someone talk about SSL, they are reffering to TLS 1.2 or TLS 1.3 ;)</p>
 
-        <h3>HTTPS</h3>
+        <h3>HTTPS ... ?</h3>
         <figure>
             <img width="20%" data-zoomable src="https://upload.wikimedia.org/wikipedia/commons/d/da/Internet2.jpg"
                 alt="URL beginning with the HTTPS scheme and the WWW domain name label">
@@ -219,10 +531,13 @@
         <p><strong>HTTPS (HyperText Transfer Protocol Secure)</strong> is the HTTP protocol <strong>running with
                 TLS.</strong> This means that HTTPS enables encrypted communication between the client and the server.
         </p>
+
+
     </main>
     More than 85% of websites of all the Internet now run on TLS. A big thanks to the <a href="https://letsencrypt.org/"
         target="_blank">Let's Encrypt</a> initiative.
     <h2>TO DO: add credits</h2>
+    <h2>TO DO: email and thank xarbgs for tls Illustration</h2>
     <script src="../components/lesson-map.js"></script>
 </body>
 
