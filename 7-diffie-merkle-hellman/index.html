@@ -411,22 +411,25 @@
         <p>Because he will need to <strong>brute-force the exponent</strong>, he will first try 1 then 2 then 3... and
             so on. There's no easy way to find the exponent.</p>
 
-        <p>The <strong>modulus and exponent</strong> are always very large numbers and they are chosen in such a way
+        <p>The <strong>modulus and exponent</strong> are always very large numbers (more than 600 digits long) and they
+            are chosen with such mathematical properties
             that it becomes
             computationally
-            infeasible
-            to find the exponent for the eavesdropper.</p>
+            infeasible for an attacker
+            to compute the exponent.</p>
 
-        <p>But for our learning purposes, we will be using very small numbers.</p>
-
-        <p>That's why in the real implementation, Diffie and Hellman made the <strong>exponent as their secret
+        <p>That's why, Diffie and Hellman made the <strong>exponent as their secret
                 key</strong>. Even if the eavesdropper knows about the <code>base</code>, <code>modulus</code> and
             <code>result</code>, its going to be
             practically infeasible for the eavesdropper to find the <code>exponent</code> which is going to the
             <code>secret key</code> of Ant and Bug.
         </p>
 
-        <p>In the real Diffie–Hellman key exchange, the intuition remains the same as our flawed one. Instead of playing
+        <p>For our learning purposes, we will be using very small numbers. But you know it's not like this in the real
+            world ;)</p>
+
+        <p>In the actual Diffie–Hellman key exchange, the intuition will remain the same as the flawed one. In the
+            actual algorithm, instead of playing
             with addition, we will be playing with modular exponentiation.</p>
 
         <p><strong>At this point, we have developed good enough intuition. You can safely move to the next
