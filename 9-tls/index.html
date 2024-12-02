@@ -290,7 +290,7 @@
             Hellman key exchange. See the aim here is to understand the handshake process intuitively.</p>
 
         <figure>
-            <img data-zoomable src="tls-simple-handshake.svg" alt="Illustration of simple TLS handshake.">
+            <img data-zoomable src="tls-simple-handshake.png" alt="Illustration of simple TLS handshake.">
             <figcaption>
                 TLS handshake for intuitive understanding.
             </figcaption>
@@ -324,15 +324,11 @@
 
         <div class="client-send">
             <p>
-                The client verifies the certificate using <strong>Chain of Trust</strong>.
+                The client verifies the certificate using Chain of Trust.
 
                 <br><br>
 
-                The signature in the message that contains server's Diffie Hellman public number is verified.
-
-                <br><br>
-
-                Client generates his Diffie Hellman private number, then calculates his public number.
+                The RSA signature of the server's Diffie Hellman public number is verified.
 
                 <br><br>
 
@@ -342,7 +338,7 @@
 
                 <br><br>
 
-                Then client sends its public number with a HMAC of all the previous messages and a
+                Then client sends its Diffie Hellman public number with a HMAC of all the previous messages and a
                 "Finished" string.
 
                 <br><br>
@@ -367,42 +363,45 @@
         <div class="server-send">
 
             <p>
-                The server first calculates the Diffie Hellman secret key using the client's Diffie Hellman public
+                The server calculates the <strong>shared secret key 🔑</strong> using the client's Diffie Hellman public
                 number that it just received.
+
                 <br><br>
+
                 Then the server verifies the client message's HMAC. It verifies it by hashing all the previous
-                messages along with the Diffie Hellman secret key that the server just calculated. <strong>This
+                messages along with the Diffie Hellman secret key that the server just calculated.
+
+                <br><br>
+
+                <strong>This
                     verification proves that
                     the secret
                     key that server has calculated is the same as the client's one.</strong>
 
                 <br><br>
-                Server now is ready. It sends a "Finished" message to the client. But also sends HMAC of all the
+                Server sends a "Finished" message to the client along with the HMAC of all the
                 previous messages just like the client did.
             </p>
         </div>
 
-        <p>Now, the client verifies the HMAC that it received from the server by hashing its own message history along
-            with the
-            Diffie Hellman secret key that the client has. This proves that the server and client both have the same
-            message
-            history. This proves that the attacker has <strong>not modified anything in between.</strong></p>
+        <div class="client-send">
 
-        <p>Now, the client and the server are ready!</p>
+            <p>The client verifies the HMAC that it received from the server by hashing its own message history
+                along
+                with the
+                Diffie Hellman secret key that the client has. This proves that the server and client both have the same
+                message
+                history. This proves that the attacker has <strong>not modified anything in between.</strong></p>
 
-        <p>The client encrypts the message using a symmetric key encryption algorithm (like AES) with the
-            <strong>encryption key being the
-                Diffie
-                Hellman secret key</strong> that the client calculated.
-        </p>
+        </div>
 
-        <p>The server calculated the same Diffie Hellman secret key. It uses it
-            to decrypt and read the message. And then encrypt the response with that same key.</p>
+        <p>Now, the client and the server are ready with their shared secret key 🔑!</p>
 
-        <p>Then client decrypts and read. This continues till the client decides to close the TLS connection.</p>
-
-        <p>Since, only the client and the server have this Diffie Hellman secret key their communication is
-            <strong>securely encrypted!</strong>
+        <p>
+            All future messages <strong>will now be encrypted</strong> using a symmetric encryption algorithm that the
+            client and server support. The shared secret key will be used as the encryption key.</p>
+        <p>
+            Since, only the client and the server have the shared secret key, their communication is securely encrypted!
         </p>
 
         <p>We are finally being able to talk securely. Now, let the client and server enjoy the talking. Let us move on
