@@ -164,7 +164,7 @@
             a <strong>flawed implementation.</strong>
         </p>
 
-        <h3>Step 1: Generate initial and send it</h3>
+        <h3>Step 1: Generate initial</h3>
 
         <figure>
             <img data-zoomable src="flaw-step-1.png" alt="Generating a random initial and passing to mr bug">
@@ -181,66 +181,71 @@
             is passed to Mr. Bug over Internet. The eavesdropper sees this number and stores it in his computer.
         </p>
 
-        <h3>Step 2: Both generate their secret number</h3>
+        <h3>Step 2: Both generate their private number</h3>
 
         <figure>
-            <img data-zoomable src="flaw-step-2.png" alt="Both generate their secret numbers">
+            <img data-zoomable src="flaw-step-2.png" alt="Both generate their private numbers">
             <figcaption>
-                Step 2: Ant and Bug generate their secret numbers.
+                Step 2: Ant and Bug generate their private numbers.
             </figcaption>
         </figure>
 
         <p>Ant and Bug both generate a random number which they keep it with themselves, they don't share it. We call
             this number
-            as the <code>secret</code> number. Remember, this is not passed over Internet, <strong>they both keep this
+            as the <code>private</code> number. Remember, this is not passed over Internet, <strong>they both keep this
                 number
                 private to
-                themselves</strong>. Hence, this number is also called as a <strong>private number.</strong>
+                themselves</strong>.
         </p>
 
         <p>Ant has generated <strong>10</strong> as his private number and Bug has generated <strong>19</strong> as his
             private number.</p>
 
-        <h3>Step 3: initial + secret and send it</h3>
+        <h3>Step 3: Ant and Bug share with each other their public number</h3>
 
         <figure>
-            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + private and passes to each other.">
             <figcaption>
-                Step 3: Ant and Bug do initial + secret and passes to each other.
+                Step 3: Ant and Bug do initial + private and passes to each other.
             </figcaption>
         </figure>
 
         <p>
-            Ant sums the initial and his secret number. That is, <code>25 + 10 = 35</code>. And passes it to Bug. We
+            Ant sums the initial and his private number. That is, <code>25 + 10 = 35</code>. And passes it to Bug. We
             call this
             <code>35</code> as a <strong>public number</strong> because this number is shared with the other party.
         </p>
 
-        <p>Bug do the same. Bug sums the initial and his secret number. That is, <code>25 + 19 = 44</code>. This get
+        <p>Bug do the same. Bug sums the initial and his private number. That is, <code>25 + 19 = 44</code>. This get
             passed to Ant. Here, <code>44</code> is the <strong>public number.</strong></p>
 
         <p>Both the sums -- 35 and 44 are seen by the eavesdropper. He stores these as well in his computer.</p>
 
         <p>Now, comes the last step.</p>
 
-        <h3>Step 4: secret + received sum</h3>
+        <h3>Step 4: arriving at the same secret key</h3>
 
         <figure>
-            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <img data-zoomable src="flaw-step-4.png" alt="private + received sum illustration.">
             <figcaption>
-                Step 4: Ant and Bug do the final step -- secret + received sum to arrive at the shared secret key.
+                Step 4: Ant and Bug do the final step -- private + received sum to arrive at the shared secret key.
             </figcaption>
         </figure>
 
-        <p>Ant adds his secret to the received sum from the previous step, which will be <code>44 + 10 = 54</code>.</p>
+        <p>Ant adds his private number to the value he received from Bug in the previous step, which will be
+            <code>44 + 10 = 54</code>.
+        </p>
 
-        <p>And Bug adds his secret to the sum he received from Ant, that comes out to be
+        <p>Bug adds his private number to the sum he received from Ant, that comes out to be
             <code>35 + 19 = 54</code>.
         </p>
 
-        <p>See, finally they <strong>both have arrived at the same number 54.</strong> They have
-            successfully arrived at a shared key without eavesdropper knowing about it! Eavesdropper just knows about
-            25, 35 and 44.</p>
+        <p>See, finally they <strong>both have arrived at the same number 54.</strong> They <strong>share</strong> a
+            number that just <strong>they both know.</strong> Not the eavesdropper. Hence, this number <code>54</code>
+            is called as a
+            <strong>shared secret
+                number.</strong> Or <strong>shared secret key.</strong> Sometimes simply referred to as just secret key.
+        </p>
 
         <p>Now if Ant wants to send an encrypted message to Bug, he can encrypt it using the shared key that is
             54, and only Bug will be able to decrypt it because only Bug has access to that key not anyone else!</p>
@@ -253,51 +258,51 @@
         <p>This is a fundamental question! Let us understand how.</p>
 
         <figure>
-            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <img data-zoomable src="flaw-step-4.png" alt="private + received sum illustration.">
             <figcaption>
-                Step 4: Ant and Bug do the final step -- secret + received sum to arrive at the shared secret key.
+                Step 4: Ant and Bug do the final step -- private + received sum to arrive at the shared secret key.
             </figcaption>
         </figure>
 
         <p>
             If you look at the step 4 image above. You will see that Ant is doing:
-            <code>44 + Ant's secret [10]</code> to arrive at the shared secret key 54.
+            <code>44 + Ant's private [10]</code> to arrive at the shared secret key 54.
         </p>
 
-        <p><code>=> 44 + Ant's secret [10]</code></p>
+        <p><code>=> 44 + Ant's private [10]</code></p>
 
 
         <figure>
-            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + private and passes to each other.">
             <figcaption>
-                Step 3: Ant and Bug do initial + secret and passes to each other.
+                Step 3: Ant and Bug do initial + private and passes to each other.
             </figcaption>
         </figure>
 
 
         <p>
             Now look at the step 3 image above. Ant received 44 from Bug in step 3. Bug calculated 44 by doing:
-            <code>initial [25] + Bug's secret [19]</code>.
+            <code>initial [25] + Bug's private [19]</code>.
         </p>
 
         <p>So on the <strong>Ant's side</strong>, we can expand 44 as:
-            <code>initial [25] + Bug's secret [19]</code>. Putting it together:
+            <code>initial [25] + Bug's private [19]</code>. Putting it together:
         </p>
 
-        <code>=> <span style="background-color: orange;">44</span> + Ant's secret [10]</code>
+        <code>=> <span style="background-color: orange;">44</span> + Ant's private [10]</code>
         <br>
-        <strong><code>=> <span style="background-color: orange;">(initial [25] + Bug's secret [19])</span> + Ant's secret [10]</code></strong>
+        <strong><code>=> <span style="background-color: orange;">(initial [25] + Bug's private [19])</span> + Ant's private [10]</code></strong>
         <br>
         <br>
         <br>
 
         <p>Now, similarly on the <strong>Bug's side</strong> we can expand 35 as:
-            <code>(initial [25] + Ant's secret [10])</code>:
+            <code>(initial [25] + Ant's private [10])</code>:
         </p>
 
-        <code>=> <span style="background-color: orange;">35</span> + Bug's secret [19]</code>
+        <code>=> <span style="background-color: orange;">35</span> + Bug's private [19]</code>
         <br>
-        <strong><code>=> <span style="background-color: orange;">(initial [25] + Ant's secret [10])</span> + Bug's secret [19]</code></strong>
+        <strong><code>=> <span style="background-color: orange;">(initial [25] + Ant's private [10])</span> + Bug's private [19]</code></strong>
 
         <p>If you look at the above two equations that we ended up with, you will see that we are actually doing the
             same calculation in both the equations, just the order in which we are adding secrets is different. And in
@@ -322,14 +327,14 @@
         <p>So, the eavesdropper knows about the implementation we talked above. Let us see what happens next.</p>
 
         <figure>
-            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + secret and passes to each other.">
+            <img data-zoomable src="flaw-step-3.png" alt="Ant and Bug do initial + private and passes to each other.">
             <figcaption>
-                <strong>Step 3:</strong> Ant and Bug do initial + secret and passes to each other.
+                <strong>Step 3:</strong> Ant and Bug do initial + private and passes to each other.
             </figcaption>
         </figure>
 
         <p>
-            Look at the step three image above. Ant is sending <code>initial [25] + secret [10] = 35</code> to Bug.
+            Look at the step three image above. Ant is sending <code>initial [25] + private [10] = 35</code> to Bug.
         </p>
 
         <p>Eavesdropper reads 35 as it was passed to Bug via Internet. Eavesdropper already has seen
@@ -337,25 +342,27 @@
             According to Kerckhoffs' principle, eavesdropper knows the formula:
         </p>
 
-        <code>initial [25] + secret [10] = 35</code>
+        <code>initial [25] + private [10] = 35</code>
 
-        <p>Now, eavesdropper has <code>35 and initial [25]</code>. Can he find the secret number? Ofcourse, he can
-            easily find Ant's secret number by subtracting:
-            <code>35 - initial [25] = secret [10]</code>.
+        <p>Now, eavesdropper has <code>35 and initial [25]</code>. Can he find the private number? Ofcourse, he can
+            easily find Ant's private number by subtracting:
+            <code>35 - initial [25] = private [10]</code>.
         </p>
 
-        <p> <strong>Ant's secret is revealed to the eavesdropper! This compromises the whole security of our key
+        <p> <strong>Ant's private number is revealed to the eavesdropper! This compromises the whole security of our key
                 exchange algorithm.</strong></p>
 
         <figure style="margin-top: 60px;">
-            <img data-zoomable src="flaw-step-4.png" alt="secret + received sum illustration.">
+            <img data-zoomable src="flaw-step-4.png" alt="private + received sum illustration.">
             <figcaption>
-                <strong>Step 4:</strong> Ant and Bug do the final step -- secret + received sum to arrive at the shared
+                <strong>Step 4:</strong> Ant and Bug do the final step -- private number + received sum to arrive at the
+                shared
                 secret key.
             </figcaption>
         </figure>
 
-        <p>Look at the step four image above, if the eavesdropper has got Ant's secret and eavesdropper is already aware
+        <p>Look at the step four image above, if the eavesdropper has figured out Ant's private number and eavesdropper
+            is already aware
             of
             44, he can simply sum them and <strong>he will get to know the shared secret 54!</strong>
         </p>
@@ -368,12 +375,13 @@
 
         <p>The problem with the above implementation was that --</p>
 
-        <p>Look at this formula: <code>initial [25] + secret [10] = 35</code>. The eavesdropper had access to <code>35 and
-            initial [25]</code>. So he could simply subtract and find the secret. Addition can easily be reversed by
+        <p>Look at this formula: <code>initial [25] + private [10] = 35</code>. The eavesdropper had access to <code>35 and
+            initial [25]</code>. So he could simply subtract and find the private number. Addition can easily be
+            reversed by
             subtraction. Same with multiplication, easily reversed with division.</p>
 
         <p>If we can find a way via which its extremely hard to reverse the operation when the attacker has access to
-            all the values of the equation <strong>except the secret number</strong> then we can create a secure key
+            all the values of the equation <strong>except the private number</strong> then we can create a secure key
             exchange.</p>
 
         <p>Diffie and Hellman solved this using <strong>modular exponentiation</strong>:
@@ -418,11 +426,11 @@
             infeasible for an attacker
             to compute the exponent.</p>
 
-        <p>That's why, Diffie and Hellman made the <strong>exponent as their secret
-                key</strong>. Even if the eavesdropper knows about the <code>base</code>, <code>modulus</code> and
+        <p>That's why, Diffie and Hellman made the <strong>exponent as the private
+                number</strong>. Even if the eavesdropper knows about the <code>base</code>, <code>modulus</code> and
             <code>result</code>, its going to be
-            practically infeasible for the eavesdropper to find the <code>exponent</code> which is going to the
-            <code>secret key</code> of Ant and Bug.
+            practically infeasible for the eavesdropper to find the <code>exponent</code> which is going to be the
+            <code>private numbers</code> of Ant and Bug.
         </p>
 
         <p>For our learning purposes, we will be using very small numbers. But you know it's not like this in the real
@@ -431,11 +439,6 @@
         <p>In the actual Diffie–Hellman key exchange, the intuition will remain the same as the flawed one. In the
             actual algorithm, instead of playing
             with addition, we will be playing with modular exponentiation.</p>
-
-        <p><strong>At this point, we have developed good enough intuition. You can safely move to the next
-                lesson.</strong> But if
-            you want to stay to see the four steps of the real Diffie–Hellman key exchange, then you are welcome to
-            proceed further!</p>
 
         <h2>The real Diffie–Hellman key exchange</h2>
 
@@ -452,20 +455,20 @@
             <code>modulus</code>. Eavesdropper sees these values.
         </p>
 
-        <h3>Step 2: Both generate their secret number</h3>
+        <h3>Step 2: Both generate their private number</h3>
 
         <figure>
-            <img data-zoomable src="real-step-2.png" alt="Step 2: Ant and Bug generate their secret number.">
+            <img data-zoomable src="real-step-2.png" alt="Step 2: Ant and Bug generate their private number.">
             <figcaption>
-                Step 2: Ant and Bug generate their secret number.
+                Step 2: Ant and Bug generate their private number.
             </figcaption>
         </figure>
 
         <p>
-            Ant and Bug generate their respective secret numbers. Eavesdropper can't see these secret numbers.
+            Ant and Bug generate their respective private numbers. Eavesdropper can't see these private numbers.
         </p>
 
-        <h3>Step 3: Do modular exponentiation and send it</h3>
+        <h3>Step 3: Ant and Bug share with each other their public number</h3>
 
         <figure>
             <img data-zoomable src="real-step-3.png" alt="Step 3: Doing modular exponentiation and sending it.">
@@ -475,17 +478,19 @@
         </figure>
 
         <p>
-            Ant calculates <strong><code>(base<sup>ant's secret</sup> mod modulus)</code></strong>. It comes out to be:
+            Ant calculates <strong><code>(base<sup>ant's private number</sup> mod modulus)</code></strong>. It comes out
+            to be:
             <strong><code>2<sup>8</sup> mod 19 = 9</code></strong>. The result 9 (public number) gets sent to Bug.
         </p>
 
         <p>
-            Similarly, Bug calculates <strong><code>(base<sup>bug's secret</sup> mod modulus)</code></strong>. It equals
+            Similarly, Bug calculates <strong><code>(base<sup>bug's private number</sup> mod modulus)</code></strong>.
+            It equals
             to <strong><code>2<sup>15</sup> mod 19 = 12</code></strong> and then Bug sends 12 (public number) to Ant.
         </p>
 
 
-        <h3>Step 4: Received value's modular exponentiation</h3>
+        <h3>Step 4: arriving at the shared secret key</h3>
 
         <figure>
             <img data-zoomable src="real-step-4.png" alt="Step 4: Received value's modular exponentiation.">
@@ -495,7 +500,7 @@
         </figure>
 
         <p>Ant in the previous step received 12 from Bug. In this last step, the received 12 becomes the base:
-            <code>(Base<sup>Ant's secret</sup> mod modulus)</code>, it equates to:
+            <code>(Base<sup>Ant's private number</sup> mod modulus)</code>, it equates to:
             <code>12<sup>8</sup> mod 19 = 11</code>.
         </p>
 
@@ -548,12 +553,8 @@
         <p>See, both the equations are exact same! This is how they both arrive at the same secret key without
             the eavesdropper ever knowing about it.</p>
 
-        <p>Since Ant and Bug both have arrived at the same key, it's called as a <strong>shared secret</strong> key
-            because they both share the <strong>same</strong> secret key. A term that's important to know as we
-            will be referring to it in later lessons.</p>
-
-        <p>This shared secret key can be used as an encryption key. Ant can encrypt a message with this shared secret
-            key which can only be decrypted by Bug. Eavesdropper will not be able to read their messages.</p>
+        <p>As we already know, this shared secret key can be used as an encryption key to prevent eavesdropper from
+            making sense of the messages.</p>
 
         <p>That's the power of the Diffie–Hellman key exchange guys!</p>
 
@@ -566,25 +567,25 @@
             <p style="margin-bottom: 0;"><strong><u>Question</u></strong></p>
             <p style="margin-top: 0;">
                 In step 3 of the Diffie–Hellman, Mr. Ant calculated: <code>(2<sup>8</sup> mod 19 = 9)</code> and
-                sent 9 to Bug.
+                sent 9 (public number) to Bug.
                 <br>
                 <br>
                 Now,
                 The eavesdropper has access to the <code>base [2], modulus [19] and the result [9]</code>. Why is it
                 hard for
-                the eavesdropper to find out the exponent 8 which is the Ant's secret number?
+                the eavesdropper to find out the exponent 8 which is the Ant's private number?
             </p>
 
             <div class="option" style="font-size: smaller;" data-correct="false">Because in the real world, exponent
                 will
-                be a large number
+                be a very large number
             </div>
             <div class="option" style="font-size: smaller;" data-correct="false">Because in the real world, modulus will
-                be a large number</div>
+                be a very large number</div>
             <div class="option" style="font-size: smaller;" data-correct="true">Because in the real world, modulus and
                 exponent both will be
-                large numbers so the eavesdropper will
-                need to brute-force the exponent which will be infeasible</div>
+                very large numbers so the eavesdropper will
+                need to brute-force the exponent which will be practically infeasible</div>
             <div class="option" style="font-size: smaller;" data-correct="false">The <code>mod</code> makes it
                 infeasible
             </div>
