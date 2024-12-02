@@ -311,26 +311,38 @@
         <div class="server-send">
 
             <p>
-                The server on receiving the "Hello" selects a <code>base, modulus and secret number</code>. Then
+                The server on receiving the "Hello" selects a <code>base, modulus and private number</code>. Then
                 it calculates the public number for Diffie Hellman key exchange.
 
                 <br><br>
 
-                The Diffie Hellman key exchange's public number is signed with the server's private key and then its
+                The public number is signed with the server's private key and then its
                 sent
-                along with the server public key certificate and Intermediate CA's public key certificate.
+                along with the server certificate and Intermediate CA's certificate.
             </p>
         </div>
 
         <div class="client-send">
             <p>
-                The client verifies the public key certificate using <strong>Chain of Trust</strong>. Upon successful
-                verification, the signature of Diffie Hellman public number is verified. If this is successful as well
-                then the client calculates the Diffie Hellman secret key using the server's public number it received.
+                The client verifies the certificate using <strong>Chain of Trust</strong>.
 
                 <br><br>
 
-                Then client sends its Diffie Hellman public number with a HMAC of all the previous messages and a
+                The signature in the message that contains server's Diffie Hellman public number is verified.
+
+                <br><br>
+
+                Client generates his Diffie Hellman private number, then calculates his public number.
+
+                <br><br>
+
+                The client uses its private number and the server's public number to arrive at the
+                <strong>shared
+                    secret key 🔑.</strong>
+
+                <br><br>
+
+                Then client sends its public number with a HMAC of all the previous messages and a
                 "Finished" string.
 
                 <br><br>
