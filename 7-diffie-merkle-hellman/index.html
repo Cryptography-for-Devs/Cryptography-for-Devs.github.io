@@ -538,8 +538,17 @@
         <code>=> <u>Equation 2</u>: (2<sup>8</sup> mod 19)<sup>15</sup> mod 19 = (2<sup>8*15</sup> mod 19)</code>
         <br>
 
-        <p><strong>See, both the equations are exact same! This is how they arrive at the same shared secret key without
-                the eavesdropper ever knowing about their shared secret key.</strong></p>
+        <p>See, both the equations are exact same! This is how they both arrive at the same secret key without
+            the eavesdropper ever knowing about it.</p>
+
+        <p>Since Ant and Bug both have arrived at the same key, its called as a <strong>shared secret</strong> key
+            because they both share the <strong>same</strong> secret key. A term that's important to know as we
+            will be reffering to it in later lessons.</p>
+
+        <p>This shared secret key can be used as an encryption key. Ant can encrypt a message with this shared secret
+            key which can only be decrypted by Bug. Eavesdropper will not be able to read their messages.</p>
+
+        <p>That's the power of the Diffie–Hellman key exchange guys!</p>
 
         <hr>
 
@@ -553,15 +562,20 @@
                 sent 9 to Bug.
                 <br>
                 <br>
+                Now,
                 The eavesdropper has access to the <code>base [2], modulus [19] and the result [9]</code>. Why is it
                 hard for
                 the eavesdropper to find out the exponent 8 which is the Ant's secret number?
             </p>
 
-            <div class="option" style="font-size: smaller;" data-correct="false">Because exponent is a large number
+            <div class="option" style="font-size: smaller;" data-correct="false">Because in the real world, exponent
+                will
+                be a large number
             </div>
-            <div class="option" style="font-size: smaller;" data-correct="false">Because modulus is a large number</div>
-            <div class="option" style="font-size: smaller;" data-correct="true">Because modulus and exponent both are
+            <div class="option" style="font-size: smaller;" data-correct="false">Because in the real world, modulus will
+                be a large number</div>
+            <div class="option" style="font-size: smaller;" data-correct="true">Because in the real world, modulus and
+                exponent both will be
                 large numbers so eavesdropper
                 needs to brute-force the exponent which is infeasible</div>
             <div class="option" style="font-size: smaller;" data-correct="false">The <code>mod</code> is the reason
