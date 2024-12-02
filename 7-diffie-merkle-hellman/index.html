@@ -404,16 +404,20 @@
             or also called exponent in the mod equation, that equation then comes in the category of modular
             exponentiation.</p>
 
-        <p>This is really interesting because even if the eavesdropper knows about: 3, 520 and 209 in our equation
+        <p>This is fascinating because even if the eavesdropper knows about: 3, 520 and 209 in our equation
             <code>3<sup>?</sup> mod 520 = 209</code>. It's hard for him to find the correct exponent that is 6. Why?
         </p>
 
-        <p>Because he will need to <strong>brtue-force the exponent</strong>, he will first try 1 then 2 then 3... and
+        <p>Because he will need to <strong>brute-force the exponent</strong>, he will first try 1 then 2 then 3... and
             so on. There's no easy way to find the exponent.</p>
 
-        <p>So if the <strong>modulus and exponent</strong> are large enough numbers then it becomes computationally
+        <p>The <strong>modulus and exponent</strong> are always very large numbers and they are chosen in such a way
+            that it becomes
+            computationally
             infeasible
             to find the exponent for the eavesdropper.</p>
+
+        <p>But for our learning purposes, we will be using very small numbers.</p>
 
         <p>That's why in the real implementation, Diffie and Hellman made the <strong>exponent as their secret
                 key</strong>. Even if the eavesdropper knows about the <code>base</code>, <code>modulus</code> and
@@ -541,9 +545,9 @@
         <p>See, both the equations are exact same! This is how they both arrive at the same secret key without
             the eavesdropper ever knowing about it.</p>
 
-        <p>Since Ant and Bug both have arrived at the same key, its called as a <strong>shared secret</strong> key
+        <p>Since Ant and Bug both have arrived at the same key, it's called as a <strong>shared secret</strong> key
             because they both share the <strong>same</strong> secret key. A term that's important to know as we
-            will be reffering to it in later lessons.</p>
+            will be referring to it in later lessons.</p>
 
         <p>This shared secret key can be used as an encryption key. Ant can encrypt a message with this shared secret
             key which can only be decrypted by Bug. Eavesdropper will not be able to read their messages.</p>
