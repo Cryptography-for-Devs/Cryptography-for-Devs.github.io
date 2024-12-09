@@ -23,6 +23,7 @@
 /* Josh CSS Reset End*/
 
 html {
+  font-size: 18px;
   background-color: var(--main-bg-color);
   color: var(--text-color);
   font-family: var(--font-family);
@@ -30,7 +31,7 @@ html {
 
 @media (max-width: 768px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -58,7 +59,7 @@ html {
   margin-right: auto;
 }
 
-a {
+a.underline-style {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   color: var(--text-color);
@@ -66,19 +67,19 @@ a {
   transition: 0.1s;
 }
 
-a > span {
+a.underline-style > span {
   text-decoration: underline;
   text-decoration-color: var(--text-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
-a:hover {
+a.underline-style:hover {
   background-color: var(--text-color);
   color: var(--main-bg-color);
 }
 
-a:hover > span {
+a.underline-style:hover > span {
   text-decoration: underline;
   text-decoration-color: var(--main-bg-color);
   text-decoration-thickness: 2px;
@@ -145,26 +146,47 @@ a.light-bg:hover {
   max-width: 90%;
 }
 
-button {
+.primary-btn {
+  text-decoration: none;
+  display: inline-block;
   background-color: var(--primary-btn-bg-color);
   color: var(--main-bg-color);
-  padding: 1rem 5rem;
+  padding: 1.2rem 4rem;
   border: none;
-  border-radius: 28px;
+  border-radius: 64px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
 }
 
-button > span {
+.primary-btn span {
+  display: inline-block;
+}
+
+.primary-btn .btn--main-text {
+  position: relative;
   font-size: 1.4rem;
   font-weight: 600;
 }
 
-button img {
-  width: 35px;
-  height: 35px;
+.primary-btn .btn--sub-text {
+  font-size: 0.9rem;
+  margin-top: 0.7rem;
+}
+
+/* primary-btn hover animation */
+.primary-btn .btn--main-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--main-bg-color);
+  transition: width 0.3s ease;
+}
+
+.primary-btn:hover .btn--main-text::after {
+  width: 100%;
 }
 
 #past-contributions-container {
@@ -214,15 +236,15 @@ button img {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  gap: 2.5rem;
+  gap: 3rem;
 }
 
 .review {
-  width: 380px;
+  max-width: 450px;
   height: fit-content;
   border-radius: var(--border-radius);
-  border: 3px dashed var(--text-color);
-  padding: 1.5rem;
+  border: 1px dashed var(--text-color);
+  padding: 1rem;
 }
 
 .review > .person {
@@ -328,7 +350,7 @@ button img {
   padding-top: 3rem;
   padding-bottom: 3rem;
   margin-top: 10rem;
-  
+
   background-color: #1b1b1b;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e3e6e8' fill-opacity='0.07'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
@@ -364,22 +386,49 @@ button img {
 /* Curriculum END */
 
 /* Who and why START */
-#who-and-why {
-  max-width: 400px;
-  width: 80vw;
-  margin: 0 auto;
-  border: 1px solid var(--text-color);
-  padding: 1.5rem 2.5rem;
-  border-radius: var(--border-radius);
+#heading-of-course-maker h2 {
+  position: relative;
 }
 
-#who-and-why > div > img {
-  width: 100px;
-  border-radius: var(--border-radius);
+#handcraft-svg {
+  position: absolute;
+  bottom: 100%;
+  left: 65%;
 }
 
-#who-and-why > div {
-  text-align: center;
+#who-is-behind {
+  max-width: 550px;
+  width: 90vw;
 }
 
+#who-is-behind hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(227, 230, 232, 0),
+    rgba(227, 230, 232, 0.75),
+    rgba(227, 230, 232, 0)
+  );
+}
+
+#who-is-behind #intro {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 1.6rem;
+}
+
+#who-is-behind #intro img {
+  max-width: 120px;
+  border-radius: 100%;
+}
+
+#who-is-behind #story {
+  font-size: 1.1rem;
+}
+
+#who-is-behind #story p {
+  margin-bottom: 2rem;
+}
 /* Who and why END */
