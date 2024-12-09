@@ -1,308 +1,385 @@
-/* Global styles START */
 :root {
-  --primary-color: rgba(45, 164, 78, 1);
-  --primary-hover: rgba(45, 164, 78, 0.8);
-  --secondary-hover: rgba(45, 164, 78, 0.1);
+  --main-bg-color: #0d0f12;
+  --text-color: #e3e6e8;
+
+  --primary-btn-bg-color: #f8cb1e;
+
+  --font-family: "Nunito", system-ui;
+
+  --border-radius: 16px;
 }
 
-* {
+/* Josh CSS Reset */
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
-
-body {
+/* 2. Remove default margin */
+* {
   margin: 0;
-  font-family: system-ui;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f8f9fa;
-  font-size: large;
+}
+/* Josh CSS Reset End*/
+
+html {
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
 }
 
-h1 {
-  text-align: center;
-}
-
-h2::after {
-  content: "";
-  display: block;
-  border-top: 1px dotted #333;
-}
-
-/* Global styles END */
-
-/* Navigation START */
-
-nav {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  padding: 0.5rem 4rem;
-  align-items: center;
-  background-color: white;
-  border-bottom: 1px solid #ccc;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #333;
-}
-
-.nav-link:hover {
-  background-color: #f3f4f6;
-}
-
-#logo-img-plus-text {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  grid-column: 2;
-  font-size: 20px;
-}
-
-#logo-img {
-  height: 2.2rem;
-  border-radius: 4px;
-}
-
-#nav-links-section {
-  grid-column: 3;
-  justify-self: end;
-  margin-left: 4rem;
-}
-
-/* Styles for mobile screens (up to 768px wide) */
 @media (max-width: 768px) {
-  nav {
-    padding: 0.5rem 1rem;
-  }
-
-  #lesson-map-open-btn {
-    margin-top: 1rem;
+  html {
+    font-size: 14px;
   }
 }
 
-/* Navigation END */
+.center-container {
+  max-width: 900px;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-/* Buttons START */
-.btn {
-  padding: 0.8em 3.5em;
-  border-radius: 4px;
-  font-family: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
+/* Navigation section START */
+#navbar {
+  padding: 10px 20px;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid var(--text-color);
+  border-left: 1px solid var(--text-color);
+  border-right: 1px solid var(--text-color);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+#navbar #nav-links {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  color: var(--text-color);
   text-decoration: none;
+  transition: 0.1s;
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  border: 1px solid rgba(27, 31, 36, 0.15);
-  color: white;
-  text-align: center;
-  font-weight: bold;
+a > span {
+  text-decoration: underline;
+  text-decoration-color: var(--text-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-.btn-primary:hover {
-  background-color: var(--primary-hover);
+a:hover {
+  background-color: var(--text-color);
+  color: var(--main-bg-color);
 }
 
-.btn-secondary {
-  padding: 0.5em 2em;
-  font-weight: normal;
-  background-color: transparent;
-  color: #333;
-  border: 1px solid #333;
+a:hover > span {
+  text-decoration: underline;
+  text-decoration-color: var(--main-bg-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-.btn-secondary:hover {
-  background-color: #f3f4f6;
+a.light-bg {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  color: var(--main-bg-color);
+  text-decoration: underline;
+  text-decoration-color: var(--main-bg-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-.btn-center {
-  display: block;
-  margin: 2rem auto;
-  width: fit-content; /* This will make it only as wide as its content */
+a.light-bg:hover {
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--text-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-#get-started-btn {
-  font-size: 1.2rem;
-}
+/* Navigation section END */
 
-/* Buttons END */
-
-/*
-Banner start
-*/
-
-.binary-banner {
+/* Landing hero START */
+#landing-hero {
   display: flex;
-  justify-content: space-between;
-  margin: -20px -20px 20px -20px; /* Negative margin to reach main borders */
-  overflow: hidden;
-}
-
-.banner-item {
-  width: 55px;
-  height: 50px;
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-  animation: sway 2s ease-in-out infinite;
+  gap: 5rem;
 }
 
-.banner-item:nth-child(odd) {
-  background-color: #2da44e; /* Your primary color */
+.heading-and-para {
+  margin-top: 7rem;
+  margin-bottom: 3rem;
 }
 
-.banner-item:nth-child(even) {
-  background-color: #ff9d3a; /* Your info-alert blue color */
-}
-
-@keyframes sway {
-  0%,
-  100% {
-    transform: translateY(-5px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(0px) rotate(2deg);
-  }
-}
-
-/* Banner end */
-
-/* Main content START */
-main {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: white;
-  border: 1px solid #ccc;
-}
-
-main figure {
-  width: 90%;
+.heading-and-para h1,
+.heading-and-para h2,
+.heading-and-para p {
   text-align: center;
-  margin: 0 auto;
 }
 
-main figure img {
-  max-width: 100%;
-  border: 1px solid #ccc;
+.heading-and-para h1 {
+  font-size: 4rem;
+  line-height: 1;
 }
 
-pre {
-  font-size: 12px;
-  border: 1px solid #ccc;
-  overflow-x: scroll;
+.heading-and-para h2 {
+  font-size: 2.5rem;
 }
 
-figcaption {
-  font: smaller sans-serif;
-  color: rgba(0, 0, 0, 0.4);
-}
-
-ul li {
-  margin-bottom: 10px;
-}
-
-p {
-  margin: 25px 0;
-}
-
-.info-alert {
-  background-color: #e7f3ff;
-  border-left: 4px solid #1a73e8;
-  padding: 12px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-}
-
-/* Main content END */
-
-/* Course content START */
-#course-content {
-  margin-top: 50px;
-}
-
-#course-content h2 {
-  text-align: center;
+.heading-and-para p {
   font-size: 1.4rem;
+  color: #a9a9a9;
+  margin-top: 2rem;
 }
 
-#course-content ol {
-  font-size: 0.9rem;
+#landing-hero .img-div > img {
+  border-radius: var(--border-radius);
+  max-width: 90%;
 }
 
-/* Course content END */
-
-/* Lesson map drawer START */
-#lesson-map-drawer {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 400px;
-  height: 100vh;
-  background-color: white;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
-  padding-left: 1rem;
-  padding-right: 2rem;
-  transition: right 0.1s;
-  z-index: 1000;
-}
-
-#lesson-map-drawer.lesson-map-open {
-  right: 0;
-}
-
-#lesson-map-drawer h2 {
-  margin-left: 1.5rem;
-  margin-bottom: 2rem;
+button {
+  background-color: var(--primary-btn-bg-color);
+  color: var(--main-bg-color);
+  padding: 1rem 5rem;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+}
+
+button > span {
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
-#lesson-map-close-btn {
-  background: none;
-  border: none;
-  color: #1f2937;
+button img {
+  width: 35px;
+  height: 35px;
+}
+
+#past-contributions-container {
+  background-image: url(../landing-assets/stacked-waves-haikei.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 10rem;
+}
+
+#past-contributions {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+#past-contributions > p {
+  text-align: center;
+  color: var(--main-bg-color);
+}
+
+#past-contributions #logos {
+  margin-top: 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+#past-contributions #logos img {
+  max-width: 120px;
+}
+
+/* Landing hero END */
+
+/* Reviews section START */
+
+#reviews-section-container {
+  margin-top: 7rem;
+  background-color: #1b1b1b;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+#reviews-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 2.5rem;
+}
+
+.review {
+  width: 380px;
+  height: fit-content;
+  border-radius: var(--border-radius);
+  border: 3px dashed var(--text-color);
+  padding: 1.5rem;
+}
+
+.review > .person {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.review > .person > .name-and-designation {
+  line-height: 1.1;
+  font-size: 0.9rem;
+}
+
+.review > .person img {
+  max-width: 80px;
+  border-radius: 100%;
+  border: 1px solid var(--text-color);
+}
+
+.review .their-words {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: first baseline;
+  gap: 1rem;
+}
+
+.review .their-words > p {
+  font-size: 1.2rem;
+}
+
+.highlight-text {
+  border-radius: var(--border-radius);
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  color: var(--main-bg-color);
+  background-color: var(--primary-btn-bg-color);
+}
+
+.span-highlight {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-btn-bg-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+/* Reviews section END */
+
+/* Major learnings START */
+#major-learnings {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 5rem;
+}
+
+#major-learnings div {
+  flex-basis: 300px;
+}
+
+#major-learnings div img {
+  display: block;
+  margin: 0 auto;
+}
+
+#major-learnings div p {
+  margin-top: 1.6rem;
+}
+/* Major learnings END */
+
+/* Why START */
+#why-container {
+  background-color: var(--text-color);
+  color: var(--main-bg-color);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  margin-top: 10rem;
+}
+
+#why #paras {
+  margin: 0 auto;
+  width: 90vw;
+  max-width: 600px;
+}
+
+#why #paras > p {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
   font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
 }
 
-#lesson-map-close-btn:hover {
-  background-color: #f3f4f6;
+#why #paras > ul {
+  font-size: 1.5rem;
 }
 
-#lesson-map-drawer > .lesson-map-ol {
-  font-size: 0.8rem;
+#why #paras > ul > li {
+  margin-bottom: 0.8rem;
 }
 
-.lesson-map-ol {
-  list-style-position: inside;
+/* Why END */
+
+/* Curriculum START */
+#curriculum-top-container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  margin-top: 10rem;
+  
+  background-color: #1b1b1b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e3e6e8' fill-opacity='0.07'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-.lesson-map-ol li {
-  margin-bottom: 0.4rem;
+#curriculum .module {
+  font-family: monospace;
+  max-width: 500px;
+  width: 80vw;
+  margin: 0 auto;
+  background-color: var(--text-color);
+  color: var(--main-bg-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
 }
 
-.lesson-map-ol li a {
-  text-decoration: none;
+#curriculum .module > p {
+  text-align: center;
+  color: #1b1b1b;
+  border-bottom: 1px solid #1b1b1b;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
 }
 
-.lesson-map-separator {
-  height: 2.2rem;
+#curriculum .module > ul {
+  list-style: none;
+  padding: 0;
 }
 
-.lesson-map-upcoming-lessons {
-  color: rgba(0, 0, 0, 0.5);
+#curriculum .module > ul li {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+/* Curriculum END */
+
+/* Who and why START */
+#who-and-why {
+  max-width: 400px;
+  width: 80vw;
+  margin: 0 auto;
+  border: 1px solid var(--text-color);
+  padding: 1.5rem 2.5rem;
+  border-radius: var(--border-radius);
 }
 
-/* Lesson map drawer END */
+#who-and-why > div > img {
+  width: 100px;
+  border-radius: var(--border-radius);
+}
+
+#who-and-why > div {
+  text-align: center;
+}
+
+/* Who and why END */

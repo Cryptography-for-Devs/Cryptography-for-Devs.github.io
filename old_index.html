@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Curious Cryptography for Developers</title>
+
+    <!-- PostHog Integration Start -->
+    <script>
+        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+        posthog.init('phc_yHP5sNNdtvQqVh1IjhFKe30UMexVa7d5j3QzaHvRUqi', { api_host: 'https://us.i.posthog.com' })
+    </script>
+    <!-- PostHog Integration End -->
+
+    <!-- sentry error monitoring start -->
+    <script src="https://js.sentry-cdn.com/3a27f38f284bb38b1a83d2f74fdbe425.min.js" crossorigin="anonymous"></script>
+    <!-- sentry error monitoring end -->
+
+    <link rel="stylesheet" href="styles/style.css">
+
+    <style>
+        h2::after {
+            border-top: none;
+        }
+
+        #about-vkweb-container,
+        #course-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #vkweb-profile-image {
+            display: block;
+            width: 80px;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="components/nav-bar.js"></script>
+
+    <main style="padding-top: 20px;">
+        <div class="binary-banner">
+            <div class="banner-item">0 0</div>
+            <div class="banner-item">1 0</div>
+            <div class="banner-item">1 1</div>
+            <div class="banner-item">0 0</div>
+            <div class="banner-item">0</div>
+            <div class="banner-item">1</div>
+            <div class="banner-item">0 0</div>
+        </div>
+
+        <div id="hero-content">
+
+            <h1 style="font-size: 3rem; text-align: center;">
+                Cryptography for Developers!
+            </h1>
+
+            <img style="display: block; border: none; margin-left: auto; margin-right: auto;" src="our-stick-hero.svg"
+                alt="Curious Cryptography's stick character">
+
+
+            <img style="display: block; border: none; margin-left: auto; margin-right: auto; margin-top: 4rem;"
+                src="cassidy-and-kent-feedback.png" alt="cassidy william's and kent c. dodds feedback">
+
+            <div style="margin-top: 4rem;">
+                <h2 style="font-size: 2.2rem; text-align: center;">
+                    Learn developer oriented cryptography concepts.
+                </h2>
+                <h2 style="text-align: center;">
+                    Become a reliable web developer!
+                </h2>
+            </div>
+
+
+            <img style="display:block; border: none; margin-left: auto; margin-right: auto;" width="80%"
+                src="takeaways.png" alt="course takeaways">
+
+
+            <div style="margin-top: 4rem;">
+                <p style="font-size: larger;">
+                    Almost all <strong>programming courses ignore cryptography
+                        concepts</strong>.</p>
+
+                <p style="font-size: larger;">This lead to <strong>developers not able to make right security
+                        decisions</strong> or right
+                    trade-offs.</p>
+
+                <p style="font-size: larger;">
+                    Learn those hand-picked cryptography concepts that a <strong>developer must know to
+                        make informed security decisions</strong> for their web apps!
+                </p>
+
+                <p style="font-size: larger;">You will get to learn about:</p>
+
+                <ul style="font-size: larger;">
+                    <li><code>Symmetric key encryption</code></li>
+                    <li><code>Rainbow tables, salt</code></li>
+                    <li><code>Password based key derivation function (PBKDF-2)</code></li>
+                    <li><code>Cryptographic hash functions</code></li>
+                    <li><code>Password hashing</code></li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <p style="font-size: medium; color: grey;">Made by the past volunteer of: </p>
+                <img style="border: none;" src="past-contribs.svg">
+            </div>
+
+            <a href="/0-before-we-start" style="text-align: center; font-size: 1.4rem; margin-top: 4rem;"
+                class="btn btn-primary btn-center" id="get-started-btn">
+                Let's get started.
+                <br>
+                <span style="font-size: 0.8em; font-weight: normal;">100% free. Forever!</span>
+            </a>
+
+            <hr>
+
+            <div style="margin-top: 4rem;">
+                <h2 style="font-size: 2rem; text-align: center;">Course author</h2>
+
+                <div id="about-vkweb-container" style="font-size: small; max-width: 27rem;">
+                    <img src="vk-nice.png" alt="Profile Picture" id="vkweb-profile-image">
+
+                    <p>Hi, I am Vivek, known as <a href="https://github.com/vkweb" target="_blank">@vkweb</a> around
+                        open-source.
+                    </p>
+
+                    <p>Around 5 years back, <a href="https://github.com/freeCodeCamp/CurriculumExpansion/pull/184"
+                            target="_blank">I helped
+                            freeCodeCamp in creating their public-key cryptography curriculum</a>.
+                        That was the time I dived deeply into public-key cryptography.
+                    </p>
+
+                    <p>
+                        Over time I've realized that lots of developers don't understand necessary cryptography concepts
+                        due
+                        to
+                        a lack of
+                        developer-focused resource on this topic.
+                    </p>
+
+                    <p>
+                        And when developers don't understand these concepts, they can't participate in web security
+                        discussions of web apps. Ultimately, they can't build secure web apps.
+                    </p>
+
+                    <p>
+                        So, I decided to create this course from the ground-up. Completely focused on cryptography
+                        concepts that a
+                        developer needs to be able to understand the reasoning behind why certain techniques are used.
+                        This will enable them to stick to right practices for the security of their web apps and
+                        servers.
+                    </p>
+
+                    <p>
+                        I hope you get <strong>real value</strong> out from this course.
+                    </p>
+
+                    <p>PS: I'm always all ears for brutal & critical feedback: <a
+                            href="mailto:vivekmittalagrawal@gmail.com">vivekmittalagrawal@gmail.com</a>.</p>
+
+                </div>
+            </div>
+
+
+            <div id="course-content" style="margin-top: 4rem; margin-bottom: 8rem;">
+                <h2 style="font-size: 2rem; text-align: center;">Table of contents</h2>
+
+                <ol start="0" class="lesson-map-ol" style="font-size: small; max-width: 27rem;">
+                    <h4>Part 1 of 2: </h4>
+
+                    <li><a href="0-before-we-start">Before we start (Do not skip this)</a></li>
+                    <li><a href="1-symmetric-key-encryption">Symmetric key encryption</a></li>
+                    <li><a href="2-caesar-challenge">Code challenge: Caesar's cipher</a></li>
+                    <li><a href="3-the-hash">Cryptographic hash functions</a></li>
+                    <li><a href="4-revealed-passwords">Password hashing</a></li>
+                    <li><a href="5-rainbows-and-salts">Rainbow table and the salt</a></li>
+                    <li><a href="6-slow-them-down">PBKDF-2: slowing down</a></li>
+
+                    <div class="lesson-map-separator"></div>
+
+                    <h4>Part 2 of 2: </h4>
+
+                    <p class="info-alert">
+                        I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a>
+                        when
+                        the second part of the course gets released.
+                        <br><br>
+                        It all will remain free, forever :)
+                    </p>
+
+                    <li><a href="7-diffie-merkle-hellman">The Diffie-Merkle-Hellman key exchange</a></li>
+                    <div class="lesson-map-upcoming-lessons">
+                        <li>RSA public-key encryption</li>
+                        <li>Challenge: End to end encryption</li>
+                        <li>The TLS story</li>
+                        <li>Certificate authorities rule!</li>
+                        <li>Project: Finale. 💛</li>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </main>
+
+    <script src="components/lesson-map.js"></script>
+</body>
+
+</html>

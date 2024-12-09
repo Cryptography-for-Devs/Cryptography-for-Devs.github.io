@@ -3,213 +3,362 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptography for Developers</title>
 
-    <title>Curious Cryptography for Developers</title>
-
-    <!-- PostHog Integration Start -->
-    <script>
-        !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
-        posthog.init('phc_yHP5sNNdtvQqVh1IjhFKe30UMexVa7d5j3QzaHvRUqi', { api_host: 'https://us.i.posthog.com' })
-    </script>
-    <!-- PostHog Integration End -->
-
-    <!-- sentry error monitoring start -->
-    <script src="https://js.sentry-cdn.com/3a27f38f284bb38b1a83d2f74fdbe425.min.js" crossorigin="anonymous"></script>
-    <!-- sentry error monitoring end -->
+    <!-- START: our font: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <!-- END: our font: Nunito -->
 
     <link rel="stylesheet" href="styles/style.css">
-
-    <style>
-        h2::after {
-            border-top: none;
-        }
-
-        #about-vkweb-container,
-        #course-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #vkweb-profile-image {
-            display: block;
-            width: 80px;
-            height: auto;
-            margin: 0 auto;
-            border-radius: 8px;
-        }
-    </style>
 </head>
 
 <body>
-    <script src="components/nav-bar.js"></script>
 
-    <main style="padding-top: 20px;">
-        <div class="binary-banner">
-            <div class="banner-item">0 0</div>
-            <div class="banner-item">1 0</div>
-            <div class="banner-item">1 1</div>
-            <div class="banner-item">0 0</div>
-            <div class="banner-item">0</div>
-            <div class="banner-item">1</div>
-            <div class="banner-item">0 0</div>
+    <nav id="navbar" class="center-container">
+        <div id="nav-links">
+            <a style="padding: 1rem;" target="_blank"
+                href="https://github.com/Cryptography-for-Devs/Cryptography-for-Devs.github.io">
+                <img style="vertical-align: middle;" src="landing-assets/github-svgrepo-com.svg" width="35px"
+                    height="35px" alt="gitHub logo">
+
+                <span style="margin-left: 0.4rem;">we are on GitHub!</span>
+            </a>
         </div>
+    </nav>
 
-        <div id="hero-content">
-
-            <h1 style="font-size: 3rem; text-align: center;">
-                Cryptography for Developers!
+    <div id="landing-hero" class="center-container">
+        <div class="heading-and-para" style="margin-top: 0; margin-bottom: 0;">
+            <h1>
+                Cryptography
+                for
+                Web Developers (currently in alpha)
             </h1>
 
-            <img style="display: block; border: none; margin-left: auto; margin-right: auto;" src="our-stick-hero.svg"
-                alt="Curious Cryptography's stick character">
+            <p>Learn the cryptography concepts needed to build a secure web application</p>
+        </div>
 
+        <div class="img-div" style="text-align: center;">
+            <img src="8-rsa/public-private.png" alt="our hero image">
+        </div>
 
-            <img style="display: block; border: none; margin-left: auto; margin-right: auto; margin-top: 4rem;"
-                src="cassidy-and-kent-feedback.png" alt="cassidy william's and kent c. dodds feedback">
+        <button>
+            <div>
+                <img src="landing-assets/cursor-arrow-rays.svg" alt="Mouse Cursor">
+            </div>
+            <span>
+                Get started
+            </span>
+        </button>
+    </div>
 
-            <div style="margin-top: 4rem;">
-                <h2 style="font-size: 2.2rem; text-align: center;">
-                    Learn developer oriented cryptography concepts.
-                </h2>
-                <h2 style="text-align: center;">
-                    Become a reliable web developer!
-                </h2>
+    <div id="past-contributions-container">
+        <div id="past-contributions" class="center-container" style="text-align: center;">
+            <p>
+                Made by the <a class="light-bg" href="https://github.com/vkweb" target="_blank">past volunteer</a> of:
+            </p>
+
+            <div id="logos">
+                <a target="_blank" href="https://developer.mozilla.org">
+                    <img src="landing-assets/mdn-logo.svg" alt="MDN Web Docs logo">
+                </a>
+
+                <a target="_blank" href="https://www.freecodecamp.org">
+                    <img style="max-width: 200px;" src="landing-assets/fcc-logo.svg" alt="freeCodeCamp.org logo">
+                </a>
+
+                <a target="_blank" href="https://learningequality.org">
+                    <img src="landing-assets/le-logo.svg" alt="LearningEquality.org logo">
+                </a>
+
             </div>
 
+        </div>
+    </div>
 
-            <img style="display:block; border: none; margin-left: auto; margin-right: auto;" width="80%"
-                src="takeaways.png" alt="course takeaways">
+    <div id="reviews-section-container">
 
+        <div style="margin-top: 0;" class="heading-and-para center-container">
+            <h2>
+                Love <img style="vertical-align: middle;" width="30px" height="30px" src="landing-assets/love-heart.svg"
+                    alt="a heart in gamified form"> received from the
+                Community.
+            </h2>
+            <p>We have received some praises from the greatest of people out there 🥳!</p>
+        </div>
 
-            <div style="margin-top: 4rem;">
-                <p style="font-size: larger;">
-                    Almost all <strong>programming courses ignore cryptography
-                        concepts</strong>.</p>
+        <div id="reviews-section" class="center-container">
+            <div class="review">
+                <div class="person">
+                    <img src="landing-assets/cassidy.jpg" alt="cassidy williams picture">
 
-                <p style="font-size: larger;">This lead to <strong>developers not able to make right security
-                        decisions</strong> or right
-                    trade-offs.</p>
+                    <div class="name-and-designation">
+                        <p>
+                            <a href="https://x.com/cassidoo" target="_blank">
+                                <span>Cassidy Williams</span>
+                            </a>
+                        </p>
+                        <p style="margin-top: 0.7rem;">Senior Director of Dev Advocacy</p>
+                        <p>GitHub</p>
+                    </div>
+                </div>
 
-                <p style="font-size: larger;">
-                    Learn those hand-picked cryptography concepts that a <strong>developer must know to
-                        make informed security decisions</strong> for their web apps!
-                </p>
+                <div class="their-words">
+                    <img src="landing-assets/double-quotes-cassidy.svg" width="40px" height="40px"
+                        alt="double quotes for feedback">
 
-                <p style="font-size: larger;">You will get to learn about:</p>
-
-                <ul style="font-size: larger;">
-                    <li><code>Symmetric key encryption</code></li>
-                    <li><code>Rainbow tables, salt</code></li>
-                    <li><code>Password based key derivation function (PBKDF-2)</code></li>
-                    <li><code>Cryptographic hash functions</code></li>
-                    <li><code>Password hashing</code></li>
-                </ul>
-            </div>
-
-            <div style="text-align: center; margin-top: 4rem;">
-                <p style="font-size: medium; color: grey;">Made by the past volunteer of: </p>
-                <img style="border: none;" src="past-contribs.svg">
-            </div>
-
-            <a href="/0-before-we-start" style="text-align: center; font-size: 1.4rem; margin-top: 4rem;"
-                class="btn btn-primary btn-center" id="get-started-btn">
-                Let's get started.
-                <br>
-                <span style="font-size: 0.8em; font-weight: normal;">100% free. Forever!</span>
-            </a>
-
-            <hr>
-
-            <div style="margin-top: 4rem;">
-                <h2 style="font-size: 2rem; text-align: center;">Course author</h2>
-
-                <div id="about-vkweb-container" style="font-size: small; max-width: 27rem;">
-                    <img src="vk-nice.png" alt="Profile Picture" id="vkweb-profile-image">
-
-                    <p>Hi, I am Vivek, known as <a href="https://github.com/vkweb" target="_blank">@vkweb</a> around
-                        open-source.
-                    </p>
-
-                    <p>Around 5 years back, <a href="https://github.com/freeCodeCamp/CurriculumExpansion/pull/184"
-                            target="_blank">I helped
-                            freeCodeCamp in creating their public-key cryptography curriculum</a>.
-                        That was the time I dived deeply into public-key cryptography.
-                    </p>
-
-                    <p>
-                        Over time I've realized that lots of developers don't understand necessary cryptography concepts
-                        due
-                        to
-                        a lack of
-                        developer-focused resource on this topic.
-                    </p>
-
-                    <p>
-                        And when developers don't understand these concepts, they can't participate in web security
-                        discussions of web apps. Ultimately, they can't build secure web apps.
-                    </p>
-
-                    <p>
-                        So, I decided to create this course from the ground-up. Completely focused on cryptography
-                        concepts that a
-                        developer needs to be able to understand the reasoning behind why certain techniques are used.
-                        This will enable them to stick to right practices for the security of their web apps and
-                        servers.
-                    </p>
-
-                    <p>
-                        I hope you get <strong>real value</strong> out from this course.
-                    </p>
-
-                    <p>PS: I'm always all ears for brutal & critical feedback: <a
-                            href="mailto:vivekmittalagrawal@gmail.com">vivekmittalagrawal@gmail.com</a>.</p>
-
+                    <p>This is <span class="highlight-text">very cool!</span> Retweeted!</p>
                 </div>
             </div>
 
+            <div class="review">
+                <div class="person">
+                    <img src="landing-assets/kent.jpg" alt="Kent C. Dodds picture">
 
-            <div id="course-content" style="margin-top: 4rem; margin-bottom: 8rem;">
-                <h2 style="font-size: 2rem; text-align: center;">Table of contents</h2>
-
-                <ol start="0" class="lesson-map-ol" style="font-size: small; max-width: 27rem;">
-                    <h4>Part 1 of 2: </h4>
-
-                    <li><a href="0-before-we-start">Before we start (Do not skip this)</a></li>
-                    <li><a href="1-symmetric-key-encryption">Symmetric key encryption</a></li>
-                    <li><a href="2-caesar-challenge">Code challenge: Caesar's cipher</a></li>
-                    <li><a href="3-the-hash">Cryptographic hash functions</a></li>
-                    <li><a href="4-revealed-passwords">Password hashing</a></li>
-                    <li><a href="5-rainbows-and-salts">Rainbow table and the salt</a></li>
-                    <li><a href="6-slow-them-down">PBKDF-2: slowing down</a></li>
-
-                    <div class="lesson-map-separator"></div>
-
-                    <h4>Part 2 of 2: </h4>
-
-                    <p class="info-alert">
-                        I will post updates on <a href="https://twitter.com/vkwebdev" target="_blank">my Twitter</a>
-                        when
-                        the second part of the course gets released.
-                        <br><br>
-                        It all will remain free, forever :)
-                    </p>
-
-                    <li><a href="7-diffie-merkle-hellman">The Diffie-Merkle-Hellman key exchange</a></li>
-                    <div class="lesson-map-upcoming-lessons">
-                        <li>RSA public-key encryption</li>
-                        <li>Challenge: End to end encryption</li>
-                        <li>The TLS story</li>
-                        <li>Certificate authorities rule!</li>
-                        <li>Project: Finale. 💛</li>
+                    <div class="name-and-designation">
+                        <p><a href="https://x.com/kentcdodds" target="_blank"><span>Kent C. Dodds</span></a></p>
+                        <p style="margin-top: 0.7rem;">Creator of EpicWeb.Dev</p>
+                        <p>ex-PayPal</p>
                     </div>
-                </ol>
+                </div>
+
+                <div class="their-words">
+                    <img src="landing-assets/double-quotes-kent.svg" width="40px" height="40px"
+                        alt="double quotes for feedback">
+
+                    <p>I looked at it and I'm impressed. <br>
+                        <br>
+                        Looks like a <span class="highlight-text">great resource on a niche topic that more
+                            developers
+                            should understand better.</span>
+                    </p>
+                </div>
             </div>
         </div>
-    </main>
 
-    <script src="components/lesson-map.js"></script>
+        <div class="center-container">
+            <p style="text-align: center; margin-top: 4rem;">-- and --</p>
+
+            <p style="text-align: center; margin-top: 3rem;">
+                "<span class="span-highlight">Amazing course</span>, only the code editor/content split is hard to read
+                on mobile. [...] <span class="span-highlight">Great work tho,
+                    loved it!</span>"
+                <br>
+                <span style="display:inline-block;margin-top: 0.6rem; font-size: 0.9rem;">— feedback from one of the
+                    users.</span>
+            </p>
+
+            <p style="text-align: center; margin-top: 3rem;">-- and --</p>
+
+            <p style="text-align: center; margin-top: 3rem;">
+                <span class="span-highlight">Served 1,000+ visitors!</span>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="heading-and-para center-container">
+        <h2>
+            Hand-picked concepts for
+            <img src="landing-assets/web-svg.svg" width="35px" height="35px" style="vertical-align: middle;"
+                alt="a web svg">
+            web developers.
+        </h2>
+    </div>
+
+    <div id="major-learnings" class="center-container">
+
+        <div>
+            <img src="landing-assets/https-svg.svg" alt="a lock illustration" width="30px" height="30px">
+            <p>How does <code>HTTPS (TLS)</code> actually works? we build intuitions for the Diffie-Hellman key exchange
+                algorithm and the RSA algorithm before we dive into TLS.</p>
+        </div>
+
+        <div>
+            <img src="landing-assets/key-for-homepage.svg" alt="a key representing public key" width="30px"
+                height="30px">
+            <p>The underlying principes of <code>public key cryptography</code>. Every web developer must learn this
+                because you will for sure generate a public-private key pair some time ;)</p>
+        </div>
+
+        <div>
+            <img src="landing-assets/github-icon-new.svg" alt="github logo" width="30px" height="30px">
+            <p>How SSH authentication works when you do <code>git push</code>...? We will see how our knowledge of RSA
+                helps us understand SSH authentication with GitHub.</p>
+        </div>
+
+        <div>
+            <img src="landing-assets/db-only.svg" alt="database illustration" width="30px" height="30px">
+            <p>In the first module we will cover the concepts that
+                will help you understand why using PBKDF-2 is necessary for password storage.</p>
+        </div>
+
+    </div>
+
+    <div id="why-container">
+        <div style="margin-top: 0;" class="heading-and-para center-container">
+            <h2>
+                OK -- but why to care learning these concepts?
+            </h2>
+        </div>
+
+        <div id="why" class="center-container">
+
+            <div id="paras">
+                <div style="text-align: center;">
+                    <img src="landing-assets/thinking.svg" width="50px" height="50px"
+                        alt="a cloud representing some thought">
+                </div>
+
+                <p>
+                    We web developers make applications on the web. Servers are the
+                    first-class citizen of our world and our users trust us with their data.
+                </p>
+
+                <p>When we don't understand the necessary cryptography concepts then these things happen:</p>
+
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <figure>
+                        <img style="max-width: 100%;" src="landing-assets/xkcd.webp"
+                            alt="XKCD comic illustrating a character thinking to reveal his computer's private key">
+                        <figcaption>NEVER EVER do the above!</figcaption>
+                    </figure>
+                </div>
+
+                <ul>
+                    <li>We can't keep our cloud servers safe.</li>
+                    <li>We can't participate in security oriented discussions with fellow developers of our team.</li>
+                    <li>We struggle to keep user data protected.</li>
+                    <li>We can't make right security decisions for our web apps.</li>
+                </ul>
+
+                <p>
+                    This course is designed specially for web developers. With this course
+                    you
+                    will <strong>learn all the building blocks necessary to build and deploy secure web
+                        applications.</strong>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="curriculum-top-container">
+        <div style="margin-top: 0;" class="heading-and-para center-container">
+            <h2>
+                Curriculum
+            </h2>
+        </div>
+
+
+        <div id="curriculum" class="center-container">
+            <div class="module">
+                <p>
+                    <strong>MODULE 1</strong>
+
+                    <br><br>
+
+                    The fundamental building blocks of modern security protocols.
+                </p>
+
+                <ul>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Symmetric key encryption
+                    </li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Challenge: Caesar's cipher</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Cryptographic hash function</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Password hashing</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Rainbow tables and the salt</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        PBKDF-2</li>
+                </ul>
+
+            </div>
+
+
+
+            <div class="module" style="margin-top: 4rem;">
+                <p>
+                    <strong>MODULE 2</strong>
+
+                    <br><br>
+
+                    The behind the scenes look at how our communication is encrypted on the web.
+                </p>
+
+                <ul>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        Diffie-Hellman-Merkle key exchange</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        RSA</li>
+                    <li>
+                        <img width="20px" height="20px" style="vertical-align: middle;" src="landing-assets/right-arrow-8bit.svg" alt="right arrow">
+                        TLS</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="heading-and-para center-container">
+        <h2>
+            Meet the course's maker!
+        </h2>
+        <p>Who made this course and why ... ?!</p>
+    </div>
+
+    <div id="who-and-why" class="center-container">
+        <div>
+            <img src="landing-assets/vk-nice.png" alt="Vivek Agrawal's photo">
+        </div>
+        <p>Hi, I am Vivek, known as @vkweb around open-source.
+
+            Around 5 years back, I helped freeCodeCamp in creating their public-key cryptography curriculum. That
+            was
+            the time I dived deeply into public-key cryptography.
+
+            Over time I've realized that lots of developers don't understand necessary cryptography concepts due to
+            a
+            lack of developer-focused resource on this topic.
+
+            And when developers don't understand these concepts, they can't participate in web security discussions
+            of
+            web apps. Ultimately, they can't build secure web apps.
+
+            So, I decided to create this course from the ground-up. Completely focused on cryptography concepts that
+            a
+            developer needs to be able to understand the reasoning behind why certain techniques are used. This will
+            enable them to stick to right practices for the security of their web apps and servers.
+
+            I hope you get real value out from this course.
+
+            PS: I'm always all ears for brutal & critical feedback: vivekmittalagrawal@gmail.com.</p>
+    </div>
+
+    <button class="center-container">
+        <div>
+            <img src="landing-assets/cursor-arrow-rays.svg" alt="Mouse Cursor">
+        </div>
+        <span>
+            Get started
+        </span>
+    </button>
+
 </body>
 
 </html>
