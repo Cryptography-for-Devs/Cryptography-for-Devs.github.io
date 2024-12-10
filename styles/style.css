@@ -44,6 +44,16 @@ html {
   margin-right: auto;
 }
 
+section {
+  margin-top: 8rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+main {
+    margin-top: 4rem;
+}
+
 /* Navigation section START */
 #navbar {
   padding: 10px 20px;
@@ -113,6 +123,10 @@ a.light-bg:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.heading-and-para {
+  margin-bottom: 4rem;
 }
 
 .heading-and-para h1,
@@ -193,8 +207,6 @@ a.light-bg:hover {
 #past-contributions {
   margin-left: auto;
   margin-right: auto;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 #past-contributions > p {
