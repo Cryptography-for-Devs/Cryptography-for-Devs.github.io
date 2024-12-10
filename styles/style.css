@@ -413,7 +413,7 @@ a.light-bg:hover {
 
 #who-is-behind #intro {
   display: flex;
-  gap: 1rem;
+  gap: 8px;
   align-items: center;
   font-size: 1.6rem;
 }
