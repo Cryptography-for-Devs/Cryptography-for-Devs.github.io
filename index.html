@@ -20,7 +20,7 @@
 
     <nav id="navbar" class="center-container">
         <div id="nav-links">
-            <a style="padding: 1rem;" class="underline-style" target="_blank"
+            <a style="padding: 0.5rem;" class="underline-style" target="_blank"
                 href="https://github.com/Cryptography-for-Devs/Cryptography-for-Devs.github.io">
                 <img style="vertical-align: middle;" src="landing-assets/github-svgrepo-com.svg" width="35px"
                     height="35px" alt="gitHub logo">
@@ -30,8 +30,8 @@
         </div>
     </nav>
 
-    <div id="landing-hero" class="center-container">
-        <div class="heading-and-para" style="margin-top: 0; margin-bottom: 0;">
+    <main id="landing-hero" class="center-container">
+        <div class="heading-and-para">
             <h1>
                 Cryptography
                 for
@@ -58,12 +58,13 @@
 
             <span class="btn--sub-text">No signups required.</span>
         </a>
-    </div>
+    </main>
 
-    <div id="past-contributions-container">
+    <section id="past-contributions-container">
         <div id="past-contributions" class="center-container" style="text-align: center;">
             <p>
-                Made by the <a class="light-bg" href="https://github.com/vkweb" target="_blank">past volunteer</a> of:
+                Made by the <a class="light-bg" href="https://github.com/vkweb" target="_blank">past volunteer</a>
+                of:
             </p>
 
             <div id="logos">
@@ -82,11 +83,10 @@
             </div>
 
         </div>
-    </div>
+    </section>
 
-    <div id="reviews-section-container">
-
-        <div style="margin-top: 0;" class="heading-and-para center-container">
+    <section id="reviews-section-container">
+        <div class="heading-and-para center-container">
             <h2>
                 Love <img style="vertical-align: middle;" width="30px" height="30px" src="landing-assets/love-heart.svg"
                     alt="a heart in gamified form"> received from the
@@ -124,7 +124,8 @@
                     <img src="landing-assets/kent.jpg" alt="Kent C. Dodds picture">
 
                     <div class="name-and-designation">
-                        <p><a href="https://x.com/kentcdodds" class="underline-style" target="_blank"><span>Kent C. Dodds</span></a></p>
+                        <p><a href="https://x.com/kentcdodds" class="underline-style" target="_blank"><span>Kent C.
+                                    Dodds</span></a></p>
                         <p style="margin-top: 0.7rem;">Creator of EpicWeb.Dev</p>
                         <p>ex-PayPal</p>
                     </div>
@@ -163,48 +164,52 @@
             </p>
 
         </div>
-    </div>
+    </section>
 
-    <div class="heading-and-para center-container">
-        <h2>
-            Hand-picked concepts for
-            <img src="landing-assets/web-svg.svg" width="35px" height="35px" style="vertical-align: middle;"
-                alt="a web svg">
-            web developers.
-        </h2>
-    </div>
-
-    <div id="major-learnings" class="center-container">
-
-        <div>
-            <img src="landing-assets/https-svg.svg" alt="a lock illustration" width="30px" height="30px">
-            <p>How does <code>HTTPS (TLS)</code> actually works? we build intuitions for the Diffie-Hellman key exchange
-                algorithm and the RSA algorithm before we dive into TLS.</p>
+    <section class="center-container">
+        <div class="heading-and-para">
+            <h2>
+                Hand-picked concepts for
+                <img src="landing-assets/web-svg.svg" width="35px" height="35px" style="vertical-align: middle;"
+                    alt="a web svg">
+                web developers.
+            </h2>
         </div>
 
-        <div>
-            <img src="landing-assets/key-for-homepage.svg" alt="a key representing public key" width="30px"
-                height="30px">
-            <p>The underlying principes of <code>public key cryptography</code>. Every web developer must learn this
-                because you will for sure generate a public-private key pair some time ;)</p>
+        <div id="major-learnings">
+
+            <div>
+                <img src="landing-assets/https-svg.svg" alt="a lock illustration" width="30px" height="30px">
+                <p>How does <code>HTTPS (TLS)</code> actually works? we build intuitions for the Diffie-Hellman key
+                    exchange
+                    algorithm and the RSA algorithm before we dive into TLS.</p>
+            </div>
+
+            <div>
+                <img src="landing-assets/key-for-homepage.svg" alt="a key representing public key" width="30px"
+                    height="30px">
+                <p>The underlying principes of <code>public key cryptography</code>. Every web developer must learn this
+                    because you will for sure generate a public-private key pair some time ;)</p>
+            </div>
+
+            <div>
+                <img src="landing-assets/github-icon-new.svg" alt="github logo" width="30px" height="30px">
+                <p>How SSH authentication works when you do <code>git push</code>...? We will see how our knowledge of
+                    RSA
+                    helps us understand SSH authentication with GitHub.</p>
+            </div>
+
+            <div>
+                <img src="landing-assets/db-only.svg" alt="database illustration" width="30px" height="30px">
+                <p>In the first module we will cover the concepts that
+                    will help you understand why using PBKDF-2 is necessary for password storage.</p>
+            </div>
+
         </div>
+    </section>
 
-        <div>
-            <img src="landing-assets/github-icon-new.svg" alt="github logo" width="30px" height="30px">
-            <p>How SSH authentication works when you do <code>git push</code>...? We will see how our knowledge of RSA
-                helps us understand SSH authentication with GitHub.</p>
-        </div>
-
-        <div>
-            <img src="landing-assets/db-only.svg" alt="database illustration" width="30px" height="30px">
-            <p>In the first module we will cover the concepts that
-                will help you understand why using PBKDF-2 is necessary for password storage.</p>
-        </div>
-
-    </div>
-
-    <div id="why-container">
-        <div style="margin-top: 0;" class="heading-and-para center-container">
+    <section id="why-container">
+        <div class="heading-and-para center-container">
             <h2>
                 OK -- but why to care learning these concepts?
             </h2>
@@ -249,10 +254,10 @@
             </div>
 
         </div>
-    </div>
+    </section>
 
-    <div id="curriculum-top-container">
-        <div style="margin-top: 0;" class="heading-and-para center-container">
+    <section id="curriculum-top-container">
+        <div class="heading-and-para center-container">
             <h2>
                 Curriculum
             </h2>
@@ -335,71 +340,77 @@
             </div>
 
         </div>
-    </div>
+    </section>
 
-    <div id="heading-of-course-maker" class="heading-and-para center-container">
-        <h2>
-            <img id="handcraft-svg" width="40px" height="40px" src="landing-assets/undraw_rocket.svg"
-                alt="a hand drawn rocket illustration">
-            Meet the course's maker!
-        </h2>
-    </div>
+    <section>
+        <div id="heading-of-course-maker" class="heading-and-para center-container">
+            <h2>
+                <img id="handcraft-svg" width="40px" height="40px" src="landing-assets/undraw_rocket.svg"
+                    alt="a hand drawn rocket illustration">
+                Meet the course's maker!
+            </h2>
+        </div>
 
-    <div id="who-is-behind" class="center-container">
-        <div id="intro">
-            <p>Hi, I am Vivek Agrawal, known as <a class="underline-style" href="https://github.com/vkweb"
-                    target="_blank"><span>@vkweb</span></a> around
-                open-source.</p>
-            <div>
-                <img src="landing-assets/vk-nice.png" alt="Vivek Agrawal's photo">
+        <div id="who-is-behind" class="center-container">
+            <div id="intro">
+                <p>Hi, I am Vivek Agrawal, known as <a class="underline-style" href="https://github.com/vkweb"
+                        target="_blank"><span>@vkweb</span></a> around
+                    open-source.</p>
+                <div>
+                    <img src="landing-assets/vk-nice.png" alt="Vivek Agrawal's photo">
+                </div>
+            </div>
+
+            <hr style="margin-top: 2rem; margin-bottom: 2rem;">
+
+            <div id="story">
+                <p>
+                    Around 5 years back, I helped freeCodeCamp.org in creating a short course on RSA public key
+                    cryptography. That course never went live on their platform.
+                </p>
+
+                <p>Recently, I got some free time. As I was thinking what to work on, I found out -- there are not any
+                    great
+                    resource for developers on cryptography.</p>
+
+                <p>
+                    So, I decided to create this free course that I would have loved to take back then!
+                </p>
+
+                <p>
+                    I hope you come out with a proper understanding of the necessary cryptography concepts. And build
+                    secure
+                    web experiences.
+                </p>
+
+                <p>Thank you for visiting this place :)</p>
+
+                <p>PS: I post useful content on my Twitter along with my projects. You might enjoy my company there,
+                    follow
+                    me: <a class="underline-style" href="https://twitter.com/vkwebdev"
+                        target="_blank"><span>twitter.com/vkwebdev</span></a>.
+                </p>
             </div>
         </div>
+    </section>
 
-        <hr style="margin-top: 2rem; margin-bottom: 2rem;">
-
-        <div id="story">
-            <p>
-                Around 5 years back, I helped freeCodeCamp.org in creating a short course on RSA public key
-                cryptography. That course never went live on their platform.
-            </p>
-
-            <p>Recently, I got some free time. As I was thinking what to work on, I found out -- there are not any great
-                resource for developers on cryptography.</p>
-
-            <p>
-                So, I decided to create this free course that I would have loved to take back then!
-            </p>
-
-            <p>
-                I hope you come out with a proper understanding of the necessary cryptography concepts. And build secure
-                web experiences.
-            </p>
-
-            <p>Thank you for visiting this place :)</p>
-
-            <p>PS: I post useful content on my Twitter along with my projects. You might enjoy my company there, follow
-                me: <a class="underline-style" href="https://twitter.com/vkwebdev" target="_blank"><span>twitter.com/vkwebdev</span></a>.
-            </p>
-        </div>
-    </div>
-
-    <div style="text-align: center;" class="center-container">
-
-
-        <a style="margin-top: 4rem; margin-bottom: 10rem;" href="/" class="primary-btn">
-            <span>
-                <img style="vertical-align: bottom;" width="35px" height="35px"
-                    src="landing-assets/cursor-arrow-rays.svg" alt="Mouse cursor svg illustration">
-                <span class="btn--main-text">
-                    Get started, it's free forever.
+    <section class="center-container">
+        <div style="text-align: center;">
+            <a href="/" class="primary-btn">
+                <span>
+                    <img style="vertical-align: bottom;" width="35px" height="35px"
+                        src="landing-assets/cursor-arrow-rays.svg" alt="Mouse cursor svg illustration">
+                    <span class="btn--main-text">
+                        Get started, it's free forever.
+                    </span>
                 </span>
-            </span>
 
-            <br>
+                <br>
 
-            <span class="btn--sub-text">No signups required.</span>
-        </a>
-    </div>
+                <span class="btn--sub-text">No signups required.</span>
+            </a>
+        </div>
+    </section>
 </body>
 
 </html>

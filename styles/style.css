@@ -1,15 +1,17 @@
 :root {
-  --main-bg-color: #0d0f12;
-  --text-color: #e3e6e8;
+  --dark-black-color: #0d0f12;
+  --light-black-color: #1b1b1b;
 
-  --primary-btn-bg-color: #f8cb1e;
+  --white-color: #e3e6e8;
+  --grey-color: #a9a9a9;
+
+  --yellow-color: #f8cb1e;
 
   --font-family: "Nunito", system-ui;
-
   --border-radius: 16px;
 }
 
-/* Josh CSS Reset */
+/* Josh CSS Reset Start */
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
@@ -20,12 +22,12 @@
 * {
   margin: 0;
 }
-/* Josh CSS Reset End*/
+/* Josh CSS Reset End */
 
 html {
   font-size: 18px;
-  background-color: var(--main-bg-color);
-  color: var(--text-color);
+  background-color: var(--dark-black-color);
+  color: var(--white-color);
   font-family: var(--font-family);
 }
 
@@ -45,10 +47,9 @@ html {
 /* Navigation section START */
 #navbar {
   padding: 10px 20px;
-  margin-bottom: 4rem;
-  border-bottom: 1px solid var(--text-color);
-  border-left: 1px solid var(--text-color);
-  border-right: 1px solid var(--text-color);
+  border-bottom: 1px solid var(--white-color);
+  border-left: 1px solid var(--white-color);
+  border-right: 1px solid var(--white-color);
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
@@ -62,26 +63,26 @@ html {
 a.underline-style {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
-  color: var(--text-color);
+  color: var(--white-color);
   text-decoration: none;
-  transition: 0.1s;
+  transition: 0.05s;
 }
 
 a.underline-style > span {
   text-decoration: underline;
-  text-decoration-color: var(--text-color);
+  text-decoration-color: var(--white-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
 a.underline-style:hover {
-  background-color: var(--text-color);
-  color: var(--main-bg-color);
+  background-color: var(--white-color);
+  color: var(--dark-black-color);
 }
 
 a.underline-style:hover > span {
   text-decoration: underline;
-  text-decoration-color: var(--main-bg-color);
+  text-decoration-color: var(--dark-black-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
@@ -89,18 +90,18 @@ a.underline-style:hover > span {
 a.light-bg {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
-  color: var(--main-bg-color);
+  color: var(--dark-black-color);
   text-decoration: underline;
-  text-decoration-color: var(--main-bg-color);
+  text-decoration-color: var(--dark-black-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
 a.light-bg:hover {
-  background-color: var(--main-bg-color);
-  color: var(--text-color);
+  background-color: var(--dark-black-color);
+  color: var(--white-color);
   text-decoration: underline;
-  text-decoration-color: var(--text-color);
+  text-decoration-color: var(--white-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
@@ -112,12 +113,6 @@ a.light-bg:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5rem;
-}
-
-.heading-and-para {
-  margin-top: 7rem;
-  margin-bottom: 3rem;
 }
 
 .heading-and-para h1,
@@ -137,8 +132,8 @@ a.light-bg:hover {
 
 .heading-and-para p {
   font-size: 1.4rem;
-  color: #a9a9a9;
-  margin-top: 2rem;
+  color: var(--grey-color);
+  margin-top: 1rem;
 }
 
 #landing-hero .img-div > img {
@@ -149,9 +144,9 @@ a.light-bg:hover {
 .primary-btn {
   text-decoration: none;
   display: inline-block;
-  background-color: var(--primary-btn-bg-color);
-  color: var(--main-bg-color);
-  padding: 1.2rem 4rem;
+  background-color: var(--yellow-color);
+  color: var(--dark-black-color);
+  padding: 0.5rem 2rem;
   border: none;
   border-radius: 64px;
   cursor: pointer;
@@ -181,7 +176,7 @@ a.light-bg:hover {
   bottom: 0;
   width: 0;
   height: 3px;
-  background-color: var(--main-bg-color);
+  background-color: var(--dark-black-color);
   transition: width 0.3s ease;
 }
 
@@ -193,7 +188,6 @@ a.light-bg:hover {
   background-image: url(../landing-assets/stacked-waves-haikei.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  margin-top: 10rem;
 }
 
 #past-contributions {
@@ -205,7 +199,7 @@ a.light-bg:hover {
 
 #past-contributions > p {
   text-align: center;
-  color: var(--main-bg-color);
+  color: var(--dark-black-color);
 }
 
 #past-contributions #logos {
@@ -226,10 +220,7 @@ a.light-bg:hover {
 /* Reviews section START */
 
 #reviews-section-container {
-  margin-top: 7rem;
   background-color: #1b1b1b;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
 }
 
 #reviews-section {
@@ -241,9 +232,10 @@ a.light-bg:hover {
 
 .review {
   max-width: 450px;
+  width: 80vw;
   height: fit-content;
   border-radius: var(--border-radius);
-  border: 1px dashed var(--text-color);
+  border: 1px dashed var(--white-color);
   padding: 1rem;
 }
 
@@ -261,7 +253,7 @@ a.light-bg:hover {
 .review > .person img {
   max-width: 80px;
   border-radius: 100%;
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--white-color);
 }
 
 .review .their-words {
@@ -280,13 +272,13 @@ a.light-bg:hover {
   border-radius: var(--border-radius);
   padding-left: 0.3rem;
   padding-right: 0.3rem;
-  color: var(--main-bg-color);
-  background-color: var(--primary-btn-bg-color);
+  color: var(--dark-black-color);
+  background-color: var(--yellow-color);
 }
 
 .span-highlight {
   text-decoration: underline;
-  text-decoration-color: var(--primary-btn-bg-color);
+  text-decoration-color: var(--yellow-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
@@ -301,7 +293,7 @@ a.light-bg:hover {
 }
 
 #major-learnings div {
-  flex-basis: 300px;
+  flex-basis: 350px;
 }
 
 #major-learnings div img {
@@ -316,17 +308,14 @@ a.light-bg:hover {
 
 /* Why START */
 #why-container {
-  background-color: var(--text-color);
-  color: var(--main-bg-color);
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  margin-top: 10rem;
+  background-color: var(--white-color);
+  color: var(--dark-black-color);
 }
 
 #why #paras {
   margin: 0 auto;
   width: 90vw;
-  max-width: 600px;
+  max-width: 700px;
 }
 
 #why #paras > p {
@@ -347,10 +336,6 @@ a.light-bg:hover {
 
 /* Curriculum START */
 #curriculum-top-container {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  margin-top: 10rem;
-
   background-color: #1b1b1b;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e3e6e8' fill-opacity='0.07'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
@@ -360,8 +345,8 @@ a.light-bg:hover {
   max-width: 500px;
   width: 80vw;
   margin: 0 auto;
-  background-color: var(--text-color);
-  color: var(--main-bg-color);
+  background-color: var(--white-color);
+  color: var(--dark-black-color);
   border-radius: var(--border-radius);
   padding: 2rem;
 }
