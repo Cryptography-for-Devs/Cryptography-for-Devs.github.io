@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+:root {
+  --dark-black-color: #0d0f12;
+  --light-black-color: #1b1b1b;
+
+  --white-color: #e3e6e8;
+  --grey-color: #a9a9a9;
+
+  --yellow-color: #f8cb1e;
+
+  --font-family: "Nunito", system-ui;
+  --border-radius: 16px;
+}
+
+html {
+  font-size: 18px;
+  background-color: var(--dark-black-color);
+  color: var(--white-color);
+  font-family: var(--font-family);
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  max-width: 850px;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.underline-style {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  color: var(--white-color);
+  text-decoration: none;
+  transition: 0.05s;
+}
+
+a.underline-style span {
+  text-decoration: underline;
+  text-decoration-color: var(--white-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a.underline-style:hover {
+  color: var(--grey-color);
+}
+
+a.underline-style:hover > span {
+  text-decoration: underline;
+  text-decoration-color: var(--grey-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+nav {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 1) 0,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#all-lessons-drawer {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Initially hidden */
+  width: 300px;
+  height: 100%;
+  background-color: var(--white-color);
+  color: var(--dark-black-color);
+  transition: left 0.15s ease;
+  overflow-y: auto;
+  padding: 2rem 1rem;
+
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px dashed var(--dark-black-color);
+  }
+
+  .module {
+    margin-top: 3rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.8rem;
+    }
+
+    ul li {
+      color: var(--dark-black-color);
+      padding: 0.1rem;
+      margin-bottom: 0.6em;
+    }
+
+    ul li a {
+      display: flex;
+      gap: 4px;
+    }
+
+    ul li a {
+      color: inherit;
+      text-decoration: none;
+      transition: 0.05s;
+    }
+
+    ul li a span {
+      text-decoration: underline;
+      text-decoration-color: var(--dark-black-color);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    ul li:has(a:hover) {
+      color: var(--white-color);
+      background-color: var(--dark-black-color);
+      border-radius: var(--border-radius);
+    }
+
+    ul li a:hover span {
+      text-decoration: underline;
+      text-decoration-color: var(--white-color);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    li.current-lesson {
+      background-color: var(--dark-black-color);
+      color: var(--white-color);
+      border-radius: var(--border-radius);
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  #drawer-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    padding: 0;
+    cursor: pointer;
+  }
+}
+
+#all-lessons-drawer.open {
+  left: 0; /* Slide into view */
+}
+
+main {
+  padding-top: 4rem;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--grey-color);
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    line-height: 1.4;
+  }
+
+  figure {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  figure img {
+    max-width: 80%;
+    border-radius: var(--border-radius);
+  }
+
+  figure figcaption {
+    color: var(--grey-color);
+  }
+
+  pre {
+    margin-bottom: 3rem;
+  }
+
+  code {
+    background-color: var(--white-color);
+    color: var(--dark-black-color);
+    font-size: 0.8em;
+    padding: 0.1em 0.4em;
+    border-radius: var(--border-radius);
+  }
+}
+
+.btn {
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.secondary-btn {
+  background-color: var(--white-color);
+  color: var(--dark-black-color);
+  padding: 0.3rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
