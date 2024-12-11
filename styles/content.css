@@ -43,11 +43,7 @@ a.underline-style {
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   color: var(--white-color);
-  text-decoration: none;
   transition: 0.05s;
-}
-
-a.underline-style span {
   text-decoration: underline;
   text-decoration-color: var(--white-color);
   text-decoration-thickness: 1px;
@@ -56,13 +52,32 @@ a.underline-style span {
 
 a.underline-style:hover {
   color: var(--grey-color);
-}
-
-a.underline-style:hover > span {
   text-decoration: underline;
   text-decoration-color: var(--grey-color);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+}
+
+a.underline-style.svg-there {
+  text-decoration: none;
+}
+
+a.underline-style.svg-there span {
+  text-decoration: underline;
+  text-decoration-color: var(--white-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a.underline-style.svg-there:hover span {
+  text-decoration: underline;
+  text-decoration-color: var(--grey-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a.underline-style.svg-there:hover {
+  color: var(--grey-color);
 }
 
 nav {
@@ -189,6 +204,10 @@ main {
     border-bottom: 1px dashed var(--grey-color);
   }
 
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
   p {
     font-size: 1.2rem;
     margin-bottom: 3rem;
@@ -237,6 +256,10 @@ main {
   color: var(--dark-black-color);
 }
 
+.secondary-btn:hover {
+  background-color: var(--grey-color);
+}
+
 .primary-btn {
   display: block;
   background-color: var(--yellow-color);
@@ -258,7 +281,7 @@ main {
     rgba(227, 230, 232, 0.75),
     rgba(227, 230, 232, 0)
   );
-  
+
   margin-top: 3rem;
   margin-bottom: 2rem;
 }

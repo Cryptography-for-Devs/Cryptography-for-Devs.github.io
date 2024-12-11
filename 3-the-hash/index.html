@@ -31,7 +31,7 @@
     <script src="https://unpkg.com/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
     <script src="../scripts/medium-zoom.js"></script>
 
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/content.css">
 
     <style>
         #editor-container {
@@ -53,6 +53,7 @@
         }
 
         #console-output {
+            color: black;
             height: auto;
             border: 1px solid #ccc;
             background-color: #f5f5f5;
@@ -60,22 +61,241 @@
             font-family: monospace;
         }
     </style>
+
+    <!-- START: our font: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <!-- END: our font: Nunito -->
 </head>
 
 <body>
-    <script src="../components/nav-bar.js"></script>
+    <nav>
+        <button id="all-lessons-btn" class="btn secondary-btn">
+            <svg height="1.2em" style="margin-right: 2px; vertical-align: bottom;" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path
+                    d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+            </svg>
+            Curriculum
+        </button>
+
+        <div id="all-lessons-drawer">
+            <h2>
+                Curriculum
+                <button id="drawer-close-btn">&times;</button>
+            </h2>
+
+            <div class="module">
+
+                <p>Module 1</p>
+
+                <ul>
+                    <li class="current-lesson">
+                        <a href="../1-symmetric-key-encryption">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Symmetric key encryption
+                            </span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="../2-caesar-challenge">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Challenge: Caesar's cipher
+                            </span>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a href="../3-the-hash">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Cryptographic hash function
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../4-revealed-passwords">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Password hashing
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../5-rainbows-and-salts">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Rainbow tables and the salt
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../6-slow-them-down">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                PBKDF-2
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="module">
+                <p>Module 2</p>
+
+                <ul>
+                    <li>
+                        <a href="../7-diffie-merkle-hellman">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                Diffie-Hellman-Merkle key exchange
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../8-rsa">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                RSA
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../9-tls">
+                            <svg height="20px" style="vertical-align: middle;" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M10 7L15 12L10 17" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                            <span>
+                                TLS
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script src="../scripts/lesson-drawer.js"></script>
+
+
+        <a class="underline-style svg-there" href="#">
+            <span>Next lesson</span>
+
+            <svg style="padding-left: 2px; vertical-align: middle;" height="1.2em" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path
+                    d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+            </svg>
+        </a>
+    </nav>
 
     <main>
-        <h1><span style="color: #ccc;">3. </span>#️⃣ Cryptographic hash functions
-            <br>
-            <span style="font-size: 0.4em; font-weight: normal; color: rgba(0, 0, 0, 0.5);">
-                Author:
-                <img src="../twitter-logo.svg" alt="twitter logo"
-                    style="border: none; width: 25px; vertical-align: middle;">
-                <a href="https://twitter.com/vkwebdev" target="_blank">
-                    @vkwebdev
-                </a>
-            </span>
+        <h1>
+            3. Cryptographic hash functions
         </h1>
 
         <h2>Hash functions</h2>
@@ -219,9 +439,10 @@
         </p>
         <p>
             For example, a popular
-            cryptographic hash function SHA-1 <a
+            cryptographic hash function SHA-1 <a class="underline-style"
                 href="https://blog.mozilla.org/security/2017/02/23/the-end-of-sha-1-on-the-public-web/"
-                target="_blank">suffered a hash collision on 2017</a>. <strong>It retired its use on web browsers and
+                target="_blank">suffered a hash collision on 2017</a>. <strong>It retired its use on web
+                browsers and
                 digital
                 signatures</strong>.
         </p>
@@ -290,9 +511,10 @@
             So, 64 total characters * 4 bits per character = 256 bits.
         </pre>
 
-        <p>We understand that it must be impractical to generate a hash collision. <strong>But what would happen if we were able
-            to
-            generate a hash collision in a practical way...?</strong> What bad would happen?
+        <p>We understand that it must be impractical to generate a hash collision. <strong>But what would happen if we
+                were able
+                to
+                generate a hash collision in a practical way...?</strong> What bad would happen?
         </p>
 
         <p>To
@@ -328,7 +550,8 @@
             to
             produce a hash
             collision.</p>
-        <p>Don't worry, Git has <a href="https://git-scm.com/docs/hash-function-transition" target="_blank">decided to
+        <p>Don't worry, Git has <a href="https://git-scm.com/docs/hash-function-transition" class="underline-style"
+                target="_blank">decided to
                 migrate to a more cryptographically secure hash function</a>.</p>
 
         <h3>Package's integrity</h3>
@@ -374,21 +597,19 @@
             are
             intolerable.</p>
 
-        <!-- Feedback form START -->
-        <p>🌟 Hash hash hash. Please, <a target="_blank"
-                href="https://forms.gle/4trcvCBh6VWrWwbCA">fill a
-                short
-                feedback
-                form</a> for the hashes around you.
-        </p>
-        <!-- Feedback form END -->
 
-        <a href="../4-revealed-passwords" class="btn btn-primary btn-center" style="font-size: 1.2rem;">
-            Go to the next lesson 👉
+        <a href="../2-caesar-challenge" class="btn primary-btn">
+            Go to next lesson: Caesar's cipher
         </a>
-    </main>
 
-    <script src="../components/lesson-map.js"></script>
+        <hr class="before-footer-hr">
+
+        <p class="footer">
+            I have worked hard to create this course. If you are getting some learnings from it, you should follow me on
+            Twitter: <a href="https://x.com/vkwebdev" class="underline-style"
+                target="_blank"><span>twitter.com/vkwebdev</span></a>. I try to be useful there :)
+        </p>
+    </main>
 
 </body>
 
