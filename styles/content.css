@@ -210,13 +210,19 @@ main {
 
   p {
     font-size: 1.2rem;
-    margin-bottom: 3rem;
     line-height: 1.4;
+  }
+
+  p,
+  pre,
+  figure,
+  ul,
+  ol {
+    margin-bottom: 3rem;
   }
 
   figure {
     text-align: center;
-    margin-bottom: 3rem;
   }
 
   figure img {
@@ -229,7 +235,9 @@ main {
   }
 
   pre {
-    margin-bottom: 3rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--grey-color);
+    overflow-x: scroll;
   }
 
   code {
