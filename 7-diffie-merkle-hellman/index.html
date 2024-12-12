@@ -41,17 +41,20 @@
         }
 
         .option:hover {
-            background-color: #f0f0f0;
+            background-color: var(--grey-color);
+            color: var(--dark-black-color);
         }
 
         .option.in-progress {
             opacity: 0.5;
             cursor: not-allowed;
-            background-color: #f5f5f5;
+            background-color: var(--grey-color);
+            color: var(--dark-black-color);
         }
 
         #result {
-            margin-top: 20px;
+            margin-top: 1rem;
+            margin-bottom: 2.5rem;
             font-weight: bold;
         }
 
@@ -325,8 +328,18 @@
             7. Diffie–Hellman–Merkle key exchange
         </h1>
 
-        <p><strong>This lesson contains lots of diagrams, you can click on any image to enlarge it for proper viewing
-                experience.</strong></p>
+
+        <p><i>I understood Diffie–Hellman key exchange after
+                watching <a class="underline-style" href="https://www.youtube.com/watch?v=85oMrKd8afY"
+                    target="_blank">Brian
+                    Yu's
+                    video on YouTube</a>. This article is heavily inspired from his video. If you are a video person,
+                then I will recommend you to watch that video and then move to the next lesson. Remember, do come back
+                and continue from the next lesson :)</i></p>
+
+
+        <p>This lesson contains lots of diagrams, you can click on any image to enlarge it for proper viewing
+            experience.</p>
 
         <p>
             In the first lesson of symmetric key encryption, we told you about a story where the Greek emperor gave his
@@ -872,7 +885,24 @@
                 });
             });
         </script>
-        <h2>TO DO: add credits</h2>
+
+        <h2>Credits / More resources</h2>
+
+        <p>Below are some resources I used to tighten my understanding. You <strong>don't</strong> need to consume
+            these. If you
+            have read this article or watched Brian's video, you already understand this topic well enough.</p>
+
+        <ul>
+            <li> <a target="_blank" class="underline-style" href="https://www.youtube.com/watch?v=YEBfamv-_do">Art of
+                    the Problem's YT video</a>.</li>
+            <li><a target="_blank" class="underline-style"
+                    href="https://www.youtube.com/watch?v=vsXMMT2CqqE">Computerphile video</a>.</li>
+            <li><a target="_blank" class="underline-style" href="https://www.youtube.com/watch?v=Yjrfm_oRO0w">Again, a
+                    computerphile video</a>.</li>
+            <li><a target="_blank" class="underline-style"
+                    href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">The old gold, Wikipedia
+                    article</a>.</li>
+        </ul>
 
         <a href="../8-rsa" class="btn primary-btn">
             Go to next lesson: RSA

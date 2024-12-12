@@ -32,24 +32,19 @@
     <link rel="stylesheet" href="../styles/content.css">
 
     <style>
-        figure img {
-            box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
         .client-send,
         .server-send {
             padding: 10px 20px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            max-width: 85%;
+            border-radius: var(--border-radius);
+            max-width: 80%;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.6);
         }
 
         .client-send {
             background-color: #f0f8ff;
+            color: var(--dark-black-color);
             justify-content: space-between;
         }
 
@@ -62,31 +57,7 @@
         .client-send p,
         .server-send p {
             margin: 0;
-        }
-
-        .client-send img,
-        .server-send img {
-            width: 32px;
-        }
-
-        .client-send img {
-            margin-left: 12px;
-        }
-
-        .server-send img {
-            margin-right: 12px;
-        }
-
-        /* Styling to make expand look better */
-        details {
-            padding: 10px;
-        }
-
-        summary {
-            cursor: pointer;
-            background-color: #f0f0f0;
-            padding: 10px;
-            font-weight: bold;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -321,17 +292,6 @@
         </div>
 
         <script src="../scripts/lesson-drawer.js"></script>
-
-
-        <a class="underline-style svg-there" href="/">
-            <span>Next lesson</span>
-
-            <svg style="padding-left: 2px; vertical-align: middle;" height="1.2em" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                <path
-                    d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
-            </svg>
-        </a>
     </nav>
 
     <main>
@@ -669,6 +629,10 @@
 
         <p>So, today when you hear someone talk about SSL, they are reffering to TLS 1.2 or TLS 1.3 ;)</p>
 
+        <p>More than 85% of websites of all the Internet now run on TLS. A big thanks to the <a class="underline-style"
+                href="https://letsencrypt.org/" target="_blank">Let's Encrypt</a> initiative. They provide free TLS
+            certificates!</p>
+
         <h3>HTTPS ... ?</h3>
         <figure>
             <img width="20%" data-zoomable src="https://upload.wikimedia.org/wikipedia/commons/d/da/Internet2.jpg"
@@ -687,9 +651,54 @@
                 TLS.</strong> So when you see HTTPS in the URL, it means that the communication between your browser and
             the server is encrypted with TLS.
         </p>
-        <a href="/" class="btn primary-btn">
-            TO DO: ADD LESSON COMPLETE PAGE!
-        </a>
+
+
+        <p><strong>This marks the end of this course</strong>. Oh man, it was so much to absorb. First of all, hats off
+            to you for
+            studying all along!</p>
+
+
+        <div class="tenor-gif-embed" data-postid="27264658" data-share-method="host" data-aspect-ratio="1.67539"
+            data-width="60%"><a href="https://tenor.com/view/woody-toy-story-hats-off-to-you-gif-27264658">Woody Toy
+                Story GIF</a>from <a href="https://tenor.com/search/woody-gifs">Woody GIFs</a></div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+        <p style="margin-top: 3rem;">Thank you so much for taking your valuable time to read these lessons. I hope some
+            day these concepts get
+            put to use by you in some form. ❤️ </p>
+
+        <p>If these lessons have been helpful to you, consider <a href="https://x.com/vkwebdev" target="_blank"
+                class="underline-style">following me on Twitter</a>. There I will post about my future
+            projects and valuable resources. I will try to be useful always.</p>
+
+        <p>Once again, thank you so much! see ya!</p>
+
+
+        <h2>Credits / More resources</h2>
+
+        <p>Below are some resources I used to study TLS. I got tremendous value from these resources so it's my
+            responsibility to let my readers know this. You can check them out if you are curious. But you don't
+            necessarily need to, as we have covered the required concepts in this article.
+        </p>
+
+        <ul>
+            <li><a href="https://tls12.xargs.org/" target="_blank" class="underline-style">A gold-mine resource for
+                    looking at under the hoods of TLS handshake
+                    process. I referred to it heavily while writing the TLS handshake process.</a></li>
+            <li><a href="https://www.youtube.com/watch?v=0TLDTodL7Lc" target="_blank" class="underline-style">Great
+                    video on TLS's history by Computerphile.</a></li>
+            <li><a href="https://www.youtube.com/watch?v=86cQJ0MMses" target="_blank" class="underline-style">One of the
+                    best videos that explain TLS handshake. Thank you Dr. Mike Pound for sharing your knowledge!</a>
+            </li>
+            <li><a href="https://letsencrypt.org/certificates/" target="_blank" class="underline-style">Let's Encrypt's
+                    Chain of Trust documentation.</a></li>
+            <li><a href="https://datatracker.ietf.org/doc/html/rfc5246" target="_blank" class="underline-style">The RFC
+                    behind TLS 1.2. I read it to clear some deep doubts.</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank"
+                    class="underline-style">Read some bits and pieces from the Wikipedia article on TLS.</a></li>
+            <li>Also used Claude and ChatGPT to research a bit here and there.</li>
+        </ul>
+
 
         <hr class="before-footer-hr">
 
@@ -699,10 +708,7 @@
                 target="_blank"><span>twitter.com/vkwebdev</span></a>. I try to be useful there :)
         </p>
     </main>
-    More than 85% of websites of all the Internet now run on TLS. A big thanks to the <a class="underline-style"
-        href="https://letsencrypt.org/" target="_blank">Let's Encrypt</a> initiative.
-    <h2>TO DO: add credits</h2>
-    <h2>TO DO: email and thank xarbgs for tls Illustration</h2>
 </body>
+
 
 </html>
