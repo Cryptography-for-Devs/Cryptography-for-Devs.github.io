@@ -1,5 +1,5 @@
 <p align="center">
-<img src="readme-cover.svg" alt="Cryptography for Developers readme cover image">
+<img src="landing-assets/readme-cover.svg" alt="Cryptography for Developers readme cover image">
 </p>
 
 In regular programming courses, cryptography concepts are overlooked. In my initial days as a developer I saw various terms like -- `PBKDF-2, salt, key pairs, hashing`. I never really understood what do they mean deeply.
@@ -12,17 +12,15 @@ So, I created this free course to share my learnings with all the developers cur
 
 **🟢 It's live on: https://cryptography-for-devs.github.io**
 
-We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo) and [Kent C. Dodds](https://twitter.com/kentcdodds)!
-
-It fills my heart with joy to receive feedback from people I have admired all along.
+We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo) and [Kent C. Dodds](https://twitter.com/kentcdodds)! It fills my heart with joy to see this.
 
 <p align="center">
-<img src="cassidy-and-kent-feedback.png" width="70%" alt="cassidy william's feedback">
+<img src="landing-assets/cassidy-and-kent-feedback.png" width="70%" alt="cassidy william's feedback">
 </p>
 
 ## Course contents
 
-I have tried covering developer-oriented cryptography concepts in an easy to follow manner.
+I have covered only developer-oriented cryptography concepts. I hope you get some real value out from these!
 
 #### Part 1 of 2:
 
@@ -36,25 +34,23 @@ I have tried covering developer-oriented cryptography concepts in an easy to fol
     <li><a href="https://cryptography-for-devs.github.io/6-slow-them-down/" target="_blank">PBKDF-2: slowing down</a></li>
 </ol>
 
-If the first half proves valuable to lots of developers, then I will work hard on the second half based on developers' feedback.
-
-All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on future releases and my future projects. no BS.
-
 #### Part 2 of 2:
 
-7. The Diffie-Hellman key exchange
-8. RSA public-key encryption
-9. Challenge: End to end encryption
-10. The TLS story
-11. Certificate authorities rule!
-12. Project: Finale.
+<ol start="7">
+    <li><a href="https://cryptography-for-devs.github.io/7-diffie-merkle-hellman/" target="_blank">The Diffie-Hellman key exchange</a></li>
+    <li><a href="https://cryptography-for-devs.github.io/8-rsa/" target="_blank">RSA public-key encryption</a></li>
+    <li><a href="https://cryptography-for-devs.github.io/9-tls/" target="_blank">HTTPS (TLS)</a></li>
+</ol>
+
+All of this will remain free, forever! <a href="https://twitter.com/vkwebdev" target="_blank">You can follow me on Twitter</a>, there you will receive updates on my future projects. No BS.
 
 ## Contributing
 
 There are two ways to contribute that I feel are going to be impactful:
 
 - Improve the existing course content by submitting a PR.
-- Create an issue and introduce yourself in that issue, if you would like to help me write one of the future lessons.
+- Create an issue telling what can be improved in the course.
 
 <hr>
+
 If you want to convey to me anything that isn't covered here, the best way is to send me an email on: <a href="mailto:vivekmittalagrawal@gmail.com">vivekmittalagrawal@gmail.com</a>
