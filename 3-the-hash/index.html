@@ -461,47 +461,24 @@
             For example, a popular
             cryptographic hash function SHA-1 <a class="underline-style"
                 href="https://blog.mozilla.org/security/2017/02/23/the-end-of-sha-1-on-the-public-web/"
-                target="_blank">suffered a hash collision on 2017</a>. <strong>It retired its use on web
-                browsers and
-                digital
-                signatures</strong>.
-        </p>
-
-        <p>
-            The team at
-            Google and Centrum Wiskunde &
-            Informatica (CWI) developed a method via which it was possible to generate two different PDFs that would
-            give the <strong>same SHA-1 hash, that is a hash collision</strong>.
+                target="_blank">suffered a hash collision on 2017</a>. It retired its use on web
+            browsers and
+            digital
+            signatures.
         </p>
 
         <p>
             Currently, SHA-256 and SHA-512 are cryptographically secure. By being cryptographically secure, it means
-            that a hash collision can't be generated for SHA-256 hash in a practical way. If you are given a SHA-256
+            that a hash collision can not be generated for SHA-256 hash in a practical way. If you are given a SHA-256
             hash, to
             find a hash collision for it using brute-force, it will take approx. 10^59 years! That's just
             <strong>impractical</strong> to compute.
         </p>
 
-        <p>
-            But in the case of SHA-1, Google and CWI were able to find a way that allowed them to generate a hash
-            collision
-            100,000 times faster than brute-force. Using 110 GPUs, they could generate a hash collision in one
-            year time. One year timeframe might look good enough to us but for cryptography experts it is not.
-        </p>
-
-        <p>
-            If we
-            keep in mind that computing power keeps on increasing at a super fast rate and better attacking methods are
-            discovered
-            over time, <strong>we cannot stay at "good enough"</strong>. Today,
-            using 110 nvidia RTX 4090 GPUs, you can calculate a hash collision for SHA-1 in around just 2 months.
-        </p>
-
         <p><strong>For a cryptographic hash function to be secure, it must be
                 impractical</strong> even
             for a large
-            computing farm to be able to generate a hash collision for a given hash. Currently, SHA-256 and SHA-512 are
-            cryptographically secure.
+            computing farm to be able to generate a hash collision for a given hash.
         </p>
 
         <pre>
@@ -518,17 +495,12 @@
             b9b6062f154f139f5bd54b36a1eaf5c2182ed9521c8225c59f60bbd5127f9671
     
             The above hash output is in hexadecimal format.
-    
-            We can't use the UTF-8 encoding because hash output bytes are random, 
-            they won't necessarily map to a UTF-8 character, so trying to encode
-            to UTF-8 will error out.
-    
-            That's why, the hash outputs are always shown in hexadecimal!
             
             If you count the number of hex characters in the above SHA-256 hash, 
             its 64 characters and one hexadecimal character occupies 4 bits.
     
             So, 64 total characters * 4 bits per character = 256 bits.
+            That's why SHA-256.
         </pre>
 
         <p>We understand that it must be impractical to generate a hash collision. <strong>But what would happen if we
@@ -604,10 +576,12 @@
             be safely installed and run.</p>
         <p>Imagine if a bad actor creates a mirror, uploads a modified package 😈 that produces the same hash <b>(a hash
                 collision)</b> as the main Ubuntu
-            archive's package. Then when you install that package, <code>apt</code> is not going to complain since the
+            archive's package. Then when you install that package, <code>apt</code> is <strong>not going to
+                complain</strong> since the
             hash
             of the downloaded package and that of the main Ubuntu archive are same, <code>apt</code> thinks that the
-            downloaded package's content and that of main Ubuntu archive are same as well.</p>
+            downloaded package's content and that of main Ubuntu archive are same as well. This could lead to malicious
+            code being run on your computer.</p>
 
         <p>So, hash collisions are the biggest enemy for a cryptographic hash function. In the case of non-cryptographic
             hash

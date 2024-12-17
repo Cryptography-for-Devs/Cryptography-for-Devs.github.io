@@ -359,7 +359,7 @@
             passwords. But in this case,
             if the attacker is successful in breaching the database containing encryption keys, he will be able to
             decrypt all user
-            passwords. That way, all passwords will get revealed in their original cleartext form!
+            passwords. Once the passwords are decrypted, they will get revealed in their original cleartext form!
         </p>
 
         <p>Now you see, why encryption is not the right solution. Pause a bit and think if you have any other ideas to
@@ -375,9 +375,8 @@
 
         <p>We have learned that hashing is a <b>one-way function</b>. Once we hash an input, we cannot derive the input
             from
-            the hash value. So if we hash the users' password and store the hash on the database, then even if our
-            database
-            is compromised, the hacker won't be able to figure out the actual password. He will just see the hashes.</p>
+            the hash value. So when the user creates an account, we hash the user's password and store the hash on the
+            database.</p>
 
         <figure>
             <img data-zoomable src="hashing-password-create-login.svg" alt="password hashing illustration">
@@ -386,15 +385,20 @@
             </figcaption>
         </figure>
 
-        <p>Now, when the user requests to login, we can hash their entered password, if the output hash
-            comes to out be same as the stored hash, it means the user has entered the correct password.</p>
+        <p>Now, when the user will request to login in future, we will hash the entered password, if the output hash
+            comes to out be same as the hash we stored during account creation, it'll mean that the user entered the
+            correct password.</p>
 
-        <p>Hashing the password doesn't reveal the user's password and login works out well. And the hacker cannot
-            figure
-            out the passwords from the hashes. Remember, hashing is a one-way function? ;) We have finally solved our
+        <p>Even if our
+            database
+            is compromised, the hacker won't be able to figure out the actual password. You know why, right? Because
+            hashing is a one-way function so hacker <strong>cannot</strong> take the hash and convert it to the actual
+            password.</p>
+
+        <p>Hashing the password doesn't reveal the user's password and login works out well. We have finally solved our
             quest!
         </p>
-        
+
         <p>Umm, the bad guys keep on growing their arsenal, <strong>they have some plans to attack us</strong>, let's
             face
             them in the next

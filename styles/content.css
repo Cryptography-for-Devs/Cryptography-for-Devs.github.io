@@ -285,6 +285,7 @@ main {
   color: var(--dark-black-color);
   padding: 0.8rem;
   font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .primary-btn:hover {
