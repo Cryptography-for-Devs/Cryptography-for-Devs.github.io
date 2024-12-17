@@ -22,12 +22,14 @@ We have got some amazing feedback from [Cassidy Williams](https://x.com/cassidoo
 
 I have covered only developer-oriented cryptography concepts. I hope you get some real value out from these!
 
+I recommend taking the course in order, starting from the zero-th lesson and going all the way up till nine-th lesson. But if you already understand the lesson's concept then you are free to skip that lesson.
+
 #### Part 1 of 2:
 
 <ol start="0">
     <li><a href="https://cryptography-for-devs.github.io/0-before-we-start/" target="_blank">Before we start (Do not skip this)</a></li>
     <li><a href="https://cryptography-for-devs.github.io/1-symmetric-key-encryption/" target="_blank">Symmetric key encryption</a></li>
-    <li><a href="https://cryptography-for-devs.github.io/2-caesar-challenge/" target="_blank">Code challenge: Caesar's cipher</a></li>
+    <li><a href="https://cryptography-for-devs.github.io/2-caesar-challenge/" target="_blank">Challenge: Caesar's cipher</a></li>
     <li><a href="https://cryptography-for-devs.github.io/3-the-hash/" target="_blank">Cryptographic hash functions</a></li>
     <li><a href="https://cryptography-for-devs.github.io/4-revealed-passwords/" target="_blank">Password hashing</a></li>
     <li><a href="https://cryptography-for-devs.github.io/5-rainbows-and-salts/" target="_blank">Rainbow table and the salt</a></li>
