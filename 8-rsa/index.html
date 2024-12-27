@@ -557,50 +557,7 @@
 
         <p>Our RSA digital signature rocks! 🥂</p>
 
-        <h2>RSA key pair used in SSH to authenticate with GitHub</h2>
-
-        <figure>
-            <img src="ssh-login.png" alt="my ssh login to github successful">
-            <figcaption>My SSH authentication to GitHub :D</figcaption>
-        </figure>
-
-        <p>SSH (Secure Shell) is a client-server protocol for connecting and authenticating to a remote server.
-            "Authenticating" means
-            that remote server can verify that its <strong>actually you</strong> not somebody else talking on your
-            behalf.</p>
-
-        <p>When we do <code>git push</code> and other Git commands that talk to GitHub. GitHub needs to
-            verify that the <strong>right person is
-                interacting with GitHub.</strong> If an attacker could manage to do <code>git push</code> on
-            behalf of you then your repositories are under that attacker's control and he can delete all your code, and
-            all the commit history.</p>
-
-        <p>GitHub has several ways to make sure that you can authenticate yourself to GitHub. One of the most widely
-            used way is using <strong>SSH authentication.</strong></p>
-
-        <p><strong>SSH authentication uses asymmetric algorithm like RSA.</strong> We first create a public and private
-            RSA key pair on
-            our local computer. Then we upload our public key to our GitHub profile.</p>
-
-        <p>When we try to interact with GitHub using <code>git push</code>. GitHub is running a SSH server and our
-            local computer is the SSH client. The GitHub's SSH server program will generate a random number
-            and it will encrypt that random number with <strong>our uploaded public key.</strong></p>
-
-        <p>Our client SSH program on receiving that encrypted number, <strong>decrypts it using the private key</strong>
-            we have
-            stored in our local computer. In Ubuntu, its stored in <strong><code>~/.ssh</code></strong>. Then the
-            decrypted number gets sent to GitHub.</p>
-
-        <p>If we sent the original number that GitHub encrypted, then it means we are in possession of the correct
-            private key that corresponds to the uploaded public key. And only we have access to that private key! This
-            authenticates our identity. And GitHub allows us to
-            proceed further.
-        </p>
-
-        <p>In the next lesson, the final lesson, let us see how all of this comes together to form a secure way of
-            communication using the TLS protocol.</p>
-
-        <h2>Credits / More resources</h2>
+        <h2>Credits</h2>
 
         <p>Below are some resources I used to tighten my understanding. Again, you already know that you
             <strong>don't</strong> need to consume
